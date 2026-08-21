@@ -1,0 +1,91 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import ImgPlaceholder from '../components/ImgPlaceholder.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/Icon.astro';
+
+// Proceso en 4 pasos: sustituye el "track record" que una empresa nueva no
+// tiene — proceso en lugar de historia (PLAN.md §4).
+const pasos = [
+  {
+    icon: 'message-circle',
+    titulo: 'Nos cuentas qué necesitas',
+    texto: 'Por WhatsApp o por el formulario de cotización: producto, cantidad y para cuándo lo necesitas.',
+  },
+  {
+    icon: 'clock',
+    titulo: 'Cotizamos en menos de 24 h hábiles',
+    texto: 'Te respondemos el mismo día hábil con precio, disponibilidad y condiciones de entrega.',
+  },
+  {
+    icon: 'shield-check',
+    titulo: 'Validamos cumplimiento INVIMA',
+    texto: 'Verificamos registro sanitario y documentación de cada referencia antes de despachar.',
+  },
+  {
+    icon: 'truck',
+    titulo: 'Entregamos con trazabilidad',
+    texto: 'Recibes tu pedido con trazabilidad por lote y las condiciones de conservación que exige cada producto.',
+  },
+];
+---
+<Base
+  title="Cómo trabajamos | TMI COL S.A.S."
+  description="Nuestro proceso en 4 pasos: solicitas, cotizamos en menos de 24 horas hábiles, validamos cumplimiento INVIMA y entregamos con trazabilidad por lote."
+>
+  <PageHero
+    eyebrow="Nuestro proceso"
+    title="Cómo trabajamos"
+    sub="Sin intermediarios ni trámites eternos: un proceso claro de cuatro pasos, del primer mensaje a la entrega en tu institución."
+  />
+
+  <section>
+    <div class="container">
+      <div class="steps-grid">
+        {pasos.map((p) => (
+          <div class="step-card reveal">
+            <div class="step-icon"><Icon name={p.icon} size={26} /></div>
+            <h3>{p.titulo}</h3>
+            <p>{p.texto}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="porque-section">
+    <div class="container">
+      <div class="porque-grid">
+        <div class="reveal">
+          <ImgPlaceholder ratio="4x3" rounded label="Entrega con cadena de frío" />
+        </div>
+        <div class="reveal">
+          <span class="eyebrow">Por qué así</span>
+          <h2 class="section-title">Un proceso pequeño tiene ventajas grandes</h2>
+          <p class="texto">
+            En una operación grande, tu pedido pasa por muchas manos. En TMI, la persona que te
+            cotiza habla directo con quien valida la norma y con quien entrega. Por eso podemos
+            prometer tiempos que un gigante no puede.
+          </p>
+          <ul class="check-list" style="margin-top:20px;">
+            <li><span class="check"><Icon name="check" size={12} /></span> Un solo interlocutor de principio a fin</li>
+            <li><span class="check"><Icon name="check" size={12} /></span> Decisiones en horas, no en comités</li>
+            <li><span class="check"><Icon name="check" size={12} /></span> Cercanía física con las instituciones de Córdoba y la región</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
+
+<style>
+  .porque-section { background: var(--white); }
+  .porque-grid { display: grid; grid-template-columns: 1fr; gap: 36px; align-items: center; }
+  .texto { color: var(--grey); }
+  @media (min-width: 760px) {
+    .porque-grid { grid-template-columns: .9fr 1.1fr; gap: 56px; }
+  }
+</style>

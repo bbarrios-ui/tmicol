@@ -1,0 +1,63 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+
+// Corrección de honestidad (PLAN.md §3): los informes se marcan "disponible
+// próximamente" — sin links "Descargar PDF" muertos que fingen existir.
+// TODO(PENDIENTES.md §5): enlazar los PDFs reales cuando existan.
+const docs = [
+  {
+    icon: 'file-text',
+    titulo: 'Informe de gestión',
+    desc: 'Resultados comerciales, calidad y sostenibilidad',
+  },
+  {
+    icon: 'bar-chart',
+    titulo: 'Informe financiero',
+    desc: 'Cifras generales y ejecución presupuestal',
+  },
+  {
+    icon: 'leaf',
+    titulo: 'Informe de sostenibilidad',
+    desc: 'Gestión ambiental, SST y responsabilidad social',
+  },
+];
+---
+<Base
+  title="Transparencia y rendición de cuentas | TMI COL S.A.S."
+  description="Rendición de cuentas de TMI COL S.A.S.: publicaremos aquí nuestros informes de gestión, financieros y de sostenibilidad. Transparencia desde el día uno."
+>
+  <PageHero
+    eyebrow="Transparencia"
+    title="Rendición de cuentas"
+    sub="En TMI la transparencia no es una obligación: es identidad. Esta sección existe desde el día uno de la empresa."
+  />
+
+  <section>
+    <div class="container">
+      <div class="rendicion-panel reveal">
+        <h2 class="section-title">Nuestros informes</h2>
+        <p class="section-sub">
+          Aquí compartiremos nuestros informes con clientes, proveedores, colaboradores y la
+          comunidad, a medida que cerremos cada periodo de operación.
+        </p>
+        <div class="docs-grid">
+          {docs.map((d) => (
+            <div class="doc-card">
+              <div class="doc-ic"><Icon name={d.icon} size={26} /></div>
+              <strong>{d.titulo}</strong>
+              <span>{d.desc}</span>
+              <span class="soon-chip">Disponible próximamente</span>
+            </div>
+          ))}
+        </div>
+        <div class="transp-note">
+          Somos una empresa nueva: nuestro primer informe se publicará al cierre de nuestro primer
+          periodo de operación. Mientras tanto, cualquier pregunta sobre nuestra gestión puedes
+          hacerla directamente por los canales de <a href="/contacto" style="color:var(--accent-2); font-weight:600;">contacto</a>.
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

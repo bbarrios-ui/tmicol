@@ -1,0 +1,24 @@
+---
+import Base from '../../layouts/Base.astro';
+import LineaDetail from '../../components/LineaDetail.astro';
+
+// TODO(PENDIENTES.md §3): sustituir por la lista real de subcategorías que TMI
+// puede vender hoy, cuando la operación la confirme.
+const items = [
+  'Material médico-quirúrgico de uso hospitalario',
+  'Dispositivos médicos con registro sanitario INVIMA',
+  'Disponibilidad y entrega oportuna para tu institución',
+  'Acompañamiento en tecnovigilancia',
+];
+---
+<Base
+  title="Insumos médico-quirúrgicos | Líneas de venta | TMI COL S.A.S."
+  description="Material médico-quirúrgico y dispositivos médicos de uso hospitalario con registro INVIMA, disponibilidad y entrega oportuna en Córdoba y la región."
+>
+  <LineaDetail
+    slug="insumos-medico-quirurgicos"
+    fotoLabel="Insumos quirúrgicos estériles"
+    intro="Proveemos material médico-quirúrgico y dispositivos médicos para uso hospitalario, con verificación de registro sanitario y entrega oportuna donde tu institución lo necesita."
+    items={items}
+  />
+</Base>

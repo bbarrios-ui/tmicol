@@ -1,0 +1,24 @@
+---
+import Base from '../../layouts/Base.astro';
+import LineaDetail from '../../components/LineaDetail.astro';
+
+// TODO(PENDIENTES.md §3): sustituir por la lista real de subcategorías que TMI
+// puede vender hoy, cuando la operación la confirme.
+const items = [
+  'Medicamentos con registro sanitario INVIMA vigente',
+  'Manejo de cadena de frío y condiciones de conservación controladas',
+  'Trazabilidad completa por lote en cada entrega',
+  'Acompañamiento en farmacovigilancia con nuestro Químico Farmacéutico',
+];
+---
+<Base
+  title="Medicamentos | Líneas de venta | TMI COL S.A.S."
+  description="Distribución de medicamentos con registro INVIMA vigente, cadena de frío y trazabilidad por lote para instituciones de salud de Córdoba y la región."
+>
+  <LineaDetail
+    slug="medicamentos"
+    fotoLabel="Medicamentos en superficie clínica"
+    intro="Suministramos medicamentos para instituciones de salud con verificación de cumplimiento normativo referencia por referencia, condiciones de conservación controladas y soporte del Director Técnico."
+    items={items}
+  />
+</Base>

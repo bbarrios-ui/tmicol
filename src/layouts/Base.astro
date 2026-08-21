@@ -1,0 +1,176 @@
+---
+// Layout compartido: <head>, header/nav, footer y botón flotante de WhatsApp.
+import '../styles/global.css';
+import Icon from '../components/Icon.astro';
+import {
+  NAV,
+  WA_COTIZAR,
+  EMAIL_CONTACTO,
+  TELEFONO_DISPLAY,
+  CIUDAD,
+} from '../lib/site';
+
+interface Props {
+  title: string;
+  description: string;
+}
+const { title, description } = Astro.props;
+
+const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const isActive = (href: string) =>
+  href === '/' ? path === '/' : path === href || path.startsWith(`${href}/`);
+---
+<!doctype html>
+<html lang="es-CO">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_CO" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="nav-wrap">
+        <a href="/" class="logo" aria-label="TMI COL — Inicio">
+          <!-- TODO(PENDIENTES.md §4): logo tipográfico provisional hasta tener el oficial. -->
+          <span class="mark">TM</span>
+          <span>TMI COL <small>Tecnologías Médicas Integrales</small></span>
+        </a>
+        <nav class="site-nav" aria-label="Navegación principal">
+          <ul id="navMenu">
+            {NAV.map((item) => (
+              <li>
+                <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <div class="nav-cta">
+          <a class="btn btn-wsp" target="_blank" rel="noopener" href={WA_COTIZAR}>
+            <Icon name="whatsapp" size={18} />
+            <span class="txt">Cotizar</span>
+          </a>
+          <button class="burger" id="burger" aria-expanded="false" aria-controls="navMenu" aria-label="Abrir menú">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-col">
+            <div class="footer-logo"><span class="mark">TM</span> TMI COL S.A.S.</div>
+            <!-- TODO(PENDIENTES.md §2): confirmar razón social exacta y NIT para el footer. -->
+            <p>
+              Tecnologías Médicas Integrales Colombia S.A.S. Comercialización de medicamentos,
+              dispositivos médicos, equipos biomédicos y material médico-quirúrgico para las
+              instituciones de salud de Córdoba y la región.
+            </p>
+            <!-- TODO(PENDIENTES.md §6): agregar redes sociales cuando existan las cuentas reales. -->
+          </div>
+          <div class="footer-col">
+            <h4>Navegación</h4>
+            <a href="/nosotros">Nosotros</a>
+            <a href="/lineas">Líneas de venta</a>
+            <a href="/consulta-especializada">Consulta especializada</a>
+            <a href="/como-trabajamos">Cómo trabajamos</a>
+            <a href="/transparencia">Transparencia</a>
+          </div>
+          <div class="footer-col">
+            <h4>Únete</h4>
+            <a href="/trabaja-con-nosotros">Trabaja con nosotros</a>
+            <a href="/proveedores">Sé nuestro proveedor</a>
+            <a href="/cotizar">Solicitar cotización</a>
+          </div>
+          <div class="footer-col">
+            <h4>Contacto</h4>
+            <!-- TODO(PENDIENTES.md §1): dirección, teléfono y correos reales. -->
+            <div class="footer-contact-item"><Icon name="map-pin" size={16} /> {CIUDAD}</div>
+            <div class="footer-contact-item"><Icon name="phone" size={16} /> {TELEFONO_DISPLAY}</div>
+            <div class="footer-contact-item"><Icon name="mail" size={16} /> {EMAIL_CONTACTO}</div>
+            <a href="/contacto">Ver página de contacto</a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span>© <span id="year"></span> TMI COL S.A.S. — Todos los derechos reservados.</span>
+          <span>Integridad · Calidad · Innovación · Compromiso</span>
+        </div>
+      </div>
+    </footer>
+
+    <a
+      class="wsp-float"
+      target="_blank"
+      rel="noopener"
+      href={WA_COTIZAR}
+      aria-label="Escríbenos por WhatsApp"
+    >
+      <Icon name="whatsapp" size={28} />
+    </a>
+
+    <script>
+      // Menú móvil
+      const burger = document.getElementById('burger');
+      const navMenu = document.getElementById('navMenu');
+      burger?.addEventListener('click', () => {
+        const open = navMenu?.classList.toggle('open');
+        burger.setAttribute('aria-expanded', String(Boolean(open)));
+        burger.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+      });
+      navMenu?.querySelectorAll('a').forEach((a) =>
+        a.addEventListener('click', () => {
+          navMenu.classList.remove('open');
+          burger?.setAttribute('aria-expanded', 'false');
+        })
+      );
+
+      // Año dinámico
+      const year = document.getElementById('year');
+      if (year) year.textContent = String(new Date().getFullYear());
+
+      // Reveal on scroll
+      const revealEls = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                e.target.classList.add('show');
+                io.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.15 }
+        );
+        revealEls.forEach((el) => io.observe(el));
+      } else {
+        revealEls.forEach((el) => el.classList.add('show'));
+      }
+
+      // Sombra en header al hacer scroll
+      const header = document.querySelector<HTMLElement>('.site-header');
+      window.addEventListener('scroll', () => {
+        if (header) header.style.boxShadow = window.scrollY > 30 ? '0 6px 24px rgba(0,0,0,.25)' : 'none';
+      });
+    </script>
+  </body>
+</html>

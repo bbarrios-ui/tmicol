@@ -1,0 +1,68 @@
+---
+// Formulario de cotización → arma el mensaje y abre WhatsApp (migrado de la v0).
+import { WHATSAPP } from '../lib/site';
+---
+<form class="quote" id="quoteForm" data-wsp={WHATSAPP}>
+  <div class="field">
+    <label for="q_nombre">Nombre completo</label>
+    <input required type="text" id="q_nombre" name="nombre" autocomplete="name" placeholder="Ej: María Torres" />
+  </div>
+  <div class="field">
+    <label for="q_empresa">Empresa / institución</label>
+    <input type="text" id="q_empresa" name="empresa" autocomplete="organization" placeholder="Ej: Clínica del Caribe" />
+  </div>
+  <div class="field">
+    <label for="q_telefono">Teléfono / WhatsApp</label>
+    <input required type="tel" id="q_telefono" name="telefono" autocomplete="tel" placeholder="Ej: 300 000 0000" />
+  </div>
+  <div class="field">
+    <label for="q_linea">Línea de interés</label>
+    <select id="q_linea" name="linea">
+      <option>Medicamentos</option>
+      <option>Insumos médico-quirúrgicos</option>
+      <option>Equipos biomédicos</option>
+      <option>Laboratorio clínico</option>
+      <option>Consulta con químico farmacéutico</option>
+      <option>Otro</option>
+    </select>
+  </div>
+  <div class="field full">
+    <label for="q_mensaje">Detalle de tu solicitud</label>
+    <textarea id="q_mensaje" name="mensaje" placeholder="Cuéntanos qué producto o cantidad necesitas cotizar..."></textarea>
+  </div>
+  <div class="field full">
+    <button type="submit" class="btn btn-wsp" style="width:100%;">Enviar cotización por WhatsApp</button>
+    <p class="form-note">Al enviar, se abrirá WhatsApp con tu solicitud lista para enviar a nuestro equipo comercial. Tu información se usa únicamente para responder tu cotización.</p>
+  </div>
+</form>
+
+<style>
+  form.quote { display: grid; grid-template-columns: 1fr; gap: 18px; }
+  @media (min-width: 760px) {
+    form.quote { grid-template-columns: 1fr 1fr; }
+    form.quote .full { grid-column: 1 / -1; }
+  }
+</style>
+
+<script>
+  const form = document.getElementById('quoteForm') as HTMLFormElement | null;
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const val = (id: string) => (document.getElementById(id) as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement).value.trim();
+    const nombre = val('q_nombre');
+    const empresa = val('q_empresa');
+    const telefono = val('q_telefono');
+    const linea = val('q_linea');
+    const mensaje = val('q_mensaje');
+
+    let texto = 'Hola TMI, quiero solicitar una cotización:\n';
+    texto += `Nombre: ${nombre}\n`;
+    if (empresa) texto += `Empresa/Institución: ${empresa}\n`;
+    texto += `Teléfono: ${telefono}\n`;
+    texto += `Línea de interés: ${linea}\n`;
+    if (mensaje) texto += `Detalle: ${mensaje}`;
+
+    const numero = form.dataset.wsp;
+    window.open(`https://wa.me/${numero}?text=${encodeURIComponent(texto)}`, '_blank');
+  });
+</script>

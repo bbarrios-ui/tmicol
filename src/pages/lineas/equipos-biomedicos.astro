@@ -1,0 +1,25 @@
+---
+import Base from '../../layouts/Base.astro';
+import LineaDetail from '../../components/LineaDetail.astro';
+
+// TODO(PENDIENTES.md §3): confirmar con la operación que TMI ya puede prestar
+// instalación, mantenimiento y calibración (personal/certificaciones); si no,
+// retirar esos ítems antes del lanzamiento.
+const items = [
+  'Venta de equipos biomédicos para instituciones de salud',
+  'Instalación y puesta en marcha',
+  'Mantenimiento y calibración',
+  'Soporte técnico posventa',
+];
+---
+<Base
+  title="Equipos biomédicos | Líneas de venta | TMI COL S.A.S."
+  description="Venta, instalación, mantenimiento, calibración y soporte posventa de equipos biomédicos para instituciones de salud de Córdoba y la región."
+>
+  <LineaDetail
+    slug="equipos-biomedicos"
+    fotoLabel="Equipo biomédico en sala clínica"
+    intro="Acompañamos a tu institución en todo el ciclo del equipo biomédico: desde la selección y compra hasta el soporte posventa, con asesoría técnica en cada etapa."
+    items={items}
+  />
+</Base>

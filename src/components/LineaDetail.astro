@@ -1,0 +1,108 @@
+---
+// Estructura compartida de las páginas de detalle de línea (/lineas/*).
+import PageHero from './PageHero.astro';
+import ImgPlaceholder from './ImgPlaceholder.astro';
+import CtaBand from './CtaBand.astro';
+import Icon from './Icon.astro';
+import { LINEAS, waLink } from '../lib/site';
+
+interface Props {
+  slug: string;
+  intro: string;
+  /** Qué puede solicitar el cliente en esta línea. */
+  items: string[];
+  /** Etiqueta de la foto placeholder (Fase 2). */
+  fotoLabel: string;
+}
+const { slug, intro, items, fotoLabel } = Astro.props;
+const linea = LINEAS.find((l) => l.slug === slug)!;
+const otras = LINEAS.filter((l) => l.slug !== slug);
+const waCotizarLinea = waLink(`Hola TMI, quiero cotizar productos de ${linea.titulo}`);
+---
+<PageHero eyebrow="Líneas de venta" title={linea.titulo} sub={linea.corta} />
+
+<section>
+  <div class="container">
+    <div class="detalle-grid">
+      <div class="reveal">
+        <ImgPlaceholder ratio="4x3" rounded label={fotoLabel} />
+      </div>
+      <div class="reveal">
+        <h2 class="section-title">¿Qué puedes solicitar?</h2>
+        <p class="detalle-intro">{intro}</p>
+        <ul class="check-list">
+          {items.map((item) => (
+            <li>
+              <span class="check"><Icon name="check" size={12} /></span>
+              {item}
+            </li>
+          ))}
+        </ul>
+        <div class="sourcing-note">
+          <Icon name="search" size={20} />
+          <p>
+            <strong>¿No ves lo que necesitas?</strong> Trabajamos con un portafolio curado:
+            cuéntanos qué producto buscas y lo gestionamos con cumplimiento INVIMA verificado,
+            referencia por referencia.
+          </p>
+        </div>
+        <a class="btn btn-wsp" target="_blank" rel="noopener" href={waCotizarLinea}>
+          <Icon name="whatsapp" size={18} /> Cotizar esta línea
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="otras-lineas">
+  <div class="container">
+    <h2 class="section-title center">Otras líneas de venta</h2>
+    <div class="otras-grid">
+      {otras.map((o) => (
+        <a href={`/lineas/${o.slug}`} class="otra-card reveal">
+          <div class="linea-icon"><Icon name={o.icon} size={24} /></div>
+          <strong>{o.titulo}</strong>
+          <span class="linea-link">Ver línea <Icon name="arrow-right" size={14} /></span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<CtaBand />
+
+<style>
+  .detalle-grid { display: grid; grid-template-columns: 1fr; gap: 36px; align-items: start; }
+  .detalle-intro { color: var(--grey); margin-bottom: 24px; }
+  .sourcing-note {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    background: var(--grey-light);
+    border-radius: 14px;
+    padding: 18px 20px;
+    margin: 26px 0;
+    font-size: .9rem;
+  }
+  .sourcing-note svg { color: var(--blue); flex: none; margin-top: 3px; }
+  .sourcing-note p { color: #374151; }
+  .otras-lineas { padding-top: 0; }
+  .otras-grid { display: grid; grid-template-columns: 1fr; gap: 18px; }
+  .otra-card {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: transform .3s, box-shadow .3s;
+  }
+  .otra-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-strong); }
+  .otra-card .linea-icon { width: 46px; height: 46px; margin-bottom: 4px; }
+  .otra-card strong { color: var(--navy); font-size: 1rem; }
+  @media (min-width: 760px) {
+    .detalle-grid { grid-template-columns: 1fr 1.1fr; gap: 50px; }
+    .otras-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>

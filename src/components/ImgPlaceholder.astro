@@ -1,0 +1,19 @@
+---
+// Placeholder gris con la proporción correcta — se sustituye en la Fase 2 por
+// las imágenes WebP generadas (PLAN.md §6). El label describe la foto que irá.
+import Icon from './Icon.astro';
+
+interface Props {
+  ratio?: '16x9' | '4x3' | '3x4' | '1x1';
+  label?: string;
+  rounded?: boolean;
+  class?: string;
+}
+const { ratio = '4x3', label = 'Imagen próximamente', rounded = false, class: className } = Astro.props;
+---
+<div class:list={['img-ph', `ratio-${ratio}`, { 'img-ph--rounded': rounded }, className]} role="img" aria-label={label}>
+  <span>
+    <Icon name="image" size={28} />
+    {label}
+  </span>
+</div>

@@ -1,0 +1,28 @@
+---
+// Banda CTA de cotización, repetida y consistente en todo el sitio (PLAN.md §2).
+import { WA_COTIZAR } from '../lib/site';
+import Icon from './Icon.astro';
+
+interface Props {
+  title?: string;
+  text?: string;
+}
+const {
+  title = '¿Listo para cotizar?',
+  text = 'Escríbenos por WhatsApp o usa el formulario: te respondemos en menos de 24 horas hábiles.',
+} = Astro.props;
+---
+<section>
+  <div class="container">
+    <div class="cta-band reveal">
+      <h2>{title}</h2>
+      <p>{text}</p>
+      <div class="cta-actions">
+        <a class="btn btn-wsp" target="_blank" rel="noopener" href={WA_COTIZAR}>
+          <Icon name="whatsapp" size={18} /> Cotizar por WhatsApp
+        </a>
+        <a class="btn btn-outline" href="/cotizar">Usar el formulario</a>
+      </div>
+    </div>
+  </div>
+</section>

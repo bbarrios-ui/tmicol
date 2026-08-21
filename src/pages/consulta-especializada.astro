@@ -1,0 +1,108 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import ImgPlaceholder from '../components/ImgPlaceholder.astro';
+import Icon from '../components/Icon.astro';
+import { WA_CONSULTA } from '../lib/site';
+
+const asesorias = [
+  {
+    icon: 'clipboard-check',
+    titulo: 'Selección de productos',
+    texto: 'El medicamento o dispositivo médico adecuado para tu institución, según tu necesidad clínica y presupuesto.',
+  },
+  {
+    icon: 'thermometer',
+    titulo: 'Almacenamiento y cadena de frío',
+    texto: 'Condiciones de conservación, manejo de cadena de frío y buenas prácticas de almacenamiento.',
+  },
+  {
+    icon: 'shield-check',
+    titulo: 'Normatividad vigente',
+    texto: 'Registro sanitario INVIMA, farmacovigilancia y tecnovigilancia: qué exige la norma y cómo cumplirla.',
+  },
+  {
+    icon: 'monitor',
+    titulo: 'Soporte técnico',
+    texto: 'Orientación técnica sobre equipos biomédicos y de laboratorio clínico de tu institución.',
+  },
+];
+---
+<Base
+  title="Consulta especializada con Químico Farmacéutico | TMI COL S.A.S."
+  description="Consulta directa con nuestro Director Técnico, químico farmacéutico: selección de productos, almacenamiento, cadena de frío y normatividad INVIMA. Agenda por WhatsApp."
+>
+  <PageHero
+    eyebrow="Asesoría profesional"
+    title="Consulta especializada con Químico Farmacéutico"
+    sub="La consulta especializada no es un call center: es el Director Técnico de TMI respondiendo directamente tus preguntas técnicas y normativas."
+  />
+
+  <section>
+    <div class="container">
+      <div class="qf-grid">
+        <div class="reveal">
+          <!-- Imagen ilustrativa: retrato profesional de ambiente, sin nombre
+               propio (PLAN.md §6, reglas de honestidad para imágenes). -->
+          <ImgPlaceholder ratio="3x4" rounded label="Químico farmacéutico revisando inventario" />
+        </div>
+        <div class="reveal">
+          <h2 class="section-title">Habla directo con quien sabe</h2>
+          <p class="texto">
+            Nuestro Director Técnico —químico farmacéutico— y su equipo de aseguramiento de la
+            calidad te asesoran en el uso correcto, dosificación, interacciones, condiciones de
+            almacenamiento y normatividad vigente de cada producto.
+          </p>
+          <p class="texto">
+            En una operación cercana como la nuestra, la respuesta especializada no tarda semanas:
+            está a un WhatsApp de distancia.
+          </p>
+          <!-- TODO(PENDIENTES.md §2): confirmar situación del Director Técnico
+               (contratación y registro) antes de publicar afirmaciones sobre su
+               registro ante la autoridad sanitaria. -->
+          <a class="btn btn-wsp" target="_blank" rel="noopener" href={WA_CONSULTA} style="margin-top:20px;">
+            <Icon name="whatsapp" size={18} /> Agendar consulta por WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="asesoria-section">
+    <div class="container">
+      <span class="eyebrow center">Servicio sin costo para clientes</span>
+      <h2 class="section-title center">¿En qué te podemos asesorar?</h2>
+      <div class="asesoria-grid">
+        {asesorias.map((a) => (
+          <div class="asesoria-card reveal">
+            <div class="comp-icon"><Icon name={a.icon} size={26} /></div>
+            <strong>{a.titulo}</strong>
+            <p>{a.texto}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .qf-grid { display: grid; grid-template-columns: 1fr; gap: 36px; align-items: center; }
+  .qf-grid > div:first-child { max-width: 380px; margin: 0 auto; width: 100%; }
+  .texto { color: var(--grey); margin-bottom: 16px; }
+  .asesoria-section { background: var(--white); }
+  .asesoria-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+  .asesoria-card {
+    background: linear-gradient(145deg, #ffffff, #eef4fb);
+    border: 1px solid #e6edf5;
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    box-shadow: var(--shadow);
+  }
+  .asesoria-card strong { display: block; color: var(--navy); margin-bottom: 6px; }
+  .asesoria-card p { color: var(--grey); font-size: .9rem; }
+  @media (min-width: 760px) {
+    .qf-grid { grid-template-columns: .8fr 1.2fr; gap: 56px; }
+    .qf-grid > div:first-child { margin: 0; }
+    .asesoria-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>

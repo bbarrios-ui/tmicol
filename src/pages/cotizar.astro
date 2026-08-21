@@ -1,0 +1,56 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import QuoteForm from '../components/QuoteForm.astro';
+import Icon from '../components/Icon.astro';
+import { WA_COTIZAR } from '../lib/site';
+---
+<Base
+  title="Solicitar cotización | TMI COL S.A.S."
+  description="Solicita tu cotización de medicamentos, insumos, equipos biomédicos o laboratorio clínico. Te respondemos por WhatsApp en menos de 24 horas hábiles."
+>
+  <PageHero
+    eyebrow="Cotiza aquí"
+    title="Solicita tu cotización"
+    sub="Completa el formulario y tu solicitud llegará directamente a nuestro WhatsApp comercial. Te respondemos en menos de 24 horas hábiles."
+  />
+
+  <section>
+    <div class="container">
+      <div class="panel split-grid reveal">
+        <div>
+          <h2 class="section-title">Respuesta directa, sin intermediarios</h2>
+          <p class="intro">
+            Tu solicitud no entra a una cola de tickets: llega al equipo comercial de TMI y se
+            gestiona con acompañamiento de nuestro Químico Farmacéutico cuando el producto lo
+            requiere.
+          </p>
+          <div class="info-mini">
+            <div class="ic"><Icon name="zap" size={20} /></div>
+            <div><strong>Respuesta ágil</strong><span>Te contactamos el mismo día hábil</span></div>
+          </div>
+          <div class="info-mini">
+            <div class="ic"><Icon name="package" size={20} /></div>
+            <div><strong>Cobertura regional</strong><span>Distribución en Córdoba y la región</span></div>
+          </div>
+          <div class="info-mini">
+            <div class="ic"><Icon name="lock" size={20} /></div>
+            <div><strong>Datos protegidos</strong><span>Tu información se usa solo para tu cotización</span></div>
+          </div>
+          <p class="alt-canal">
+            ¿Prefieres escribir directo?
+            <a class="btn btn-wsp" target="_blank" rel="noopener" href={WA_COTIZAR} style="margin-top:12px;">
+              <Icon name="whatsapp" size={18} /> Abrir WhatsApp
+            </a>
+          </p>
+        </div>
+        <QuoteForm />
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .intro { color: var(--grey); margin-bottom: 26px; }
+  .alt-canal { margin-top: 26px; font-size: .92rem; color: var(--grey); display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+</style>

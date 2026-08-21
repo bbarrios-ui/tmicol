@@ -1,0 +1,97 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import ImgPlaceholder from '../components/ImgPlaceholder.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/Icon.astro';
+---
+<Base
+  title="Nosotros | TMI COL S.A.S."
+  description="TMI COL S.A.S. — Tecnologías Médicas Integrales: quiénes somos, misión, visión y valores. Una empresa de Córdoba comprometida con la salud de la región."
+>
+  <PageHero
+    eyebrow="Quiénes somos"
+    title="Una empresa de Córdoba, para las instituciones de salud de la región"
+    sub="TMI COL S.A.S. — Tecnologías Médicas Integrales. Nacimos para acercar el abastecimiento de tecnologías médicas a las instituciones de salud de Córdoba y la región, con procesos limpios y trato directo."
+  />
+
+  <!-- IDENTIDAD HONESTA -->
+  <section>
+    <div class="container">
+      <div class="identidad-grid">
+        <div class="reveal">
+          <span class="eyebrow">Transparencia de nacimiento</span>
+          <h2 class="section-title">Somos una empresa nueva, y eso es una ventaja</h2>
+          <!-- TODO(PENDIENTES.md §3): completar historia mínima honesta (año de
+               constitución, por qué nace la empresa) cuando gerencia la confirme. -->
+          <p class="texto">
+            No tenemos décadas de historia que contar — tenemos algo distinto: una operación
+            cercana donde el gerente y el químico farmacéutico están a un WhatsApp de distancia,
+            procesos documentados desde el primer día y cero vicios heredados.
+          </p>
+          <ul class="check-list" style="margin-top:22px;">
+            <li><span class="check"><Icon name="check" size={12} /></span> Trato directo: en TMI eres una llamada, no un ticket.</li>
+            <li><span class="check"><Icon name="check" size={12} /></span> Conocemos las instituciones, las rutas y las necesidades de Córdoba y la región.</li>
+            <li><span class="check"><Icon name="check" size={12} /></span> Rendición de cuentas desde el día uno, como identidad y no como obligación.</li>
+          </ul>
+        </div>
+        <div class="reveal">
+          <ImgPlaceholder ratio="4x3" rounded label="Equipo de trabajo en oficina" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MISIÓN / VISIÓN -->
+  <section class="mv-section">
+    <div class="container">
+      <span class="eyebrow center">Nuestro norte</span>
+      <h2 class="section-title center">Misión y visión</h2>
+      <!-- TODO(PENDIENTES.md §3): validar con gerencia que estos textos son los
+           oficiales aprobados (hoy migrados de la v0). -->
+      <div class="mv-grid">
+        <div class="mv-card mision reveal">
+          <span class="mv-tag">Misión</span>
+          <h3>Nuestra misión</h3>
+          <p>
+            Brindamos soluciones integrales en tecnologías médicas mediante un servicio innovador,
+            confiable y de alta calidad, orientado a la satisfacción de nuestros clientes y demás
+            partes interesadas, fortaleciendo la cadena de abastecimiento en la región a su vez que
+            garantizamos la sostenibilidad de nuestras operaciones.
+          </p>
+        </div>
+        <div class="mv-card vision reveal">
+          <span class="mv-tag">Visión</span>
+          <h3>Nuestra visión 2030</h3>
+          <p>
+            Para el año 2030, consolidarnos como una organización referente en la cadena de
+            abastecimiento de tecnologías médicas en el departamento de Córdoba, impulsando el
+            desarrollo de nuestros clientes mediante soluciones integrales, innovación, excelencia
+            operativa y la generación de valor para todas las partes interesadas.
+          </p>
+        </div>
+      </div>
+      <div class="values-row reveal">
+        <!-- TODO(PENDIENTES.md §3): confirmar valores con gerencia. -->
+        <span class="value-chip"><Icon name="shield-check" size={16} /> Integridad</span>
+        <span class="value-chip"><Icon name="star" size={16} /> Calidad</span>
+        <span class="value-chip"><Icon name="lightbulb" size={16} /> Innovación</span>
+        <span class="value-chip"><Icon name="target" size={16} /> Compromiso</span>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    title="Conócenos trabajando"
+    text="La mejor carta de presentación de una empresa nueva es su primer pedido. Solicita una cotización y compruébalo."
+  />
+</Base>
+
+<style>
+  .identidad-grid { display: grid; grid-template-columns: 1fr; gap: 36px; align-items: center; }
+  .texto { color: var(--grey); }
+  .mv-section { background: var(--white); }
+  @media (min-width: 760px) {
+    .identidad-grid { grid-template-columns: 1.1fr .9fr; gap: 50px; }
+  }
+</style>

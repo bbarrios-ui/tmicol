@@ -1,0 +1,70 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+import { EMAIL_PROVEEDORES } from '../lib/site';
+
+// Para una empresa nueva, atraer proveedores pesa tanto como atraer clientes
+// (PLAN.md §4): esta página es una invitación activa, no un trámite.
+const requisitos = [
+  'Registro sanitario INVIMA vigente de los productos ofrecidos',
+  'Documentación legal y tributaria al día',
+  'Capacidad de suministro y tiempos de entrega definidos',
+  'Condiciones de conservación y transporte acordes a cada producto',
+];
+---
+<Base
+  title="Sé nuestro proveedor | TMI COL S.A.S."
+  description="¿Fabricas o distribuyes medicamentos, insumos, equipos biomédicos o productos de laboratorio? Preséntanos tu portafolio: evaluación transparente y relación de largo plazo."
+>
+  <PageHero
+    eyebrow="Únete a TMI"
+    title="Sé nuestro proveedor"
+    sub="¿Fabricas o distribuyes medicamentos, insumos médico-quirúrgicos, equipos biomédicos o productos de laboratorio clínico? Queremos conocerte."
+  />
+
+  <section>
+    <div class="container">
+      <div class="prov-grid">
+        <div class="reveal">
+          <span class="eyebrow">Crece con nosotros</span>
+          <h2 class="section-title">Una red de proveedores que empieza contigo</h2>
+          <p class="texto">
+            Estamos construyendo nuestra red de suministro y buscamos aliados serios para crecer
+            juntos. Ser proveedor de una empresa en crecimiento tiene una ventaja: relación directa
+            con quien decide, sin las barreras de entrada de los grandes distribuidores.
+          </p>
+          <ul class="check-list" style="margin-top:20px;">
+            <li><span class="check"><Icon name="check" size={12} /></span> Evaluación técnica y documental transparente</li>
+            <li><span class="check"><Icon name="check" size={12} /></span> Relación comercial pensada a largo plazo</li>
+            <li><span class="check"><Icon name="check" size={12} /></span> Pagos y condiciones claras desde el inicio</li>
+          </ul>
+        </div>
+        <div class="reveal">
+          <div class="join-card proveedor">
+            <h3><Icon name="truck" size={22} /> Qué evaluamos</h3>
+            <p>Para garantizar la trazabilidad que prometemos a nuestros clientes, todo proveedor pasa por una verificación de:</p>
+            <ul class="join-list">
+              {requisitos.map((r) => (
+                <li><span class="check"><Icon name="check" size={12} /></span> {r}</li>
+              ))}
+            </ul>
+            <!-- TODO(PENDIENTES.md §1/§6): confirmar buzón real de propuestas de proveedores. -->
+            <a class="btn btn-navy" href={`mailto:${EMAIL_PROVEEDORES}?subject=${encodeURIComponent('Propuesta de proveedor - TMI')}`}>
+              <Icon name="mail" size={18} /> Postularme como proveedor
+            </a>
+            <p class="form-note">Escríbenos a {EMAIL_PROVEEDORES} con tu portafolio y datos de contacto.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .prov-grid { display: grid; grid-template-columns: 1fr; gap: 36px; align-items: center; }
+  .texto { color: var(--grey); }
+  @media (min-width: 760px) {
+    .prov-grid { grid-template-columns: 1fr 1fr; gap: 50px; }
+  }
+</style>

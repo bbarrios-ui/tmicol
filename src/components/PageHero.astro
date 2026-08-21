@@ -1,0 +1,17 @@
+---
+// Encabezado estándar de páginas interiores.
+interface Props {
+  eyebrow?: string;
+  title: string;
+  sub?: string;
+}
+const { eyebrow, title, sub } = Astro.props;
+---
+<div class="page-hero">
+  <div class="container">
+    {eyebrow && <span class="eyebrow eyebrow--light">{eyebrow}</span>}
+    <h1>{title}</h1>
+    {sub && <p>{sub}</p>}
+    <slot />
+  </div>
+</div>

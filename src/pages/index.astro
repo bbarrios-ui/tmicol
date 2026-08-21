@@ -1,0 +1,154 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import ImgPlaceholder from '../components/ImgPlaceholder.astro';
+import Compromisos from '../components/Compromisos.astro';
+import LineaCard from '../components/LineaCard.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { LINEAS, WA_COTIZAR, WA_CONSULTA } from '../lib/site';
+---
+<Base
+  title="TMI COL S.A.S. | Tecnologías Médicas Integrales — Córdoba, Colombia"
+  description="Medicamentos, insumos médico-quirúrgicos, equipos biomédicos y laboratorio clínico para instituciones de salud de Córdoba y la región. Cotización en menos de 24 horas hábiles por WhatsApp."
+>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow eyebrow--light">Integridad · Calidad · Innovación · Compromiso</span>
+        <h1>
+          Tecnologías médicas con <span>respuesta inmediata</span> para las instituciones de salud
+          de Córdoba y la región
+        </h1>
+        <p>
+          Comercializamos medicamentos, insumos médico-quirúrgicos, equipos biomédicos y productos
+          de laboratorio clínico, con asesoría directa de un químico farmacéutico y cotización en
+          menos de 24 horas hábiles.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-wsp" target="_blank" rel="noopener" href={WA_COTIZAR}>
+            <Icon name="whatsapp" size={18} /> Cotizar por WhatsApp
+          </a>
+          <a class="btn btn-outline" href="/lineas">Ver líneas de venta</a>
+        </div>
+      </div>
+      <div class="hero-media reveal">
+        <ImgPlaceholder ratio="16x9" rounded label="Bodega de distribución farmacéutica" />
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPROMISOS (sustituye contadores v0) -->
+  <section class="compromisos-section">
+    <div class="container">
+      <span class="eyebrow center">Nuestros compromisos</span>
+      <h2 class="section-title center">Promesas que puedes medir desde el primer pedido</h2>
+      <p class="section-sub center">
+        No te hablamos de décadas de trayectoria: te damos compromisos concretos y verificables
+        desde el día uno.
+      </p>
+      <Compromisos />
+    </div>
+  </section>
+
+  <!-- LÍNEAS -->
+  <section>
+    <div class="container">
+      <span class="eyebrow center">Portafolio</span>
+      <h2 class="section-title center">Nuestras líneas de venta</h2>
+      <p class="section-sub center">
+        Un portafolio integral pensado para hospitales, clínicas, IPS, EPS y farmacias, con
+        trazabilidad, calidad y cumplimiento normativo en cada línea.
+      </p>
+      <div class="lineas-grid">
+        {LINEAS.map((linea) => <LineaCard linea={linea} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- TEASER CONSULTA QF -->
+  <section>
+    <div class="container">
+      <div class="consulta-panel reveal">
+        <div class="consulta-wrap">
+          <div>
+            <span class="eyebrow eyebrow--light">Asesoría profesional</span>
+            <h2 class="section-title">Consulta especializada con Químico Farmacéutico</h2>
+            <p>
+              Tu consulta no pasa por un call center: la responde directamente nuestro Director
+              Técnico, químico farmacéutico. Uso correcto, almacenamiento, normatividad y más.
+            </p>
+            <a class="btn btn-primary" href="/consulta-especializada" style="margin-top:24px;">
+              Conocer el servicio <Icon name="arrow-right" size={16} />
+            </a>
+          </div>
+          <div class="consulta-card">
+            <h3>¿En qué te podemos asesorar?</h3>
+            <ul class="check-list">
+              <li><span class="check"><Icon name="check" size={12} /></span> Selección del medicamento o dispositivo médico adecuado</li>
+              <li><span class="check"><Icon name="check" size={12} /></span> Condiciones de almacenamiento y cadena de frío</li>
+              <li><span class="check"><Icon name="check" size={12} /></span> Normatividad INVIMA, farmacovigilancia y tecnovigilancia</li>
+            </ul>
+            <a class="btn btn-wsp" target="_blank" rel="noopener" href={WA_CONSULTA}>
+              <Icon name="whatsapp" size={18} /> Agendar consulta
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
+
+<style>
+  .hero {
+    min-height: 88vh;
+    display: flex;
+    align-items: center;
+    background: radial-gradient(circle at 20% 20%, var(--navy-2), var(--navy) 60%);
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+    padding: calc(var(--header-h) + 60px) 0 70px;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    width: 600px; height: 600px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(41, 182, 246, .25), transparent 70%);
+    top: -200px; right: -150px;
+  }
+  .hero::after {
+    content: "";
+    position: absolute;
+    width: 500px; height: 500px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(30, 111, 184, .25), transparent 70%);
+    bottom: -220px; left: -120px;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 44px;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+  }
+  .hero h1 { font-size: 2rem; line-height: 1.2; color: #fff; margin-bottom: 20px; }
+  .hero h1 span {
+    background: linear-gradient(135deg, var(--accent-2), var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .hero p { color: #c9d7e8; font-size: 1.04rem; max-width: 520px; margin-bottom: 34px; }
+  .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+  .compromisos-section { background: var(--white); }
+  @media (min-width: 760px) {
+    .hero h1 { font-size: 2.6rem; }
+  }
+  @media (min-width: 1020px) {
+    .hero-grid { grid-template-columns: 1.05fr .95fr; gap: 50px; }
+    .hero h1 { font-size: 2.8rem; }
+  }
+</style>

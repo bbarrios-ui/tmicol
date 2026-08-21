@@ -1,0 +1,27 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import LineaCard from '../../components/LineaCard.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { LINEAS } from '../../lib/site';
+---
+<Base
+  title="Líneas de venta | TMI COL S.A.S."
+  description="Medicamentos, insumos médico-quirúrgicos, equipos biomédicos y laboratorio clínico. Portafolio con trazabilidad y cumplimiento INVIMA para instituciones de salud."
+>
+  <PageHero
+    eyebrow="Portafolio"
+    title="Nuestras líneas de venta"
+    sub="Un portafolio integral pensado para hospitales, clínicas, IPS, EPS y farmacias, con trazabilidad, calidad y cumplimiento normativo en cada línea."
+  />
+
+  <section>
+    <div class="container">
+      <div class="lineas-grid">
+        {LINEAS.map((linea) => <LineaCard linea={linea} />)}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>

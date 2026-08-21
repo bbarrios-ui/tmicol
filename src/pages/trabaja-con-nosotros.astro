@@ -1,0 +1,53 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import ImgPlaceholder from '../components/ImgPlaceholder.astro';
+import Icon from '../components/Icon.astro';
+import { EMAIL_EMPLEO } from '../lib/site';
+---
+<Base
+  title="Trabaja con nosotros | TMI COL S.A.S."
+  description="Súmate al equipo de TMI COL: vacantes comerciales, logísticas y técnicas en una empresa del sector salud en crecimiento en Córdoba. Postúlate por correo."
+>
+  <PageHero
+    eyebrow="Únete a TMI"
+    title="Trabaja con nosotros"
+    sub="Súmate a un equipo comprometido con la calidad, la innovación y el servicio al sector salud de Córdoba y la región."
+  />
+
+  <section>
+    <div class="container">
+      <div class="empleo-grid">
+        <div class="reveal">
+          <div class="join-card">
+            <h3><Icon name="briefcase" size={22} /> ¿Por qué TMI?</h3>
+            <p>
+              Somos una empresa nueva en crecimiento: aquí tu trabajo se ve, tus ideas llegan a
+              gerencia y creces junto al proyecto.
+            </p>
+            <ul class="join-list">
+              <li><span class="check"><Icon name="check" size={12} /></span> Vacantes comerciales, logísticas y técnicas</li>
+              <li><span class="check"><Icon name="check" size={12} /></span> Ambiente de aprendizaje continuo</li>
+              <li><span class="check"><Icon name="check" size={12} /></span> Crecimiento junto a una empresa en construcción, desde el inicio</li>
+            </ul>
+            <!-- TODO(PENDIENTES.md §1/§6): confirmar buzón real de recepción de hojas de vida. -->
+            <a class="btn btn-navy" href={`mailto:${EMAIL_EMPLEO}?subject=${encodeURIComponent('Postulación - Trabaja con TMI')}`}>
+              <Icon name="mail" size={18} /> Enviar mi hoja de vida
+            </a>
+            <p class="form-note">Envía tu hoja de vida a {EMAIL_EMPLEO} indicando el área de tu interés.</p>
+          </div>
+        </div>
+        <div class="reveal">
+          <ImgPlaceholder ratio="4x3" rounded label="Equipo de trabajo en reunión" />
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .empleo-grid { display: grid; grid-template-columns: 1fr; gap: 36px; align-items: center; }
+  @media (min-width: 760px) {
+    .empleo-grid { grid-template-columns: 1.1fr .9fr; gap: 50px; }
+  }
+</style>
