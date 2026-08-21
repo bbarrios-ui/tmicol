@@ -2,8 +2,15 @@
 // Regla (CLAUDE.md): si un dato está en PENDIENTES.md sin responder, aquí va
 // placeholder + TODO. Nunca un valor inventado.
 
-// TODO(PENDIENTES.md §1): reemplazar por el número de WhatsApp comercial real.
+// Razón social según estatutos (Art. 1): TECNOLOGÍAS MÉDICAS INTEGRALES
+// COLOMBIA SAS, sigla TMI SAS. TODO(PENDIENTES.md §2): falta el NIT.
+export const RAZON_SOCIAL = 'Tecnologías Médicas Integrales Colombia SAS';
+
+// TODO(PENDIENTES.md §1): confirmar el número de WhatsApp COMERCIAL. El teléfono
+// de los estatutos es 301 380 4160; si ese mismo número atiende el WhatsApp del
+// negocio, cambiar aquí el placeholder por '573013804160'.
 export const WHATSAPP = '573000000000';
+export const WHATSAPP_DISPLAY = '+57 300 000 0000';
 
 export const waLink = (text: string) =>
   `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(text)}`;
@@ -18,9 +25,11 @@ export const EMAIL_CONTACTO = 'contacto@tmicol.co';
 export const EMAIL_EMPLEO = 'empleo@tmicol.co';
 export const EMAIL_PROVEEDORES = 'proveedores@tmicol.co';
 
-// TODO(PENDIENTES.md §1): teléfono y dirección reales.
-export const TELEFONO_DISPLAY = '+57 300 000 0000';
-export const CIUDAD = 'Córdoba, Colombia';
+// Teléfono y domicilio según estatutos (Art. 2).
+// TODO(PENDIENTES.md §1): confirmar horarios de atención.
+export const TELEFONO_DISPLAY = '+57 301 380 4160';
+export const CIUDAD = 'Montería, Córdoba — Colombia';
+export const DIRECCION = 'Cra. 35 N° 44-16';
 
 export const NAV = [
   { href: '/', label: 'Inicio' },

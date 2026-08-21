@@ -1,6 +1,6 @@
 # CLAUDE.md — repo tmicol
 
-Sitio web institucional de **TMI COL S.A.S.** (Tecnologías Médicas Integrales), distribuidora de tecnologías médicas en Córdoba, Colombia. Sitio **multi-página con Astro** (salida estática), desplegado en Vercel. El mapa de URLs y la estructura de `src/` están en PLAN.md §4 y §7 — cada sección del sitio tiene su propia URL (`/nosotros`, `/lineas/medicamentos`, `/cotizar`, etc.); el layout compartido vive en `src/layouts/Base.astro`. Diseño moderno, fresco y mobile-first.
+Sitio web institucional de **TECNOLOGÍAS MÉDICAS INTEGRALES COLOMBIA SAS** (sigla estatutaria **TMI SAS**; marca "TMI"), distribuidora de tecnologías médicas con domicilio en Montería, Córdoba (Colombia). Datos legales confirmados por estatutos: dirección Cra. 35 N° 44-16 Montería, teléfono 301 380 4160. Sitio **multi-página con Astro** (salida estática), desplegado en Vercel. El mapa de URLs y la estructura de `src/` están en PLAN.md §4 y §7 — cada sección del sitio tiene su propia URL (`/nosotros`, `/lineas/medicamentos`, `/cotizar`, etc.); el layout compartido vive en `src/layouts/Base.astro`. Diseño moderno, fresco y mobile-first.
 
 > La v0 era un `index.html` único; sirve como referencia de estilos y contenido durante la migración y se elimina al terminar la Fase 1.
 
@@ -22,7 +22,7 @@ En v1 no se usan emojis como iconografía: SVGs de una sola familia (stroke 1.5�
 
 ## Datos reales pendientes (NO inventar)
 
-Toda la información faltante del negocio está inventariada en **PENDIENTES.md** (teléfonos, dirección, permisos INVIMA, misión/visión oficiales, logo, dominio, etc.). Regla: si un dato está en PENDIENTES.md sin responder, en el código va placeholder + comentario `TODO`; nunca un valor inventado. El WhatsApp actual `573000000000` es placeholder.
+Toda la información faltante del negocio está inventariada en **PENDIENTES.md** (WhatsApp comercial, NIT, correos, permisos INVIMA, misión/visión oficiales, dominio, etc.). Regla: si un dato está en PENDIENTES.md sin responder, en el código va placeholder + comentario `TODO`; nunca un valor inventado. El WhatsApp actual `573000000000` es placeholder.
 
 ## Flujo de trabajo
 

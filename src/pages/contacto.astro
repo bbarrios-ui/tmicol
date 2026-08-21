@@ -6,12 +6,14 @@ import {
   WA_COTIZAR,
   EMAIL_CONTACTO,
   TELEFONO_DISPLAY,
+  WHATSAPP_DISPLAY,
   CIUDAD,
+  DIRECCION,
 } from '../lib/site';
 ---
 <Base
-  title="Contacto | TMI COL S.A.S."
-  description="Contáctanos: WhatsApp comercial, correo y teléfono de TMI COL S.A.S. en Córdoba, Colombia. Cotizaciones y consultas para instituciones de salud."
+  title="Contacto | TMI Colombia SAS"
+  description="Contáctanos: WhatsApp comercial, correo y teléfono de TMI Colombia SAS en Montería, Córdoba. Cotizaciones y consultas para instituciones de salud."
 >
   <PageHero
     eyebrow="Hablemos"
@@ -25,8 +27,8 @@ import {
         <a class="contact-card destacada reveal" href={WA_COTIZAR} target="_blank" rel="noopener">
           <div class="cc-icon wsp"><Icon name="whatsapp" size={26} /></div>
           <strong>WhatsApp comercial</strong>
-          <!-- TODO(PENDIENTES.md §1): número real de WhatsApp. -->
-          <span>{TELEFONO_DISPLAY}</span>
+          <!-- TODO(PENDIENTES.md §1): número real de WhatsApp comercial. -->
+          <span>{WHATSAPP_DISPLAY}</span>
           <span class="cc-action">Escribir ahora <Icon name="arrow-right" size={14} /></span>
         </a>
         <a class="contact-card reveal" href={`mailto:${EMAIL_CONTACTO}`}>
@@ -39,13 +41,14 @@ import {
         <div class="contact-card reveal">
           <div class="cc-icon"><Icon name="phone" size={24} /></div>
           <strong>Teléfono</strong>
-          <!-- TODO(PENDIENTES.md §1): teléfono real y horarios de atención. -->
+          <!-- TODO(PENDIENTES.md §1): confirmar horarios de atención. -->
           <span>{TELEFONO_DISPLAY}</span>
         </div>
         <div class="contact-card reveal">
           <div class="cc-icon"><Icon name="map-pin" size={24} /></div>
           <strong>Ubicación</strong>
-          <!-- TODO(PENDIENTES.md §1): dirección exacta; agregar mapa cuando exista. -->
+          <!-- TODO(PENDIENTES.md §1): decidir si se agrega mapa de Google. -->
+          <span>{DIRECCION}</span>
           <span>{CIUDAD}</span>
         </div>
       </div>

@@ -4,15 +4,15 @@ Lista de preguntas para la persona encargada del sitio en TMI COL S.A.S. Mientra
 
 ## 1. Contacto (bloquea el lanzamiento)
 
-- [ ] **Número de WhatsApp comercial** (el sitio entero cotiza por ahí; hoy hay un placeholder `573000000000`). ¿Es un número dedicado al negocio o el personal de alguien? ¿Quién lo va a responder y en qué horario?
-- [ ] **Teléfono fijo o celular de contacto general** (si es distinto al WhatsApp).
-- [ ] **Dirección física** (ciudad, dirección exacta). ¿Se quiere mostrar en el sitio con mapa de Google, o solo ciudad?
+- [ ] **Número de WhatsApp comercial** (el sitio entero cotiza por ahí; hoy hay un placeholder `573000000000`). *Nota (ago 2026): los estatutos registran el 301 380 4160 — ¿ese mismo número atiende el WhatsApp comercial? Si sí, se cambia en `src/lib/site.ts` y queda resuelto.* ¿Quién lo va a responder y en qué horario?
+- [x] **Teléfono de contacto general**: 301 380 4160 (estatutos, Art. 2). Ya está en el sitio.
+- [x] **Dirección física**: Cra. 35 N° 44-16, Montería, Córdoba (estatutos, Art. 2). Ya está en el sitio. *Pendiente decidir: ¿se agrega mapa de Google en /contacto?*
 - [ ] **Horarios de atención**.
 - [ ] **Correos**: ¿existen ya los buzones `contacto@`, `empleo@`, `proveedores@`, `director.tecnico@` en el dominio? ¿Cuál dominio de correo es el real (tmicol.co u otro)?
 
 ## 2. Legal y regulatorio (bloquea el lanzamiento)
 
-- [ ] **Razón social exacta y NIT** para el footer (¿"TMI COL S.A.S." es la razón social registrada tal cual?). *Nota (ago 2026): el logo oficial entregado dice "TMI COLOMBIA S.A.S" — confirmar cuál es la razón social registrada y unificar en todo el sitio.*
+- [x] **Razón social**: TECNOLOGÍAS MÉDICAS INTEGRALES COLOMBIA SAS, sigla TMI SAS (estatutos, Art. 1). Ya está en el sitio. **Pendiente: NIT** para el footer.
 - [ ] **Registros/permisos sanitarios**: ¿la empresa ya cuenta con los permisos INVIMA / resolución de la entidad territorial de salud para comercializar medicamentos y dispositivos médicos? ¿Cuáles números de registro se pueden publicar? (El sitio menciona "registro sanitario INVIMA vigente" — hay que respaldarlo o quitarlo.)
 - [ ] **Director Técnico / Químico Farmacéutico**: ¿ya está contratado y registrado? ¿Autoriza que su nombre y tarjeta profesional aparezcan en el sitio, o preferimos mencionar solo el cargo?
 - [ ] **Política de tratamiento de datos personales** (Ley 1581 de 2012 — obligatoria si el formulario recoge nombre y teléfono): ¿existe el documento? ¿Quién es el responsable del tratamiento?

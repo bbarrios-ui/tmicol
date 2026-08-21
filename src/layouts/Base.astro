@@ -9,6 +9,8 @@ import {
   EMAIL_CONTACTO,
   TELEFONO_DISPLAY,
   CIUDAD,
+  DIRECCION,
+  RAZON_SOCIAL,
 } from '../lib/site';
 
 interface Props {
@@ -79,11 +81,11 @@ const isActive = (href: string) =>
         <div class="footer-grid">
           <div class="footer-col">
             <div class="footer-logo"><Logo variant="dark" height={40} /></div>
-            <!-- TODO(PENDIENTES.md §2): confirmar razón social exacta y NIT para el footer. -->
+            <!-- TODO(PENDIENTES.md §2): agregar NIT cuando se confirme. -->
             <p>
-              Tecnologías Médicas Integrales Colombia S.A.S. Comercialización de medicamentos,
-              dispositivos médicos, equipos biomédicos y material médico-quirúrgico para las
-              instituciones de salud de Córdoba y la región.
+              {RAZON_SOCIAL}. Comercialización de medicamentos, dispositivos médicos, equipos
+              biomédicos y material médico-quirúrgico para las instituciones de salud de Córdoba
+              y la región.
             </p>
             <!-- TODO(PENDIENTES.md §6): agregar redes sociales cuando existan las cuentas reales. -->
           </div>
@@ -103,15 +105,15 @@ const isActive = (href: string) =>
           </div>
           <div class="footer-col">
             <h4>Contacto</h4>
-            <!-- TODO(PENDIENTES.md §1): dirección, teléfono y correos reales. -->
-            <div class="footer-contact-item"><Icon name="map-pin" size={16} /> {CIUDAD}</div>
+            <!-- TODO(PENDIENTES.md §1): confirmar correos y horarios de atención. -->
+            <div class="footer-contact-item"><Icon name="map-pin" size={16} /> {DIRECCION}, {CIUDAD}</div>
             <div class="footer-contact-item"><Icon name="phone" size={16} /> {TELEFONO_DISPLAY}</div>
             <div class="footer-contact-item"><Icon name="mail" size={16} /> {EMAIL_CONTACTO}</div>
             <a href="/contacto">Ver página de contacto</a>
           </div>
         </div>
         <div class="footer-bottom">
-          <span>© <span id="year"></span> TMI COL S.A.S. — Todos los derechos reservados.</span>
+          <span>© <span id="year"></span> {RAZON_SOCIAL} — Todos los derechos reservados.</span>
           <span>Integridad · Calidad · Innovación · Compromiso</span>
         </div>
       </div>
