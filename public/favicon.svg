@@ -1,6 +1,24 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <!-- Isotipo derivado del logo oficial: cruz sobre fondo navy.
-       TODO(PENDIENTES.md §4): sustituir si el manual de marca define otro isotipo. -->
-  <rect width="64" height="64" rx="12" fill="#0B2545"/>
-  <path d="M26 14 h12 v12 h12 v12 h-12 v12 h-12 v-12 h-12 v-12 h12 Z" fill="#29B6F6"/>
+  <!-- Isotipo derivado del logo oficial: cruz con degradado azul + swoosh
+       plateado sobre navy. TODO(PENDIENTES.md §4): sustituir si el manual
+       de marca define otro isotipo. -->
+  <defs>
+    <linearGradient id="cruz" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#5FD0F3"/>
+      <stop offset="1" stop-color="#29B6F6"/>
+    </linearGradient>
+    <linearGradient id="swoosh" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#8fa3b8" stop-opacity=".35"/>
+      <stop offset=".55" stop-color="#d7e3ee"/>
+      <stop offset="1" stop-color="#f3f8fc"/>
+    </linearGradient>
+    <radialGradient id="fondo" cx=".3" cy=".22" r="1.1">
+      <stop offset="0" stop-color="#164a86"/>
+      <stop offset=".55" stop-color="#0B2545"/>
+      <stop offset="1" stop-color="#081c36"/>
+    </radialGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#fondo)"/>
+  <path d="M26 13 h12 v13 h13 v12 h-13 v13 h-12 v-13 h-13 v-12 h13 Z" fill="url(#cruz)"/>
+  <path d="M9 47 C 24 54, 44 47, 55 21" fill="none" stroke="url(#swoosh)" stroke-width="5" stroke-linecap="round"/>
 </svg>
