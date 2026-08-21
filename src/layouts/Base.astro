@@ -2,6 +2,7 @@
 // Layout compartido: <head>, header/nav, footer y botón flotante de WhatsApp.
 import '../styles/global.css';
 import Icon from '../components/Icon.astro';
+import Logo from '../components/Logo.astro';
 import {
   NAV,
   WA_COTIZAR,
@@ -31,7 +32,7 @@ const isActive = (href: string) =>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,800&display=swap"
       rel="stylesheet"
     />
     <meta property="og:title" content={title} />
@@ -42,10 +43,9 @@ const isActive = (href: string) =>
   <body>
     <header class="site-header">
       <div class="nav-wrap">
-        <a href="/" class="logo" aria-label="TMI COL — Inicio">
-          <!-- TODO(PENDIENTES.md §4): logo tipográfico provisional hasta tener el oficial. -->
-          <span class="mark">TM</span>
-          <span>TMI COL <small>Tecnologías Médicas Integrales</small></span>
+        <a href="/" class="logo" aria-label="TMI — Inicio">
+          <Logo variant="dark" height={34} />
+          <small class="logo-tagline">Tecnologías Médicas Integrales</small>
         </a>
         <nav class="site-nav" aria-label="Navegación principal">
           <ul id="navMenu">
@@ -78,7 +78,7 @@ const isActive = (href: string) =>
       <div class="container">
         <div class="footer-grid">
           <div class="footer-col">
-            <div class="footer-logo"><span class="mark">TM</span> TMI COL S.A.S.</div>
+            <div class="footer-logo"><Logo variant="dark" height={40} /></div>
             <!-- TODO(PENDIENTES.md §2): confirmar razón social exacta y NIT para el footer. -->
             <p>
               Tecnologías Médicas Integrales Colombia S.A.S. Comercialización de medicamentos,

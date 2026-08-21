@@ -122,15 +122,15 @@ section { padding: 64px 0; }
   min-height: var(--header-h);
 }
 
-.logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.15rem; color: #fff; }
-.logo .mark {
-  width: 40px; height: 40px; border-radius: 10px; flex: none;
-  background: linear-gradient(135deg, var(--accent), var(--blue));
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.1rem; color: #fff; position: relative;
+.logo { display: flex; flex-direction: column; align-items: flex-start; gap: 3px; color: #fff; }
+.logo .logo-tagline {
+  font-size: .5rem;
+  font-weight: 500;
+  letter-spacing: 1.6px;
+  color: var(--accent-2);
+  text-transform: uppercase;
+  white-space: nowrap;
 }
-.logo .mark::after { content: "+"; position: absolute; top: -8px; right: -4px; font-size: 1rem; color: var(--accent-2); }
-.logo small { display: block; font-size: .5rem; font-weight: 500; letter-spacing: 1.4px; color: var(--accent-2); text-transform: uppercase; }
 
 .site-nav ul {
   position: fixed;
@@ -352,13 +352,7 @@ section { padding: 64px 0; }
 .footer-col h4 { color: #fff; font-size: 1rem; margin-bottom: 16px; }
 .footer-col p, .footer-col a { color: #a9bbd2; font-size: .9rem; display: block; margin-bottom: 10px; }
 .footer-col a:hover { color: var(--accent-2); }
-.footer-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; font-weight: 800; color: #fff; font-size: 1.15rem; }
-.footer-logo .mark {
-  width: 36px; height: 36px; border-radius: 8px;
-  background: linear-gradient(135deg, var(--accent), var(--blue));
-  display: flex; align-items: center; justify-content: center;
-  font-size: .95rem;
-}
+.footer-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
 .footer-contact-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; font-size: .9rem; color: #a9bbd2; }
 .footer-contact-item svg { flex: none; margin-top: 3px; color: var(--accent-2); }
 .footer-bottom {
@@ -599,8 +593,7 @@ section { padding: 64px 0; }
   .footer-grid { grid-template-columns: 1.4fr 1fr 1fr 1.2fr; gap: 40px; }
   .cta-band { padding: 56px 40px; }
   .cta-band h2 { font-size: 1.9rem; }
-  .logo { font-size: 1.3rem; }
-  .logo small { font-size: .55rem; }
+  .logo .logo-tagline { font-size: .55rem; }
   .mv-grid { grid-template-columns: 1fr 1fr; }
   .mv-card { padding: 40px; }
   .docs-grid { grid-template-columns: repeat(3, 1fr); }

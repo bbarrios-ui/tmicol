@@ -12,7 +12,7 @@ Lista de preguntas para la persona encargada del sitio en TMI COL S.A.S. Mientra
 
 ## 2. Legal y regulatorio (bloquea el lanzamiento)
 
-- [ ] **Razón social exacta y NIT** para el footer (¿"TMI COL S.A.S." es la razón social registrada tal cual?).
+- [ ] **Razón social exacta y NIT** para el footer (¿"TMI COL S.A.S." es la razón social registrada tal cual?). *Nota (ago 2026): el logo oficial entregado dice "TMI COLOMBIA S.A.S" — confirmar cuál es la razón social registrada y unificar en todo el sitio.*
 - [ ] **Registros/permisos sanitarios**: ¿la empresa ya cuenta con los permisos INVIMA / resolución de la entidad territorial de salud para comercializar medicamentos y dispositivos médicos? ¿Cuáles números de registro se pueden publicar? (El sitio menciona "registro sanitario INVIMA vigente" — hay que respaldarlo o quitarlo.)
 - [ ] **Director Técnico / Químico Farmacéutico**: ¿ya está contratado y registrado? ¿Autoriza que su nombre y tarjeta profesional aparezcan en el sitio, o preferimos mencionar solo el cargo?
 - [ ] **Política de tratamiento de datos personales** (Ley 1581 de 2012 — obligatoria si el formulario recoge nombre y teléfono): ¿existe el documento? ¿Quién es el responsable del tratamiento?
@@ -30,7 +30,7 @@ Lista de preguntas para la persona encargada del sitio en TMI COL S.A.S. Mientra
 
 ## 4. Marca y material gráfico
 
-- [ ] **Logo oficial**: ¿existe logo real de TMI (vectorial, .svg/.ai)? El sitio usa un logo tipográfico provisional "TM".
+- [x] **Logo oficial**: recibido como imagen (render) en ago 2026 y vectorizado en `src/components/Logo.astro`. *Pendiente: archivo fuente vectorial oficial (.svg/.ai) si existe, y colocar el render original en el repo para OG images (guardarlo como `public/img/logo-original.png`).*
 - [ ] **Manual de marca o al menos confirmación de colores**: los azules actuales (#0B2545 / #29B6F6) ¿son los institucionales definitivos?
 - [ ] **Fotos reales**: ¿hay o habrá fotos de bodega, oficina o equipo humano reales? Mientras tanto usamos imágenes generadas con IA marcadas como ilustrativas — ¿gerencia está de acuerdo?
 - [ ] **Marcas/laboratorios aliados**: ¿hay alguna marca que ya autorice por escrito usar su logo en el sitio?
