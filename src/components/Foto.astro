@@ -1,0 +1,32 @@
+---
+// Imagen WebP del sitio (Fase 2, generada con scripts/generar-imagenes.mjs).
+// Regla de honestidad (PLAN.md §6): son imágenes ilustrativas del sector; el
+// alt lo refleja y nunca las presentamos como instalaciones o personas propias.
+interface Props {
+  src: string;
+  alt: string;
+  ratio?: '16x9' | '4x3' | '3x4' | '1x1';
+  rounded?: boolean;
+  /** true solo para la imagen del hero (carga prioritaria). */
+  eager?: boolean;
+  class?: string;
+}
+const { src, alt, ratio = '4x3', rounded = false, eager = false, class: className } = Astro.props;
+---
+<img
+  class:list={['foto', `ratio-${ratio}`, { 'foto--rounded': rounded }, className]}
+  src={src}
+  alt={alt}
+  loading={eager ? 'eager' : 'lazy'}
+  fetchpriority={eager ? 'high' : 'auto'}
+  decoding="async"
+/>
+
+<style>
+  .foto { width: 100%; object-fit: cover; display: block; }
+  .foto--rounded { border-radius: var(--radius); box-shadow: var(--shadow); }
+  .foto.ratio-16x9 { aspect-ratio: 16 / 9; }
+  .foto.ratio-4x3 { aspect-ratio: 4 / 3; }
+  .foto.ratio-3x4 { aspect-ratio: 3 / 4; }
+  .foto.ratio-1x1 { aspect-ratio: 1 / 1; }
+</style>

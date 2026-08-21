@@ -1,7 +1,7 @@
 ---
 // Estructura compartida de las páginas de detalle de línea (/lineas/*).
 import PageHero from './PageHero.astro';
-import ImgPlaceholder from './ImgPlaceholder.astro';
+import Foto from './Foto.astro';
 import CtaBand from './CtaBand.astro';
 import Icon from './Icon.astro';
 import { LINEAS, waLink } from '../lib/site';
@@ -25,7 +25,7 @@ const waCotizarLinea = waLink(`Hola TMI, quiero cotizar productos de ${linea.tit
   <div class="container">
     <div class="detalle-grid">
       <div class="reveal">
-        <ImgPlaceholder ratio="4x3" rounded label={fotoLabel} />
+        <Foto src={`/img/linea-${slug}.webp`} ratio="4x3" rounded alt={`${fotoLabel} (imagen ilustrativa)`} />
       </div>
       <div class="reveal">
         <h2 class="section-title">¿Qué puedes solicitar?</h2>

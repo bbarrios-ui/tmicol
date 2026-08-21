@@ -238,33 +238,6 @@ section { padding: 64px 0; }
   flex: none;
 }
 
-/* ---------- placeholder de imagen (Fase 2 trae las fotos) ---------- */
-.img-ph {
-  background: linear-gradient(145deg, #dde5ee, #cfd9e5);
-  border-radius: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #93a5bb;
-  overflow: hidden;
-  position: relative;
-}
-.img-ph--rounded { border-radius: var(--radius); }
-.img-ph span {
-  font-size: .78rem;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-}
-.img-ph.ratio-16x9 { aspect-ratio: 16 / 9; }
-.img-ph.ratio-4x3 { aspect-ratio: 4 / 3; }
-.img-ph.ratio-3x4 { aspect-ratio: 3 / 4; }
-.img-ph.ratio-1x1 { aspect-ratio: 1 / 1; }
-
 /* ---------- barra de compromisos (sustituye contadores v0) ---------- */
 .compromisos-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
 
