@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import ImgPlaceholder from '../components/ImgPlaceholder.astro';
 import Icon from '../components/Icon.astro';
-import { WA_CONSULTA } from '../lib/site';
+import { WA_CONSULTA, EMAIL_DIRECTOR_TECNICO } from '../lib/site';
 
 const asesorias = [
   {
@@ -63,6 +63,10 @@ const asesorias = [
           <a class="btn btn-wsp" target="_blank" rel="noopener" href={WA_CONSULTA} style="margin-top:20px;">
             <Icon name="whatsapp" size={18} /> Agendar consulta por WhatsApp
           </a>
+          <p class="texto" style="margin-top:14px; font-size:.9rem;">
+            También puedes escribir directo a
+            <a href={`mailto:${EMAIL_DIRECTOR_TECNICO}`} style="color:var(--blue); font-weight:600;">{EMAIL_DIRECTOR_TECNICO}</a>
+          </p>
         </div>
       </div>
     </div>

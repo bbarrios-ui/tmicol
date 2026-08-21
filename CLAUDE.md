@@ -22,7 +22,7 @@ En v1 no se usan emojis como iconografía: SVGs de una sola familia (stroke 1.5�
 
 ## Datos reales pendientes (NO inventar)
 
-Toda la información faltante del negocio está inventariada en **PENDIENTES.md** (WhatsApp comercial, NIT, correos, permisos INVIMA, misión/visión oficiales, dominio, etc.). Regla: si un dato está en PENDIENTES.md sin responder, en el código va placeholder + comentario `TODO`; nunca un valor inventado. El WhatsApp actual `573000000000` es placeholder.
+Toda la información faltante del negocio está inventariada en **PENDIENTES.md** (WhatsApp comercial, NIT, correos, permisos INVIMA, misión/visión oficiales, dominio, etc.). Regla: si un dato está en PENDIENTES.md sin responder, en el código va placeholder + comentario `TODO`; nunca un valor inventado. Confirmados (ago 2026): WhatsApp comercial 301 293 6547 ("para todo" por ahora), NIT 902.088.438-2, buzones gerencia@ / compras@ / director.tecnico@ tmicol.co.
 
 ## Flujo de trabajo
 

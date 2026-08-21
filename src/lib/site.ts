@@ -3,14 +3,13 @@
 // placeholder + TODO. Nunca un valor inventado.
 
 // Razón social según estatutos (Art. 1): TECNOLOGÍAS MÉDICAS INTEGRALES
-// COLOMBIA SAS, sigla TMI SAS. TODO(PENDIENTES.md §2): falta el NIT.
+// COLOMBIA SAS, sigla TMI SAS.
 export const RAZON_SOCIAL = 'Tecnologías Médicas Integrales Colombia SAS';
+export const NIT = 'NIT 902.088.438-2';
 
-// TODO(PENDIENTES.md §1): confirmar el número de WhatsApp COMERCIAL. El teléfono
-// de los estatutos es 301 380 4160; si ese mismo número atiende el WhatsApp del
-// negocio, cambiar aquí el placeholder por '573013804160'.
-export const WHATSAPP = '573000000000';
-export const WHATSAPP_DISPLAY = '+57 300 000 0000';
+// WhatsApp comercial confirmado por gerencia (ago 2026): atiende todo por ahora.
+export const WHATSAPP = '573012936547';
+export const WHATSAPP_DISPLAY = '+57 301 293 6547';
 
 export const waLink = (text: string) =>
   `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(text)}`;
@@ -20,10 +19,12 @@ export const WA_CONSULTA = waLink(
   'Hola, quiero agendar una consulta con el químico farmacéutico de TMI'
 );
 
-// TODO(PENDIENTES.md §1): confirmar dominio de correo real y buzones existentes.
-export const EMAIL_CONTACTO = 'contacto@tmicol.co';
-export const EMAIL_EMPLEO = 'empleo@tmicol.co';
-export const EMAIL_PROVEEDORES = 'proveedores@tmicol.co';
+// Buzones confirmados por gerencia (ago 2026). No existe buzón de RRHH:
+// las hojas de vida llegan a gerencia.
+export const EMAIL_CONTACTO = 'gerencia@tmicol.co';
+export const EMAIL_EMPLEO = 'gerencia@tmicol.co';
+export const EMAIL_PROVEEDORES = 'compras@tmicol.co';
+export const EMAIL_DIRECTOR_TECNICO = 'director.tecnico@tmicol.co';
 
 // Teléfono y domicilio según estatutos (Art. 2).
 // TODO(PENDIENTES.md §1): confirmar horarios de atención.
