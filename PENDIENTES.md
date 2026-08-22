@@ -39,7 +39,7 @@ Lista de preguntas para la persona encargada del sitio en TMI SAS. Mientras un d
 
 - [ ] **Informes de rendición de cuentas**: ¿existen ya PDFs reales (gestión, financiero, sostenibilidad)? Si no, la sección queda en "próximamente" — ¿está bien o se oculta la sección hasta tenerlos?
 
-- [ ] **Segmentos de clientes a enumerar públicamente**: el enfoque del sitio se amplió a "clientes del sector salud de la Costa Caribe" y hoy se enumeran hospitales, clínicas, IPS, EPS, farmacias y droguerías. El objeto social también cubre **veterinarias y estéticas** — confirmar con gerencia si se atienden desde el lanzamiento para nombrarlas en el sitio.
+- [x] **Segmentos de clientes a enumerar públicamente**: confirmado por gerencia (ago 2026) — se atienden también **veterinarias y estéticas** (principalmente insumos: guantes, gorros, tapabocas, etc.). Ya enumeradas en el sitio junto a hospitales, clínicas, IPS, EPS, farmacias y droguerías.
 
 ## 6. Digital / técnico
 
