@@ -1,6 +1,6 @@
 ---
 import Icon from './Icon.astro';
-import ImgPlaceholder from './ImgPlaceholder.astro';
+import Foto from './Foto.astro';
 import type { Linea } from '../lib/site';
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
 const { linea, foto = true } = Astro.props;
 ---
 <a href={`/lineas/${linea.slug}`} class="linea-card reveal">
-  {foto && <ImgPlaceholder ratio="4x3" label={linea.titulo} />}
+  {foto && <Foto src={`/img/linea-${linea.slug}.webp`} ratio="4x3" alt={`${linea.titulo} (imagen ilustrativa)`} />}
   <div class="linea-body">
     <div class="linea-icon"><Icon name={linea.icon} size={26} /></div>
     <h3>{linea.titulo}</h3>

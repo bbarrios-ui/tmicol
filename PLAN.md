@@ -119,7 +119,7 @@ Reglas de honestidad para imágenes:
 - Ninguna imagen generada de una persona se asocia a un nombre propio ni a un cargo con nombre.
 - Sin logos ni marcas de terceros en ninguna imagen.
 
-Flujo técnico: generar en Higgsfield → descargar → optimizar (WebP, ≤200KB cards, ≤400KB hero) → guardar en `assets/img/` del repo.
+Flujo técnico: generar con la Image API de OpenRouter (`scripts/generar-imagenes.mjs`, modelo google/gemini-3-pro-image) → optimizar a WebP con sharp (≤200KB cards, ≤400KB hero) → guardar en `public/img/` del repo.
 
 ## 7. Plan técnico
 

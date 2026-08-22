@@ -1,7 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
-import ImgPlaceholder from '../components/ImgPlaceholder.astro';
 import Compromisos from '../components/Compromisos.astro';
 import LineaCard from '../components/LineaCard.astro';
 import CtaBand from '../components/CtaBand.astro';
@@ -11,8 +10,22 @@ import { LINEAS, WA_COTIZAR, WA_CONSULTA } from '../lib/site';
   title="TMI Colombia SAS | Tecnologías Médicas Integrales — Montería, Córdoba"
   description="Medicamentos, insumos médico-quirúrgicos, equipos biomédicos y laboratorio clínico para instituciones de salud de Córdoba y la región. Cotización en menos de 24 horas hábiles por WhatsApp."
 >
-  <!-- HERO -->
+  <!-- HERO con video de fondo (bucle lento de bodega; poster = foto original).
+       Con prefers-reduced-motion el video se oculta y queda el degradado navy. -->
   <section class="hero">
+    <video
+      class="hero-bg"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="metadata"
+      poster="/img/hero-bodega.webp"
+      aria-hidden="true"
+    >
+      <source src="/video/hero-bodega.mp4" type="video/mp4" />
+    </video>
+    <div class="hero-veil" aria-hidden="true"></div>
     <div class="container hero-grid">
       <div>
         <span class="eyebrow eyebrow--light">Integridad · Calidad · Innovación · Compromiso</span>
@@ -31,9 +44,6 @@ import { LINEAS, WA_COTIZAR, WA_CONSULTA } from '../lib/site';
           </a>
           <a class="btn btn-outline" href="/lineas">Ver líneas de venta</a>
         </div>
-      </div>
-      <div class="hero-media reveal">
-        <ImgPlaceholder ratio="16x9" rounded label="Bodega de distribución farmacéutica" />
       </div>
     </div>
   </section>
@@ -112,12 +122,28 @@ import { LINEAS, WA_COTIZAR, WA_CONSULTA } from '../lib/site';
     overflow: hidden;
     padding: calc(var(--header-h) + 60px) 0 70px;
   }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+  /* Velo navy sobre el video para que el texto siempre sea legible. */
+  .hero-veil {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(100deg, rgba(11, 37, 69, .94) 0%, rgba(11, 37, 69, .80) 45%, rgba(11, 37, 69, .45) 100%);
+  }
   .hero::before {
     content: "";
     position: absolute;
     width: 600px; height: 600px; border-radius: 50%;
     background: radial-gradient(circle, rgba(41, 182, 246, .25), transparent 70%);
     top: -200px; right: -150px;
+    z-index: 1;
   }
   .hero::after {
     content: "";
@@ -125,15 +151,19 @@ import { LINEAS, WA_COTIZAR, WA_CONSULTA } from '../lib/site';
     width: 500px; height: 500px; border-radius: 50%;
     background: radial-gradient(circle, rgba(30, 111, 184, .25), transparent 70%);
     bottom: -220px; left: -120px;
+    z-index: 1;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-bg { display: none; }
   }
   .hero-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 44px;
     align-items: center;
     position: relative;
     z-index: 2;
   }
+  .hero-grid > div { max-width: 680px; }
   .hero h1 { font-size: 2rem; line-height: 1.2; color: #fff; margin-bottom: 20px; }
   .hero h1 span {
     background: linear-gradient(135deg, var(--accent-2), var(--accent));
@@ -148,7 +178,6 @@ import { LINEAS, WA_COTIZAR, WA_CONSULTA } from '../lib/site';
     .hero h1 { font-size: 2.6rem; }
   }
   @media (min-width: 1020px) {
-    .hero-grid { grid-template-columns: 1.05fr .95fr; gap: 50px; }
     .hero h1 { font-size: 2.8rem; }
   }
 </style>
