@@ -15,6 +15,7 @@ export const prerender = false;
 import type { APIRoute } from 'astro';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { createHmac, randomInt, timingSafeEqual } from 'node:crypto';
 import ExcelJS from 'exceljs';
 import { FORMULARIOS } from '../../lib/vinculacion';
 
@@ -111,9 +112,33 @@ function correoCotizacion(data: SolicitudCotizacion): Envio {
   };
 }
 
+// ---------- OTP: firma electrónica simple por código al correo ----------
+// Sin base de datos: el servidor entrega un token HMAC(correo|código|ts) que el
+// cliente devuelve junto con el código digitado; se verifica y expira a los
+// 10 minutos. El secreto deriva de OTP_SECRET o, en su defecto, de la API key.
+
+const OTP_VIGENCIA_MS = 10 * 60 * 1000;
+
+const otpSecret = (apiKey: string) =>
+  import.meta.env.OTP_SECRET ?? process.env.OTP_SECRET ?? `otp:${apiKey}`;
+
+const otpToken = (secret: string, correo: string, codigo: string, ts: number) =>
+  createHmac('sha256', secret).update(`${correo.toLowerCase()}|${codigo}|${ts}`).digest('hex');
+
+function otpValido(secret: string, correo: string, codigo: string, ts: number, token: string): boolean {
+  if (!codigo || !token || !ts) return false;
+  if (Date.now() - ts > OTP_VIGENCIA_MS) return false;
+  const esperado = otpToken(secret, correo, codigo, ts);
+  try {
+    return timingSafeEqual(Buffer.from(esperado), Buffer.from(token));
+  } catch {
+    return false;
+  }
+}
+
 // ---------- vinculación (plantilla de Excel adjunta) ----------
 
-async function generarFormato(tipo: string, campos: Record<string, string>) {
+async function generarFormato(tipo: string, campos: Record<string, string>, notaFirma?: string) {
   const form = FORMULARIOS[tipo];
   const wb = new ExcelJS.Workbook();
   await wb.xlsx.load(readFileSync(join(process.cwd(), form.plantilla)).buffer as ArrayBuffer);
@@ -141,6 +166,11 @@ async function generarFormato(tipo: string, campos: Record<string, string>) {
     }
   }
   ws.getCell(form.celdaFecha).value = new Date();
+  if (notaFirma && form.celdaFirmaNota) {
+    const celda = ws.getCell(form.celdaFirmaNota);
+    celda.value = notaFirma;
+    celda.font = { italic: true, size: 9, color: { argb: 'FF5B6B7E' } };
+  }
 
   const buffer = await wb.xlsx.writeBuffer();
   return Buffer.from(buffer);
@@ -162,7 +192,12 @@ function validarVinculacion(tipo: string, campos: Record<string, string>): strin
 // ---------- handler ----------
 
 export const POST: APIRoute = async ({ request }) => {
-  let data: { tipo?: string; campos?: Record<string, string> } & SolicitudCotizacion;
+  let data: {
+    tipo?: string;
+    accion?: string;
+    campos?: Record<string, string>;
+    otp?: { codigo?: string; token?: string; ts?: number };
+  } & SolicitudCotizacion;
   try {
     data = await request.json();
   } catch {
@@ -181,6 +216,32 @@ export const POST: APIRoute = async ({ request }) => {
     return json(503, { ok: false, error: 'Servicio de envío no disponible' });
   }
 
+  // --- envío del código OTP (paso previo a finalizar una vinculación) ---
+  if (data.accion === 'otp') {
+    const correo = data.correo?.trim() ?? '';
+    if (!correo.includes('@')) return json(400, { ok: false, error: 'Correo inválido' });
+    const codigo = String(randomInt(100000, 1000000));
+    const ts = Date.now();
+    const token = otpToken(otpSecret(apiKey), correo, codigo, ts);
+    const r = await enviarCorreo(apiKey, {
+      to: correo,
+      subject: `Tu código de verificación TMI: ${codigo}`,
+      html: `
+        <div style="font-family:Arial,sans-serif;max-width:480px;">
+          <h2 style="color:#0B2545;">Código de verificación</h2>
+          <p style="color:#1f2937;">Para finalizar tu solicitud de vinculación con TMI, ingresa este código en el asistente:</p>
+          <p style="font-size:32px;letter-spacing:8px;font-weight:bold;color:#1E6FB8;">${codigo}</p>
+          <p style="color:#5b6b7e;font-size:13px;">El código vence en 10 minutos. Si no solicitaste esta vinculación, ignora este correo.</p>
+        </div>`,
+    });
+    if (!r.ok && !import.meta.env.DEV) {
+      console.error('Resend error (otp)', r.status, await r.text());
+      return json(502, { ok: false, error: 'No se pudo enviar el código' });
+    }
+    // En desarrollo el código se expone para poder probar sin correo real.
+    return json(200, { ok: true, token, ts, ...(import.meta.env.DEV ? { devCodigo: codigo } : {}) });
+  }
+
   let envio: Envio;
 
   if (tipo === 'cotizacion') {
@@ -197,9 +258,20 @@ export const POST: APIRoute = async ({ request }) => {
     if (faltante) return json(400, { ok: false, error: faltante });
 
     const form = FORMULARIOS[tipo];
+
+    // Firma electrónica simple: el código OTP enviado al correo del solicitante
+    // debe coincidir con el token HMAC emitido por este servidor.
+    const correoOtp = campos[form.campoCopia] ?? '';
+    const otp = data.otp ?? {};
+    if (!otpValido(otpSecret(apiKey), correoOtp, otp.codigo ?? '', otp.ts ?? 0, otp.token ?? '')) {
+      return json(400, { ok: false, error: 'Código de verificación incorrecto o vencido' });
+    }
+    const fechaFirma = fechaBogota();
+    const notaFirma = `Firmado electrónicamente mediante código de verificación (OTP) enviado y validado en ${correoOtp} — ${fechaFirma} (Ley 527 de 1999)`;
+
     let adjunto: Buffer;
     try {
-      adjunto = await generarFormato(tipo, campos);
+      adjunto = await generarFormato(tipo, campos, notaFirma);
     } catch (err) {
       console.error('Error generando formato', err);
       return json(500, { ok: false, error: 'No se pudo generar el formato' });
@@ -228,8 +300,9 @@ export const POST: APIRoute = async ({ request }) => {
             sus datos.
           </p>
           <p style="color:#5b6b7e;font-size:14px;">
-            Copia enviada al solicitante${copia ? ` (${esc(copia)})` : ''} para que firme el
-            formato y lo devuelva junto con los documentos anexos.
+            El formato quedó <strong>firmado electrónicamente</strong>: el solicitante validó un
+            código de verificación (OTP) enviado a su correo${copia ? ` (${esc(copia)})` : ''}.
+            Copia enviada al solicitante; quedan pendientes los documentos anexos.
           </p>
           ${constancia(fecha)}
         </div>`,

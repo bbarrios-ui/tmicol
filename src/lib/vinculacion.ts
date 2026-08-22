@@ -63,6 +63,8 @@ export interface FormularioVinculacion {
   campoCopia: string;
   /** Celda donde el servidor escribe la fecha de diligenciamiento. */
   celdaFecha: string;
+  /** Celda (caja de firma) donde se anota la constancia de firma electrónica OTP. */
+  celdaFirmaNota?: string;
   pasos: Paso[];
 }
 
@@ -76,6 +78,7 @@ export const FORMULARIOS: Record<string, FormularioVinculacion> = {
     campoNombre: 'razonSocial',
     campoCopia: 'contactoCorreo',
     celdaFecha: 'L49',
+    celdaFirmaNota: 'G50',
     pasos: [
       {
         titulo: 'Identificación',
@@ -174,6 +177,7 @@ export const FORMULARIOS: Record<string, FormularioVinculacion> = {
     campoNombre: 'razonSocial',
     campoCopia: 'correo',
     celdaFecha: 'J66',
+    celdaFirmaNota: 'B68',
     pasos: [
       {
         titulo: 'Identificación',

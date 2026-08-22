@@ -17,7 +17,7 @@ const form = FORMULARIOS[tipo];
 // Pasos visibles en el indicador (los condicionales se muestran u ocultan en vivo).
 const pasos = form.pasos;
 ---
-<div class="wizard" id="wizard" data-tipo={tipo} data-pasos={pasos.length}>
+<div class="wizard" id="wizard" data-tipo={tipo} data-pasos={pasos.length} data-copia={form.campoCopia}>
   <!-- Indicador de progreso -->
   <div class="wiz-progress" aria-hidden="true">
     <div class="wiz-bar"><span id="wizBarFill"></span></div>
@@ -73,6 +73,22 @@ const pasos = form.pasos;
       </fieldset>
     ))}
 
+    <!-- Firma electrónica: código de verificación al correo del solicitante -->
+    <div class="wiz-otp" id="wizOtp" hidden>
+      <strong>Firma electrónica</strong>
+      <p id="wizOtpIntro">
+        Para finalizar, valida tu identidad: te enviaremos un código de 6 dígitos al correo que
+        registraste. Al ingresarlo, el formato queda firmado electrónicamente (Ley 527 de 1999).
+      </p>
+      <div class="wiz-otp-fila">
+        <button type="button" class="btn btn-navy" id="wizOtpEnviar">Enviar código a mi correo</button>
+        <div class="field wiz-otp-campo" id="wizOtpCampo" hidden>
+          <label for="wizOtpCodigo">Código recibido</label>
+          <input type="text" id="wizOtpCodigo" inputmode="numeric" maxlength="6" placeholder="000000" autocomplete="one-time-code" />
+        </div>
+      </div>
+    </div>
+
     <p class="wiz-error" id="wizError" hidden></p>
 
     <div class="wiz-nav">
@@ -91,9 +107,10 @@ const pasos = form.pasos;
     <div class="ok-icon"><Icon name="check" size={28} /></div>
     <h3>¡Solicitud de vinculación enviada!</h3>
     <p>
-      Generamos el formato oficial <strong>{form.codigo}</strong> con tus datos y lo enviamos a
-      nuestro equipo, con copia a tu correo. Revisa tu bandeja: te llegará el archivo para que lo
-      <strong>firmes</strong> y lo devuelvas junto con los documentos anexos.
+      Generamos el formato oficial <strong>{form.codigo}</strong> con tus datos,
+      <strong>firmado electrónicamente</strong> con el código que validaste, y lo enviamos a
+      nuestro equipo con copia a tu correo. Solo falta que envíes los
+      <strong>documentos anexos</strong> respondiendo ese mismo correo.
     </p>
     <p class="wiz-ok-nota">Nuestro equipo te contactará para completar el proceso.</p>
   </div>
@@ -121,6 +138,20 @@ const pasos = form.pasos;
   .wiz-nav { display: flex; gap: 14px; margin-top: 26px; }
   .wiz-nav .btn { flex: 1; }
   .wiz-nav [hidden] { display: none; }
+
+  .wiz-otp {
+    margin-top: 24px;
+    background: #eef6fd;
+    border: 1px solid #cfe6f8;
+    border-radius: 12px;
+    padding: 18px 20px;
+  }
+  .wiz-otp[hidden] { display: none; }
+  .wiz-otp strong { color: var(--navy); display: block; margin-bottom: 4px; }
+  .wiz-otp p { color: var(--grey); font-size: .86rem; margin-bottom: 14px; }
+  .wiz-otp-fila { display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-end; }
+  .wiz-otp-campo[hidden] { display: none; }
+  .wiz-otp-campo input { letter-spacing: 6px; font-weight: 700; width: 160px; }
 
   .wiz-error { margin-top: 16px; background: #fdeae6; color: #a03325; border-radius: 10px; padding: 12px 16px; font-size: .88rem; }
   .wiz-ok { text-align: center; padding: 40px 24px; display: grid; justify-items: center; gap: 10px; }
@@ -201,9 +232,52 @@ const pasos = form.pasos;
     const ultimo = actual === vis.length - 1;
     btnSig.hidden = ultimo;
     btnEnviar.hidden = !ultimo;
+    document.getElementById('wizOtp')!.hidden = !ultimo;
     errorEl.hidden = true;
     wizard.scrollIntoView({ block: 'start', behavior: 'smooth' });
   };
+
+  // --- firma electrónica: código OTP al correo del solicitante ---
+  const otpEstado: { token?: string; ts?: number } = {};
+  const btnOtp = document.getElementById('wizOtpEnviar') as HTMLButtonElement;
+  const otpCampo = document.getElementById('wizOtpCampo')!;
+  const otpCodigo = document.getElementById('wizOtpCodigo') as HTMLInputElement;
+  const correoSolicitante = () =>
+    (formEl.elements.namedItem(wizard.dataset.copia!) as HTMLInputElement | null)?.value.trim() ?? '';
+
+  btnOtp.addEventListener('click', async () => {
+    const correo = correoSolicitante();
+    if (!correo.includes('@')) {
+      errorEl.textContent = 'Registra un correo válido en el paso de identificación antes de solicitar el código.';
+      errorEl.hidden = false;
+      return;
+    }
+    btnOtp.disabled = true;
+    btnOtp.textContent = 'Enviando…';
+    errorEl.hidden = true;
+    try {
+      const r = await fetch('/api/solicitud', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ tipo, accion: 'otp', correo }),
+      });
+      if (!r.ok) throw new Error(String(r.status));
+      const res = await r.json();
+      otpEstado.token = res.token;
+      otpEstado.ts = res.ts;
+      otpCampo.hidden = false;
+      btnOtp.textContent = 'Reenviar código';
+      document.getElementById('wizOtpIntro')!.textContent =
+        `Enviamos un código de 6 dígitos a ${correo}. Revisa tu bandeja (y el spam) e ingrésalo aquí; vence en 10 minutos.`;
+      otpCodigo.focus();
+    } catch {
+      errorEl.textContent = 'No pudimos enviar el código. Verifica el correo registrado e inténtalo de nuevo.';
+      errorEl.hidden = false;
+      btnOtp.textContent = 'Enviar código a mi correo';
+    } finally {
+      btnOtp.disabled = false;
+    }
+  });
 
   const validarPaso = () => {
     const paso = visibles()[actual];
@@ -237,6 +311,13 @@ const pasos = form.pasos;
   formEl.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (!validarPaso()) return;
+    if (!otpEstado.token || otpCodigo.value.trim().length !== 6) {
+      errorEl.textContent = otpEstado.token
+        ? 'Ingresa el código de 6 dígitos que enviamos a tu correo.'
+        : 'Antes de finalizar, solicita el código de verificación con el botón "Enviar código a mi correo".';
+      errorEl.hidden = false;
+      return;
+    }
     btnEnviar.disabled = true;
     btnEnviar.textContent = 'Enviando…';
     errorEl.hidden = true;
@@ -244,17 +325,27 @@ const pasos = form.pasos;
       const r = await fetch('/api/solicitud', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ tipo, campos: valores() }),
+        body: JSON.stringify({
+          tipo,
+          campos: valores(),
+          otp: { codigo: otpCodigo.value.trim(), token: otpEstado.token, ts: otpEstado.ts },
+        }),
       });
-      if (!r.ok) throw new Error(String(r.status));
+      if (!r.ok) {
+        let msg = '';
+        try { msg = (await r.json()).error ?? ''; } catch {}
+        throw new Error(msg);
+      }
       localStorage.removeItem(LS_KEY);
       formEl.hidden = true;
       document.querySelector('.wiz-progress')?.setAttribute('hidden', '');
       document.getElementById('wizOk')!.hidden = false;
       wizard.scrollIntoView({ block: 'start', behavior: 'smooth' });
-    } catch {
-      errorEl.textContent =
-        'No pudimos enviar tu solicitud en este momento. Inténtalo de nuevo en unos minutos, o descarga el formato oficial (enlace bajo el botón) y envíalo por correo.';
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : '';
+      errorEl.textContent = msg.includes('Código')
+        ? 'El código es incorrecto o ya venció. Revísalo o solicita uno nuevo con "Reenviar código".'
+        : 'No pudimos enviar tu solicitud en este momento. Inténtalo de nuevo en unos minutos, o descarga el formato oficial (enlace bajo el botón) y envíalo por correo.';
       errorEl.hidden = false;
       btnEnviar.disabled = false;
       btnEnviar.textContent = 'Enviar solicitud de vinculación';
