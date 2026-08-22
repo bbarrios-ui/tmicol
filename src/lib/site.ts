@@ -35,9 +35,12 @@ export const REDES = [
 // Teléfono según estatutos (Art. 2). La dirección exacta de la sede legal NO
 // se publica por privacidad hasta que exista bodega/sede comercial
 // (PENDIENTES.md §1); solo se muestra la ciudad.
-// TODO(PENDIENTES.md §1): confirmar horarios de atención.
 export const TELEFONO_DISPLAY = '+57 301 380 4160';
 export const CIUDAD = 'Montería, Córdoba — Colombia';
+
+// Horario confirmado por gerencia (ago 2026).
+export const HORARIO_SEMANA = 'Lun a vie: 8:00 a. m. – 12:00 m. y 2:00 – 5:30 p. m.';
+export const HORARIO_SABADO = 'Sábados: hasta el mediodía';
 
 export const NAV = [
   { href: '/', label: 'Inicio' },

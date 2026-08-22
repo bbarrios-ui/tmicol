@@ -7,7 +7,7 @@ Lista de preguntas para la persona encargada del sitio en TMI SAS. Mientras un d
 - [x] **Número de WhatsApp comercial**: +57 301 293 6547 (confirmado por gerencia, ago 2026 — "para todo" por ahora). Ya está en el sitio. *Queda abierto: ¿quién lo responde y en qué horario?*
 - [x] **Teléfono de contacto general**: 301 380 4160 (estatutos, Art. 2). Ya está en el sitio.
 - [x] **Dirección física**: Cra. 35 N° 44-16, Montería (estatutos, Art. 2 — es la sede legal). **Por privacidad NO se publica en el sitio** (solo "Montería, Córdoba") hasta que exista bodega/sede comercial; en ese momento, publicar la dirección y decidir si se agrega mapa de Google en /contacto.
-- [ ] **Horarios de atención**.
+- [x] **Horarios de atención**: lunes a viernes 8:00 a. m. – 12:00 m. y 2:00 – 5:30 p. m.; sábados hasta el mediodía (confirmado por gerencia, ago 2026). Ya en footer y /contacto.
 - [x] **Correos** (confirmados ago 2026): `gerencia@tmicol.co` (contacto general y hojas de vida), `compras@tmicol.co` (proveedores), `director.tecnico@tmicol.co` (consulta especializada). No hay buzón de RRHH ni `contacto@`.
 
 ## 2. Legal y regulatorio (bloquea el lanzamiento)
@@ -20,7 +20,7 @@ Lista de preguntas para la persona encargada del sitio en TMI SAS. Mientras un d
 
 ## 3. Identidad y contenido
 
-- [ ] **Misión y visión**: los textos actuales del sitio ¿son los oficiales aprobados por gerencia, o son borrador? ¿Alguien debe validarlos?
+- [x] **Misión y visión**: validados contra las tarjetas oficiales de marca entregadas por gerencia (ago 2026) — los textos del sitio son idénticos a los oficiales.
 - [ ] **Valores**: hoy son Integridad, Calidad, Innovación, Compromiso. ¿Confirmados?
 - [ ] **Historia mínima honesta**: año de constitución, por qué nace la empresa, quiénes la fundan (¿se quiere contar o no?).
 - [ ] **Cobertura real**: ¿a qué municipios/departamentos se entrega hoy de verdad? ("Córdoba y la región" — definir qué es "la región".)
