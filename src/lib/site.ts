@@ -32,11 +32,12 @@ export const REDES = [
   { nombre: 'Instagram', icon: 'instagram', url: 'https://www.instagram.com/tmi.col' },
 ];
 
-// Teléfono y domicilio según estatutos (Art. 2).
+// Teléfono según estatutos (Art. 2). La dirección exacta de la sede legal NO
+// se publica por privacidad hasta que exista bodega/sede comercial
+// (PENDIENTES.md §1); solo se muestra la ciudad.
 // TODO(PENDIENTES.md §1): confirmar horarios de atención.
 export const TELEFONO_DISPLAY = '+57 301 380 4160';
 export const CIUDAD = 'Montería, Córdoba — Colombia';
-export const DIRECCION = 'Cra. 35 N° 44-16';
 
 export const NAV = [
   { href: '/', label: 'Inicio' },
@@ -106,7 +107,7 @@ export const COMPROMISOS = [
   },
   {
     icon: 'map-pin',
-    titulo: 'Cobertura Córdoba y la región',
-    texto: 'Cercanía física: entregas y soporte más rápidos para tu institución.',
+    titulo: 'Cobertura Costa Caribe',
+    texto: 'Desde Montería: entregas y soporte cercanos para tu operación.',
   },
 ];

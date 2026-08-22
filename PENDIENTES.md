@@ -6,7 +6,7 @@ Lista de preguntas para la persona encargada del sitio en TMI SAS. Mientras un d
 
 - [x] **Número de WhatsApp comercial**: +57 301 293 6547 (confirmado por gerencia, ago 2026 — "para todo" por ahora). Ya está en el sitio. *Queda abierto: ¿quién lo responde y en qué horario?*
 - [x] **Teléfono de contacto general**: 301 380 4160 (estatutos, Art. 2). Ya está en el sitio.
-- [x] **Dirección física**: Cra. 35 N° 44-16, Montería, Córdoba (estatutos, Art. 2). Ya está en el sitio. *Pendiente decidir: ¿se agrega mapa de Google en /contacto?*
+- [x] **Dirección física**: Cra. 35 N° 44-16, Montería (estatutos, Art. 2 — es la sede legal). **Por privacidad NO se publica en el sitio** (solo "Montería, Córdoba") hasta que exista bodega/sede comercial; en ese momento, publicar la dirección y decidir si se agrega mapa de Google en /contacto.
 - [ ] **Horarios de atención**.
 - [x] **Correos** (confirmados ago 2026): `gerencia@tmicol.co` (contacto general y hojas de vida), `compras@tmicol.co` (proveedores), `director.tecnico@tmicol.co` (consulta especializada). No hay buzón de RRHH ni `contacto@`.
 
@@ -38,6 +38,8 @@ Lista de preguntas para la persona encargada del sitio en TMI SAS. Mientras un d
 ## 5. Transparencia
 
 - [ ] **Informes de rendición de cuentas**: ¿existen ya PDFs reales (gestión, financiero, sostenibilidad)? Si no, la sección queda en "próximamente" — ¿está bien o se oculta la sección hasta tenerlos?
+
+- [ ] **Segmentos de clientes a enumerar públicamente**: el enfoque del sitio se amplió a "clientes del sector salud de la Costa Caribe" y hoy se enumeran hospitales, clínicas, IPS, EPS, farmacias y droguerías. El objeto social también cubre **veterinarias y estéticas** — confirmar con gerencia si se atienden desde el lanzamiento para nombrarlas en el sitio.
 
 ## 6. Digital / técnico
 

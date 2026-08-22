@@ -8,12 +8,11 @@ import {
   TELEFONO_DISPLAY,
   WHATSAPP_DISPLAY,
   CIUDAD,
-  DIRECCION,
 } from '../lib/site';
 ---
 <Base
   title="Contacto | TMI Colombia SAS"
-  description="Contáctanos: WhatsApp comercial, correo y teléfono de TMI Colombia SAS en Montería, Córdoba. Cotizaciones y consultas para instituciones de salud."
+  description="Contáctanos: WhatsApp comercial, correo y teléfono de TMI Colombia SAS en Montería, Córdoba. Cotizaciones y consultas para clientes del sector salud."
 >
   <PageHero
     eyebrow="Hablemos"
@@ -45,8 +44,8 @@ import {
         <div class="contact-card reveal">
           <div class="cc-icon"><Icon name="map-pin" size={24} /></div>
           <strong>Ubicación</strong>
-          <!-- TODO(PENDIENTES.md §1): decidir si se agrega mapa de Google. -->
-          <span>{DIRECCION}</span>
+          <!-- Dirección exacta oculta por privacidad hasta tener bodega/sede
+               comercial (PENDIENTES.md §1); ahí se decidirá también el mapa. -->
           <span>{CIUDAD}</span>
         </div>
       </div>

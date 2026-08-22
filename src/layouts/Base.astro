@@ -9,7 +9,6 @@ import {
   EMAIL_CONTACTO,
   TELEFONO_DISPLAY,
   CIUDAD,
-  DIRECCION,
   RAZON_SOCIAL,
   NIT,
   REDES,
@@ -88,8 +87,8 @@ const isActive = (href: string) =>
             <div class="footer-logo"><Logo variant="dark" height={40} /></div>
             <p>
               {RAZON_SOCIAL}. Comercialización de medicamentos, dispositivos médicos, equipos
-              biomédicos y material médico-quirúrgico para las instituciones de salud de Córdoba
-              y la región.
+              biomédicos y material médico-quirúrgico para los clientes del sector salud de la
+              Costa Caribe.
             </p>
             <div class="footer-social">
               {REDES.map((red) => (
@@ -118,7 +117,7 @@ const isActive = (href: string) =>
           <div class="footer-col">
             <h4>Contacto</h4>
             <!-- TODO(PENDIENTES.md §1): confirmar horarios de atención. -->
-            <div class="footer-contact-item"><Icon name="map-pin" size={16} /> {DIRECCION}, {CIUDAD}</div>
+            <div class="footer-contact-item"><Icon name="map-pin" size={16} /> {CIUDAD}</div>
             <div class="footer-contact-item"><Icon name="phone" size={16} /> {TELEFONO_DISPLAY}</div>
             <div class="footer-contact-item"><Icon name="mail" size={16} /> {EMAIL_CONTACTO}</div>
             <a href="/contacto">Ver página de contacto</a>
