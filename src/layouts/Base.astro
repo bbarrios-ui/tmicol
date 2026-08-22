@@ -12,6 +12,7 @@ import {
   DIRECCION,
   RAZON_SOCIAL,
   NIT,
+  REDES,
 } from '../lib/site';
 
 interface Props {
@@ -90,7 +91,13 @@ const isActive = (href: string) =>
               biomédicos y material médico-quirúrgico para las instituciones de salud de Córdoba
               y la región.
             </p>
-            <!-- TODO(PENDIENTES.md §6): agregar redes sociales cuando existan las cuentas reales. -->
+            <div class="footer-social">
+              {REDES.map((red) => (
+                <a href={red.url} target="_blank" rel="noopener" aria-label={`TMI en ${red.nombre}`}>
+                  <Icon name={red.icon} size={18} />
+                </a>
+              ))}
+            </div>
           </div>
           <div class="footer-col">
             <h4>Navegación</h4>

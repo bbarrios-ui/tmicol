@@ -44,7 +44,7 @@ Lista de preguntas para la persona encargada del sitio en TMI SAS. Mientras un d
 - [ ] **Resend (envío de formularios por correo)**: crear cuenta gratis en resend.com, generar API key y (1) agregarla al `.env` local como `RESEND_API_KEY=...`, (2) agregarla en Vercel → Settings → Environment Variables. Mientras no esté, el formulario muestra el respaldo por WhatsApp. Cuando el dominio tmicol.co esté verificado en Resend, configurar `RESEND_FROM="TMI <cotizaciones@tmicol.co>"`.
 
 - [ ] **Dominio**: ¿ya se compró tmicol.co (u otro)? ¿Quién tiene acceso al registrador para apuntarlo a Vercel?
-- [ ] **Redes sociales**: ¿qué redes existen realmente (Instagram, Facebook, LinkedIn)? URLs exactas. Las que no existan se quitan del footer.
+- [x] **Redes sociales**: LinkedIn (linkedin.com/in/tmicolsas2026) e Instagram (@tmi.col), confirmadas por gerencia ago 2026. Ya están en el footer. *Nota: el LinkedIn es un perfil personal (/in/); considerar migrar a página de empresa (/company/) más adelante.*
 - [ ] **Google Business Profile**: ¿se quiere crear para aparecer en Maps?
 - [ ] **Correo de recepción de hojas de vida y de propuestas de proveedores**: ¿mismo buzón o separados? ¿Quién los revisa?
 - [ ] **Analítica**: ¿quieren medir visitas (Google Analytics / Vercel Analytics)? Si sí, hay que mencionarlo en la política de datos.

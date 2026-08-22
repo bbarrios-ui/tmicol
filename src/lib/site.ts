@@ -26,6 +26,12 @@ export const EMAIL_EMPLEO = 'gerencia@tmicol.co';
 export const EMAIL_PROVEEDORES = 'compras@tmicol.co';
 export const EMAIL_DIRECTOR_TECNICO = 'director.tecnico@tmicol.co';
 
+// Redes sociales oficiales (confirmadas por gerencia, ago 2026).
+export const REDES = [
+  { nombre: 'LinkedIn', icon: 'linkedin', url: 'https://www.linkedin.com/in/tmicolsas2026/' },
+  { nombre: 'Instagram', icon: 'instagram', url: 'https://www.instagram.com/tmi.col' },
+];
+
 // Teléfono y domicilio según estatutos (Art. 2).
 // TODO(PENDIENTES.md §1): confirmar horarios de atención.
 export const TELEFONO_DISPLAY = '+57 301 380 4160';
