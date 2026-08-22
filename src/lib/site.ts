@@ -40,7 +40,7 @@ export const CIUDAD = 'Montería, Córdoba — Colombia';
 
 // Horario confirmado por gerencia (ago 2026).
 export const HORARIO_SEMANA = 'Lun a vie: 8:00 a. m. – 12:00 m. y 2:00 – 5:30 p. m.';
-export const HORARIO_SABADO = 'Sábados: hasta el mediodía';
+export const HORARIO_SABADO = 'Sáb: 8:00 a. m. – 12:00 m.';
 
 export const NAV = [
   { href: '/', label: 'Inicio' },
