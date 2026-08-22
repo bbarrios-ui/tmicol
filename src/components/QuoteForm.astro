@@ -1,8 +1,10 @@
 ---
-// Formulario de cotización → arma el mensaje y abre WhatsApp (migrado de la v0).
-// La casilla de autorización de datos implementa el Anexo 2 de la política
-// AS-PO-01 (obligatoria antes de enviar).
+// Formulario de cotización → POST a /api/solicitud (correo vía Resend) con
+// confirmación en pantalla; WhatsApp queda como acelerador opcional tras el
+// envío y como respaldo si el envío falla.
+// La casilla de autorización implementa el Anexo 2 de la política AS-PO-01.
 import { WHATSAPP, RAZON_SOCIAL, EMAIL_CONTACTO } from '../lib/site';
+import Icon from './Icon.astro';
 ---
 <form class="quote" id="quoteForm" data-wsp={WHATSAPP}>
   <div class="field">
@@ -16,6 +18,10 @@ import { WHATSAPP, RAZON_SOCIAL, EMAIL_CONTACTO } from '../lib/site';
   <div class="field">
     <label for="q_telefono">Teléfono / WhatsApp</label>
     <input required type="tel" id="q_telefono" name="telefono" autocomplete="tel" placeholder="Ej: 300 000 0000" />
+  </div>
+  <div class="field">
+    <label for="q_correo">Correo <span class="opcional">(opcional)</span></label>
+    <input type="email" id="q_correo" name="correo" autocomplete="email" placeholder="Ej: compras@tuinstitucion.co" />
   </div>
   <div class="field">
     <label for="q_linea">Línea de interés</label>
@@ -32,6 +38,11 @@ import { WHATSAPP, RAZON_SOCIAL, EMAIL_CONTACTO } from '../lib/site';
     <label for="q_mensaje">Detalle de tu solicitud</label>
     <textarea id="q_mensaje" name="mensaje" placeholder="Cuéntanos qué producto o cantidad necesitas cotizar..."></textarea>
   </div>
+  <!-- Honeypot anti-spam: invisible para humanos -->
+  <div class="field hp" aria-hidden="true">
+    <label for="q_sitioweb">Sitio web</label>
+    <input type="text" id="q_sitioweb" name="sitioWeb" tabindex="-1" autocomplete="off" />
+  </div>
   <div class="field full">
     <label class="consent">
       <input required type="checkbox" id="q_autorizacion" name="autorizacion" />
@@ -46,13 +57,36 @@ import { WHATSAPP, RAZON_SOCIAL, EMAIL_CONTACTO } from '../lib/site';
     </label>
   </div>
   <div class="field full">
-    <button type="submit" class="btn btn-wsp" style="width:100%;">Enviar cotización por WhatsApp</button>
-    <p class="form-note">Al enviar, se abrirá WhatsApp con tu solicitud lista para enviar a nuestro equipo comercial.</p>
+    <button type="submit" class="btn btn-primary" id="q_enviar" style="width:100%;">Enviar solicitud</button>
+    <p class="form-note">Tu solicitud llega directamente a nuestro equipo comercial. Te respondemos en menos de 24 horas hábiles.</p>
+    <p class="form-error" id="q_error" hidden>
+      No pudimos enviar tu solicitud en este momento. Inténtalo de nuevo o escríbenos directo por
+      WhatsApp:
+      <a class="btn btn-wsp" id="q_wsp_error" style="margin-top:10px;" target="_blank" rel="noopener" href="#">Enviar por WhatsApp</a>
+    </p>
   </div>
 </form>
 
+<!-- Confirmación post-envío (reemplaza al formulario) -->
+<div class="quote-ok" id="quoteOk" hidden>
+  <div class="ok-icon"><Icon name="check" size={28} /></div>
+  <h3>¡Solicitud enviada!</h3>
+  <p>
+    Tu solicitud llegó a nuestro equipo comercial. Te responderemos en menos de
+    <strong>24 horas hábiles</strong> al teléfono que nos dejaste.
+  </p>
+  <p class="ok-prisa">¿Tienes prisa? Continúa la conversación ahora mismo:</p>
+  <a class="btn btn-wsp" target="_blank" rel="noopener" id="q_wsp_ok" href="#">
+    <Icon name="whatsapp" size={18} /> Continuar por WhatsApp
+  </a>
+</div>
+
 <style>
   form.quote { display: grid; grid-template-columns: 1fr; gap: 18px; }
+  /* `hidden` no vence a display:grid por sí solo; forzarlo. */
+  form.quote[hidden], .quote-ok[hidden] { display: none; }
+  .opcional { color: var(--grey); font-weight: 400; font-size: .82rem; }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
   .consent { display: flex; gap: 12px; align-items: flex-start; cursor: pointer; }
   .consent input {
     margin-top: 3px;
@@ -62,6 +96,30 @@ import { WHATSAPP, RAZON_SOCIAL, EMAIL_CONTACTO } from '../lib/site';
   }
   .consent span { font-size: .82rem; color: var(--grey); line-height: 1.55; }
   .consent a { color: var(--blue); font-weight: 600; text-decoration: underline; }
+  .form-error {
+    margin-top: 12px;
+    background: #fdeae6;
+    color: #a03325;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: .88rem;
+  }
+  .quote-ok {
+    text-align: center;
+    padding: 40px 24px;
+    display: grid;
+    justify-items: center;
+    gap: 10px;
+  }
+  .quote-ok h3 { font-size: 1.4rem; }
+  .quote-ok p { color: var(--grey); max-width: 420px; }
+  .ok-icon {
+    width: 64px; height: 64px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, var(--accent), var(--blue));
+    color: #fff;
+  }
+  .ok-prisa { margin-top: 10px; font-weight: 600; color: var(--navy) !important; }
   @media (min-width: 760px) {
     form.quote { grid-template-columns: 1fr 1fr; }
     form.quote .full { grid-column: 1 / -1; }
@@ -70,23 +128,50 @@ import { WHATSAPP, RAZON_SOCIAL, EMAIL_CONTACTO } from '../lib/site';
 
 <script>
   const form = document.getElementById('quoteForm') as HTMLFormElement | null;
-  form?.addEventListener('submit', (e) => {
+  form?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const val = (id: string) => (document.getElementById(id) as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement).value.trim();
-    const nombre = val('q_nombre');
-    const empresa = val('q_empresa');
-    const telefono = val('q_telefono');
-    const linea = val('q_linea');
-    const mensaje = val('q_mensaje');
+    const data = {
+      tipo: 'cotizacion',
+      nombre: val('q_nombre'),
+      empresa: val('q_empresa'),
+      telefono: val('q_telefono'),
+      correo: val('q_correo'),
+      linea: val('q_linea'),
+      mensaje: val('q_mensaje'),
+      autorizacion: (document.getElementById('q_autorizacion') as HTMLInputElement).checked,
+      sitioWeb: val('q_sitioweb'),
+    };
 
-    let texto = 'Hola TMI, quiero solicitar una cotización:\n';
-    texto += `Nombre: ${nombre}\n`;
-    if (empresa) texto += `Empresa/Institución: ${empresa}\n`;
-    texto += `Teléfono: ${telefono}\n`;
-    texto += `Línea de interés: ${linea}\n`;
-    if (mensaje) texto += `Detalle: ${mensaje}`;
+    const boton = document.getElementById('q_enviar') as HTMLButtonElement;
+    const error = document.getElementById('q_error') as HTMLParagraphElement;
+    boton.disabled = true;
+    boton.textContent = 'Enviando…';
+    error.hidden = true;
 
-    const numero = form.dataset.wsp;
-    window.open(`https://wa.me/${numero}?text=${encodeURIComponent(texto)}`, '_blank');
+    // Mensaje de WhatsApp para el botón de la confirmación (o el respaldo si falla).
+    let texto = 'Hola TMI, acabo de enviar una solicitud de cotización desde el sitio web:\n';
+    texto += `Nombre: ${data.nombre}\n`;
+    if (data.empresa) texto += `Empresa/Institución: ${data.empresa}\n`;
+    texto += `Línea de interés: ${data.linea}`;
+    const linkWsp = `https://wa.me/${form.dataset.wsp}?text=${encodeURIComponent(texto)}`;
+
+    try {
+      const r = await fetch('/api/solicitud', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      if (!r.ok) throw new Error(String(r.status));
+
+      (document.getElementById('q_wsp_ok') as HTMLAnchorElement).href = linkWsp;
+      form.hidden = true;
+      (document.getElementById('quoteOk') as HTMLDivElement).hidden = false;
+    } catch {
+      (document.getElementById('q_wsp_error') as HTMLAnchorElement).href = linkWsp;
+      error.hidden = false;
+      boton.disabled = false;
+      boton.textContent = 'Enviar solicitud';
+    }
   });
 </script>
