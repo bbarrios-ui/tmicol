@@ -1,0 +1,57 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import WizardVinculacion from '../../components/WizardVinculacion.astro';
+import Icon from '../../components/Icon.astro';
+
+const proceso = [
+  { icon: 'file-text', titulo: 'Diligencia en línea', texto: 'Completa el asistente paso a paso; tu avance se guarda en el navegador.' },
+  { icon: 'mail', titulo: 'Recibe el formato', texto: 'Generamos el formato oficial FO-VC-001 con tus datos y te llega copia al correo.' },
+  { icon: 'clipboard-check', titulo: 'Firma y anexa', texto: 'Firma el formato y envíalo con: Cámara de Comercio (≤ 30 días), RUT, certificación bancaria y cédula del representante legal.' },
+  { icon: 'user-check', titulo: 'Aprobación', texto: 'Nuestro equipo verifica la información y te confirma la vinculación.' },
+];
+---
+<Base
+  title="Vinculación de clientes | TMI Colombia SAS"
+  description="Vincúlate como cliente de TMI: diligencia el formato FO-VC-001 en línea con nuestro asistente, o descárgalo para tramitarlo por correo. Hospitales, clínicas, IPS y farmacias."
+>
+  <PageHero
+    eyebrow="Únete a TMI"
+    title="Vinculación de clientes"
+    sub="Abre tu cuenta como cliente institucional de TMI. Diligencia el formato oficial en línea en unos minutos, o descárgalo si prefieres el trámite por correo."
+  />
+
+  <section>
+    <div class="container">
+      <div class="proceso-grid">
+        {proceso.map((p, i) => (
+          <div class="proceso-card reveal">
+            <div class="comp-icon"><Icon name={p.icon} size={24} /></div>
+            <strong>{i + 1}. {p.titulo}</strong>
+            <p>{p.texto}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="panel reveal" style="margin-top:40px;">
+        <WizardVinculacion tipo="vinculacion-cliente" descarga="/docs/formatos/FO-VC-001-vinculacion-clientes.xlsx" />
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .proceso-grid { display: grid; grid-template-columns: 1fr; gap: 18px; }
+  .proceso-card {
+    background: var(--white);
+    border: 1px solid #e6edf5;
+    border-radius: var(--radius);
+    padding: 22px 20px;
+    box-shadow: var(--shadow);
+  }
+  .proceso-card strong { display: block; color: var(--navy); margin: 10px 0 4px; }
+  .proceso-card p { color: var(--grey); font-size: .87rem; }
+  @media (min-width: 760px) {
+    .proceso-grid { grid-template-columns: repeat(4, 1fr); }
+  }
+</style>

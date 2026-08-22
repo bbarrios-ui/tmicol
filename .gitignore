@@ -6,3 +6,4 @@ dist
 .astro
 .env
 .env.*
+.dev-ultima-vinculacion.xlsx

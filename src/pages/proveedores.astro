@@ -49,10 +49,13 @@ const requisitos = [
                 <li><span class="check"><Icon name="check" size={12} /></span> {r}</li>
               ))}
             </ul>
-            <a class="btn btn-navy" href={`mailto:${EMAIL_PROVEEDORES}?subject=${encodeURIComponent('Propuesta de proveedor - TMI')}`}>
-              <Icon name="mail" size={18} /> Postularme como proveedor
+            <a class="btn btn-primary" href="/vinculacion/proveedores">
+              <Icon name="clipboard-check" size={18} /> Iniciar vinculación en línea
             </a>
-            <p class="form-note">Escríbenos a {EMAIL_PROVEEDORES} con tu portafolio y datos de contacto.</p>
+            <a class="btn btn-navy" style="margin-top:10px;" href={`mailto:${EMAIL_PROVEEDORES}?subject=${encodeURIComponent('Propuesta de proveedor - TMI')}`}>
+              <Icon name="mail" size={18} /> Enviar portafolio por correo
+            </a>
+            <p class="form-note">¿Primera vez? Escríbenos a {EMAIL_PROVEEDORES} con tu portafolio; si ya avanzamos, diligencia la vinculación en línea.</p>
           </div>
         </div>
       </div>

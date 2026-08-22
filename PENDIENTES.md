@@ -41,7 +41,8 @@ Lista de preguntas para la persona encargada del sitio en TMI SAS. Mientras un d
 
 ## 6. Digital / técnico
 
-- [ ] **Resend (envío de formularios por correo)**: crear cuenta gratis en resend.com, generar API key y (1) agregarla al `.env` local como `RESEND_API_KEY=...`, (2) agregarla en Vercel → Settings → Environment Variables. Mientras no esté, el formulario muestra el respaldo por WhatsApp. Cuando el dominio tmicol.co esté verificado en Resend, configurar `RESEND_FROM="TMI <cotizaciones@tmicol.co>"`.
+- [ ] **Resend (envío de formularios por correo)**: crear cuenta gratis en resend.com, generar API key y (1) agregarla al `.env` local como `RESEND_API_KEY=...` (ya hay una línea vacía lista), (2) agregarla en Vercel → Settings → Environment Variables. De esta key dependen el formulario de cotización y los DOS asistentes de vinculación. Mientras no esté, los formularios muestran su respaldo (WhatsApp / descarga del formato). Cuando el dominio tmicol.co esté verificado en Resend, configurar `RESEND_FROM="TMI <cotizaciones@tmicol.co>"`.
+- [ ] **Vinculación con firma digital**: el formato CA-FO-01 permite validar con firma digital/electrónica cargada. El asistente v1 envía el formato para firma manuscrita o digital por fuera; evaluar en una fase posterior la carga de firma dentro del asistente.
 
 - [ ] **Dominio**: ¿ya se compró tmicol.co (u otro)? ¿Quién tiene acceso al registrador para apuntarlo a Vercel?
 - [x] **Redes sociales**: LinkedIn (linkedin.com/in/tmicolsas2026) e Instagram (@tmi.col), confirmadas por gerencia ago 2026. Ya están en el footer. *Nota: el LinkedIn es un perfil personal (/in/); considerar migrar a página de empresa (/company/) más adelante.*
