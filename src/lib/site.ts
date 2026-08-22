@@ -64,7 +64,7 @@ export const LINEAS: Linea[] = [
     slug: 'medicamentos',
     titulo: 'Medicamentos',
     corta:
-      'Portafolio con registro sanitario INVIMA vigente, condiciones de conservación controladas y trazabilidad completa por lote.',
+      'Portafolio con registro sanitario vigente, condiciones de conservación controladas y trazabilidad completa por lote.',
     icon: 'pill',
   },
   {
@@ -101,12 +101,12 @@ export const COMPROMISOS = [
   {
     icon: 'user-check',
     titulo: 'Acceso directo al Químico Farmacéutico',
-    texto: 'Tu consulta la responde el Director Técnico, no un call center.',
+    texto: 'Tu consulta la responde un profesional farmacéutico, no un call center.',
   },
   {
     icon: 'shield-check',
     titulo: 'Trazabilidad por lote',
-    texto: 'Cumplimiento INVIMA verificado línea por línea, en todo el portafolio.',
+    texto: 'Verificación normativa y de registro sanitario en todo el portafolio.',
   },
   {
     icon: 'map-pin',
