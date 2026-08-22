@@ -41,7 +41,7 @@ Lista de preguntas para la persona encargada del sitio en TMI SAS. Mientras un d
 
 ## 6. Digital / técnico
 
-- [ ] **Resend (envío de formularios por correo)**: crear cuenta gratis en resend.com, generar API key y (1) agregarla al `.env` local como `RESEND_API_KEY=...` (ya hay una línea vacía lista), (2) agregarla en Vercel → Settings → Environment Variables. De esta key dependen el formulario de cotización y los DOS asistentes de vinculación. Mientras no esté, los formularios muestran su respaldo (WhatsApp / descarga del formato). Cuando el dominio tmicol.co esté verificado en Resend, configurar `RESEND_FROM="TMI <cotizaciones@tmicol.co>"`.
+- [x] **Resend (envío de formularios por correo)**: cuenta creada, API key en `.env` local y dominio **updates.tmicol.co verificado** (DKIM/SPF en verde) — remitente `TMI <notificaciones@updates.tmicol.co>`. Probado en real (ago 2026): cotización, OTP y vinculación con Excel adjunto entregados. **Pendiente operativo: agregar `RESEND_API_KEY` y `RESEND_FROM` en Vercel → Settings → Environment Variables antes del deploy** (sin eso, los formularios en producción muestran su respaldo).
 - [x] **Vinculación con firma electrónica**: implementada con código OTP al correo del solicitante (ago 2026). El asistente exige validar un código de 6 dígitos (vence en 10 min) antes de finalizar; el Excel generado queda con la constancia "Firmado electrónicamente mediante código de verificación (OTP)... (Ley 527 de 1999)". Sin base de datos: tokens HMAC firmados por el servidor. *Opcional: definir `OTP_SECRET` en Vercel como secreto dedicado (si no existe, deriva de la API key de Resend).*
 
 - [ ] **Dominio**: ¿ya se compró tmicol.co (u otro)? ¿Quién tiene acceso al registrador para apuntarlo a Vercel?
