@@ -1,0 +1,169 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+import { RAZON_SOCIAL, NIT, waLink, EMAIL_CONTACTO } from '../lib/site';
+
+// BORRADOR v0 (ago 2026) redactado para revisión de gerencia / asesor legal
+// (PENDIENTES.md §2). Referencias de estructura: sitios del sector (Allers).
+const WA_TYC = waLink('Hola TMI, tengo una consulta sobre los términos y condiciones del sitio');
+---
+<Base
+  title="Términos y condiciones | TMI Colombia SAS"
+  description="Términos y condiciones de uso del sitio web de Tecnologías Médicas Integrales Colombia SAS: cotizaciones, vinculación, propiedad intelectual, datos personales y canales de atención."
+>
+  <PageHero
+    eyebrow="Legal"
+    title="Términos y condiciones"
+    sub="Condiciones de uso del sitio web y de los canales digitales de TMI. Al navegar este sitio o usar sus formularios, aceptas estos términos."
+  />
+
+  <section>
+    <div class="container tyc">
+      <div class="doc-meta reveal">
+        <span class="doc-chip">Versión 0 — agosto de 2026</span>
+        <span class="doc-chip">Aplica a www.tmicol.co y canales digitales de TMI</span>
+      </div>
+
+      <h2>1. Identificación</h2>
+      <p>
+        Este sitio web es operado por <strong>{RAZON_SOCIAL}</strong> (en adelante, "TMI"),
+        sociedad comercial identificada con {NIT}, con domicilio principal en Montería, Córdoba
+        (Colombia). Contacto: {EMAIL_CONTACTO}.
+      </p>
+
+      <h2>2. Objeto y aceptación</h2>
+      <p>
+        Estos términos regulan el acceso y uso del sitio web www.tmicol.co y de los canales
+        digitales de TMI (formularios, WhatsApp y correo electrónico). El uso del sitio implica la
+        aceptación plena de estos términos. Si no estás de acuerdo, te pedimos abstenerte de usar
+        el sitio.
+      </p>
+
+      <h2>3. Naturaleza de la información del sitio</h2>
+      <p>
+        El contenido del sitio tiene carácter informativo y comercial. No constituye consejo
+        médico, diagnóstico ni prescripción. La información sobre productos está dirigida a
+        compradores institucionales y profesionales del sector salud, y puede cambiar sin previo
+        aviso.
+      </p>
+
+      <h2>4. Cotizaciones, precios y disponibilidad</h2>
+      <ul>
+        <li>Las solicitudes enviadas por el formulario de cotización o por WhatsApp <strong>no constituyen una orden de compra ni un contrato</strong>; son solicitudes de información comercial.</li>
+        <li>Las cotizaciones emitidas por TMI tienen la vigencia indicada en cada una y están sujetas a disponibilidad de inventario y a confirmación al momento del pedido.</li>
+        <li>Los precios pueden variar sin previo aviso hasta la aceptación formal del pedido según las condiciones pactadas.</li>
+        <li>La venta de medicamentos y dispositivos médicos se realiza conforme a la normativa sanitaria vigente y a los requisitos aplicables a cada tipo de cliente.</li>
+      </ul>
+
+      <h2>5. Vinculación de clientes y proveedores</h2>
+      <ul>
+        <li>Los asistentes de vinculación diligencian los formatos oficiales de TMI con la información suministrada por el solicitante, quien declara que es veraz y verificable.</li>
+        <li>La validación por código de verificación (OTP) enviada al correo del solicitante constituye firma electrónica simple en los términos de la Ley 527 de 1999.</li>
+        <li>El envío de la solicitud <strong>no implica la aceptación de la vinculación</strong>: TMI verifica la información y documentación, y se reserva la decisión de aprobar o rechazar cada vinculación.</li>
+      </ul>
+
+      <h2>6. Devoluciones y garantías</h2>
+      <p>
+        Las condiciones de devolución, cambio y garantía de productos se pactan en las condiciones
+        comerciales de cada cliente y se rigen por la normativa sanitaria aplicable (en especial
+        para medicamentos, productos de cadena de frío y dispositivos médicos, cuya devolución
+        puede estar restringida por razones de seguridad sanitaria). Para gestionar una devolución,
+        contacta a tu asesor comercial o escribe a {EMAIL_CONTACTO}.
+      </p>
+
+      <h2>7. Propiedad intelectual</h2>
+      <p>
+        La marca TMI, su logotipo, los textos, imágenes y demás contenidos de este sitio son de
+        titularidad de TMI o se usan con autorización de sus titulares. No está permitida su
+        reproducción o uso comercial sin autorización previa y escrita. Las marcas de terceros que
+        lleguen a mencionarse pertenecen a sus respectivos titulares.
+      </p>
+
+      <h2>8. Protección de datos personales</h2>
+      <p>
+        El tratamiento de los datos personales recolectados a través del sitio se rige por la
+        <a href="/politica-de-datos">Política de Tratamiento de Datos Personales</a> de TMI
+        (Ley 1581 de 2012). Los formularios del sitio exigen la autorización previa y expresa del
+        titular antes de enviar información.
+      </p>
+
+      <h2>9. Peticiones, quejas, reclamos y sugerencias (PQRS)</h2>
+      <p>
+        Puedes presentar peticiones, quejas, reclamos o sugerencias por WhatsApp o al correo
+        {EMAIL_CONTACTO}. Las atendemos dentro de los plazos establecidos por la ley colombiana
+        (Ley 1755 de 2015 y, en materia de datos personales, los términos de la política de
+        datos). Para consultas técnicas sobre productos está disponible la
+        <a href="/consulta-especializada">consulta especializada</a>.
+      </p>
+
+      <h2>10. Responsabilidad y disponibilidad del sitio</h2>
+      <ul>
+        <li>TMI procura mantener el sitio disponible y actualizado, pero no garantiza la ausencia de interrupciones o errores; el uso del sitio es responsabilidad del usuario.</li>
+        <li>TMI no responde por el contenido de sitios de terceros enlazados desde este sitio.</li>
+        <li>El uso indebido del sitio (intentos de fraude, suplantación, envío de información falsa o uso automatizado abusivo) faculta a TMI para bloquear el acceso y tomar las acciones legales correspondientes.</li>
+      </ul>
+
+      <h2>11. Modificaciones</h2>
+      <p>
+        TMI puede modificar estos términos en cualquier momento. La versión vigente estará siempre
+        publicada en esta página con su fecha de actualización. Los cambios rigen desde su
+        publicación.
+      </p>
+
+      <h2>12. Ley aplicable y jurisdicción</h2>
+      <p>
+        Estos términos se rigen por las leyes de la República de Colombia. Cualquier controversia
+        se someterá a los jueces competentes de Montería, Córdoba, salvo norma imperativa en
+        contrario.
+      </p>
+
+      <div class="dudas reveal">
+        <h2>¿Dudas sobre estos términos?</h2>
+        <div class="dudas-actions">
+          <a class="btn btn-wsp" target="_blank" rel="noopener" href={WA_TYC}>
+            <Icon name="whatsapp" size={18} /> Escribir por WhatsApp
+          </a>
+          <a class="btn btn-navy" href={`mailto:${EMAIL_CONTACTO}?subject=${encodeURIComponent('Consulta sobre términos y condiciones')}`}>
+            <Icon name="mail" size={18} /> {EMAIL_CONTACTO}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .tyc { max-width: 840px; }
+  .tyc h2 {
+    font-size: 1.15rem;
+    margin: 38px 0 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--grey-light);
+  }
+  .tyc p, .tyc li { color: var(--grey); font-size: .95rem; }
+  .tyc ul { padding-left: 22px; display: grid; gap: 8px; list-style: disc; }
+  .tyc a { color: var(--blue); font-weight: 600; text-decoration: underline; }
+  .tyc a.btn { text-decoration: none; color: #fff; }
+
+  .doc-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 8px; }
+  .doc-chip {
+    background: var(--grey-light);
+    color: var(--navy);
+    border-radius: 30px;
+    font-size: .78rem;
+    font-weight: 600;
+    padding: 6px 14px;
+  }
+
+  .dudas {
+    margin-top: 48px;
+    background: linear-gradient(145deg, #ffffff, #eef4fb);
+    border: 1px solid #e6edf5;
+    border-radius: var(--radius);
+    padding: 30px 28px;
+    box-shadow: var(--shadow);
+  }
+  .dudas h2 { border: none; margin: 0 0 8px; }
+  .dudas-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 18px; }
+</style>
