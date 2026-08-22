@@ -9,9 +9,9 @@ import {
   EMAIL_CONTACTO,
   TELEFONO_DISPLAY,
   CIUDAD,
-  DIRECCION,
   RAZON_SOCIAL,
   NIT,
+  REDES,
 } from '../lib/site';
 
 interface Props {
@@ -87,10 +87,16 @@ const isActive = (href: string) =>
             <div class="footer-logo"><Logo variant="dark" height={40} /></div>
             <p>
               {RAZON_SOCIAL}. Comercialización de medicamentos, dispositivos médicos, equipos
-              biomédicos y material médico-quirúrgico para las instituciones de salud de Córdoba
-              y la región.
+              biomédicos y material médico-quirúrgico para los clientes del sector salud de la
+              Costa Caribe.
             </p>
-            <!-- TODO(PENDIENTES.md §6): agregar redes sociales cuando existan las cuentas reales. -->
+            <div class="footer-social">
+              {REDES.map((red) => (
+                <a href={red.url} target="_blank" rel="noopener" aria-label={`TMI en ${red.nombre}`}>
+                  <Icon name={red.icon} size={18} />
+                </a>
+              ))}
+            </div>
           </div>
           <div class="footer-col">
             <h4>Navegación</h4>
@@ -104,12 +110,14 @@ const isActive = (href: string) =>
             <h4>Únete</h4>
             <a href="/trabaja-con-nosotros">Trabaja con nosotros</a>
             <a href="/proveedores">Sé nuestro proveedor</a>
+            <a href="/vinculacion/clientes">Vinculación de clientes</a>
+            <a href="/vinculacion/proveedores">Vinculación de proveedores</a>
             <a href="/cotizar">Solicitar cotización</a>
           </div>
           <div class="footer-col">
             <h4>Contacto</h4>
             <!-- TODO(PENDIENTES.md §1): confirmar horarios de atención. -->
-            <div class="footer-contact-item"><Icon name="map-pin" size={16} /> {DIRECCION}, {CIUDAD}</div>
+            <div class="footer-contact-item"><Icon name="map-pin" size={16} /> {CIUDAD}</div>
             <div class="footer-contact-item"><Icon name="phone" size={16} /> {TELEFONO_DISPLAY}</div>
             <div class="footer-contact-item"><Icon name="mail" size={16} /> {EMAIL_CONTACTO}</div>
             <a href="/contacto">Ver página de contacto</a>
@@ -117,6 +125,7 @@ const isActive = (href: string) =>
         </div>
         <div class="footer-bottom">
           <span>© <span id="year"></span> {RAZON_SOCIAL} — {NIT} — Todos los derechos reservados.</span>
+          <a class="footer-legal" href="/politica-de-datos">Política de tratamiento de datos personales</a>
           <span>Integridad · Calidad · Innovación · Compromiso</span>
         </div>
       </div>

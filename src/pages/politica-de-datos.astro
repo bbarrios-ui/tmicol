@@ -1,0 +1,373 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+import { RAZON_SOCIAL, waLink, EMAIL_CONTACTO } from '../lib/site';
+
+// Contenido transcrito del documento oficial AS-PO-01 v00 (aprobado por
+// Gerencia, vigente desde 20/08/2026). El PDF original vive en
+// /docs/politica-tratamiento-datos-personales.pdf. Los anexos 1 y 2 del PDF
+// son plantillas internas de autorización y no se publican en esta página.
+const WA_DATOS = waLink('Hola TMI, tengo una consulta sobre el tratamiento de mis datos personales');
+
+const definiciones = [
+  ['Autorización', 'consentimiento previo, expreso e informado del Titular para llevar a cabo el Tratamiento de sus datos personales.'],
+  ['Aviso de privacidad', 'comunicación verbal o escrita generada por el Responsable, dirigida al Titular, para informarle acerca de la existencia de la política de Tratamiento y la forma de acceder a ella.'],
+  ['Base de datos', 'conjunto organizado de datos personales que sea objeto de Tratamiento.'],
+  ['Dato personal', 'cualquier información vinculada o que pueda asociarse a una o varias personas naturales determinadas o determinables.'],
+  ['Dato público', 'dato calificado como tal según la Constitución y la ley, y aquellos contenidos en registros o documentos públicos y sentencias ejecutoriadas no sometidas a reserva.'],
+  ['Dato sensible', 'aquel que afecta la intimidad del Titular o cuyo uso indebido puede generar discriminación (origen racial o étnico, orientación política, convicciones religiosas o filosóficas, pertenencia a sindicatos u organizaciones sociales o de derechos humanos, datos de salud, vida sexual y datos biométricos).'],
+  ['Encargado del Tratamiento', 'persona natural o jurídica que, por sí misma o en asocio con otros, realiza el Tratamiento de datos personales por cuenta del Responsable.'],
+  ['Responsable del Tratamiento', 'persona natural o jurídica que, por sí misma o en asocio con otros, decide sobre la base de datos y/o el Tratamiento de los datos. Para efectos de esta política, la Compañía actúa como Responsable del Tratamiento.'],
+  ['Titular', 'persona natural cuyos datos personales sean objeto de Tratamiento.'],
+  ['Tratamiento', 'cualquier operación o conjunto de operaciones sobre datos personales, tales como recolección, almacenamiento, uso, circulación o supresión.'],
+  ['Transmisión', 'Tratamiento de datos personales que implica su comunicación dentro o fuera del territorio de la República de Colombia cuando tenga por objeto la realización de un Tratamiento por el Encargado por cuenta del Responsable.'],
+  ['Transferencia', 'envío de datos personales a un tercero Responsable del Tratamiento, ubicado dentro o fuera del país.'],
+];
+
+const principios = [
+  ['Legalidad', 'el Tratamiento se sujeta a lo establecido en la ley y demás disposiciones que la desarrollen.'],
+  ['Finalidad', 'el Tratamiento obedece a una finalidad legítima, informada al Titular, que no puede ser contraria a la Constitución y la ley.'],
+  ['Libertad', 'el Tratamiento solo se ejerce con el consentimiento previo, expreso e informado del Titular. Los datos personales no se obtienen ni divulgan sin dicha autorización, salvo las excepciones legales.'],
+  ['Veracidad o calidad', 'la información sujeta a Tratamiento debe ser veraz, completa, exacta, actualizada, comprobable y comprensible.'],
+  ['Transparencia', 'se garantiza al Titular el derecho a obtener del Responsable, en cualquier momento y sin restricciones, información acerca de sus datos objeto de Tratamiento.'],
+  ['Acceso y circulación restringida', 'el Tratamiento se sujeta a los límites derivados de la naturaleza de los datos personales; solo pueden acceder a ellos las personas autorizadas por el Titular o por la ley.'],
+  ['Seguridad', 'la información sujeta a Tratamiento se maneja con las medidas técnicas, humanas y administrativas necesarias para evitar su adulteración, pérdida, consulta, uso o acceso no autorizado.'],
+  ['Confidencialidad', 'todas las personas que intervengan en el Tratamiento de datos personales que no tengan la naturaleza de públicos están obligadas a garantizar la reserva de la información.'],
+];
+
+const titulares = [
+  ['Clientes (hospitales, clínicas, IPS, EPS, farmacias, laboratorios, veterinarias, distribuidores, estéticas, etc.)', 'Datos de identificación y contacto de las personas de contacto (nombre, cargo, correo, teléfono), datos de facturación, historial de pedidos, PQRS y comunicaciones comerciales', 'Gestión comercial y cotización, facturación, despacho y trazabilidad de producto, atención de PQRS, reporte de tecnovigilancia y farmacovigilancia, fidelización y envío de información comercial (con autorización)'],
+  ['Proveedores y empresas transportadoras', 'Datos de identificación y contacto, información legal, tributaria y financiera para la vinculación, documentación sanitaria (registro INVIMA)', 'Evaluación y selección de proveedores, gestión de compras y pagos, cumplimiento normativo y contractual'],
+  ['Colaboradores y candidatos a empleo', 'Datos de identificación y contacto, hoja de vida, información laboral y de seguridad social, datos sensibles de salud (exámenes ocupacionales, SG-SST), datos biométricos (si aplica control de acceso)', 'Procesos de selección y vinculación laboral, nómina y seguridad social, gestión del SG-SST, evaluación de desempeño y capacitación'],
+  ['Usuarios de canales digitales (sitio web, WhatsApp, redes sociales)', 'Nombre, empresa, teléfono, correo y detalle de la solicitud', 'Atención de solicitudes de cotización, soporte técnico y agendamiento de consulta especializada con el químico farmacéutico. Benchmarking e investigación de mercado'],
+  ['Visitantes y contactos institucionales', 'Datos de identificación y contacto', 'Relacionamiento institucional, invitaciones y comunicaciones de rendición de cuentas'],
+];
+
+const derechos = [
+  'Conocer, actualizar y rectificar sus datos personales frente a la Compañía.',
+  'Solicitar prueba de la autorización otorgada, salvo que la ley exceptúe dicho requisito.',
+  'Ser informado por la Compañía, previa solicitud, respecto del uso que se ha dado a sus datos personales.',
+  'Presentar ante la Superintendencia de Industria y Comercio quejas por infracciones a la ley, una vez agotado el trámite de consulta o reclamo ante la Compañía.',
+  'Revocar la autorización y/o solicitar la supresión del dato, cuando no se respeten los principios, derechos y garantías constitucionales y legales.',
+  'Acceder de forma gratuita a sus datos personales objeto de Tratamiento.',
+];
+
+const conservacion = [
+  ['Registros contables y tributarios', '10 años, conforme al Código de Comercio y el Estatuto Tributario'],
+  ['Historiales laborales y de seguridad y salud en el trabajo', 'Hasta 20 años, conforme a la normativa de riesgos laborales'],
+  ['Registros de trazabilidad de producto (lotes, tecnovigilancia, farmacovigilancia)', '5 años, conforme a la normativa sanitaria (INVIMA)'],
+  ['Datos de clientes y proveedores para fines comerciales', 'Durante la relación comercial y hasta 2 años después de finalizada, salvo obligación legal de conservación adicional'],
+  ['Hojas de vida de candidatos no vinculados', 'Hasta 1 año, o hasta la revocatoria de la autorización por parte del Titular'],
+];
+---
+<Base
+  title="Política de tratamiento de datos personales | TMI Colombia SAS"
+  description="Política de tratamiento de datos personales de Tecnologías Médicas Integrales Colombia SAS (Ley 1581 de 2012): derechos de los titulares, finalidades y canales para ejercerlos."
+>
+  <PageHero
+    eyebrow="Legal"
+    title="Política de tratamiento de datos personales"
+    sub="Cómo recolectamos, usamos y protegemos los datos personales de nuestros clientes, proveedores, colaboradores y usuarios, en cumplimiento de la Ley 1581 de 2012."
+  />
+
+  <section>
+    <div class="container politica">
+      <div class="doc-meta reveal">
+        <span class="doc-chip">Código AS-PO-01</span>
+        <span class="doc-chip">Versión 00</span>
+        <span class="doc-chip">Vigente desde el 20/08/2026</span>
+        <span class="doc-chip">Elaboró: Dirección Técnica · Aprobó: Gerencia</span>
+        <a class="btn btn-navy doc-descarga" href="/docs/politica-tratamiento-datos-personales.pdf" download>
+          <Icon name="arrow-right" size={16} /> Descargar PDF oficial
+        </a>
+      </div>
+
+      <h2>I. Marco normativo aplicable</h2>
+      <p>Esta política se fundamenta en el siguiente marco normativo, vigente en Colombia a la fecha de su expedición:</p>
+      <ul>
+        <li>Constitución Política de Colombia, artículos 15 (derecho a la intimidad y al habeas data) y 20 (libertad de información).</li>
+        <li>Ley Estatutaria 1581 de 2012 — Régimen General de Protección de Datos Personales.</li>
+        <li>Decreto 1377 de 2013, compilado en el Decreto Único Reglamentario 1074 de 2015, Título 2, Capítulo 25.</li>
+        <li>Decreto 886 de 2014, compilado en el Decreto 1074 de 2015, Título 2, Capítulo 26 — Registro Nacional de Bases de Datos (RNBD).</li>
+        <li>Ley 1266 de 2008 — Régimen de Habeas Data financiero, crediticio, comercial y de servicios.</li>
+        <li>Circular Única de la Superintendencia de Industria y Comercio (SIC), Título V.</li>
+        <li>Ley 1755 de 2015 — Derecho de Petición, aplicable de manera supletoria.</li>
+        <li>Decreto 1072 de 2015 y Resolución 0312 de 2019 (SG-SST), en lo relativo a datos sensibles de salud de los colaboradores.</li>
+        <li>Resolución 4816 de 2008 y demás normas de tecnovigilancia y farmacovigilancia.</li>
+      </ul>
+
+      <h2>II. Objeto</h2>
+      <p>
+        Establecer los principios, lineamientos, procedimientos y responsabilidades que rigen la
+        recolección, almacenamiento, uso, circulación, transmisión, transferencia y supresión de los
+        datos personales que {RAZON_SOCIAL} (en adelante, "la Compañía") trata en desarrollo de su
+        objeto social, garantizando el ejercicio efectivo del derecho fundamental de Hábeas Data de
+        todos los Titulares de información con quienes la Compañía se relaciona.
+      </p>
+
+      <h2>III. Ámbito de aplicación</h2>
+      <p>
+        Esta política aplica a todas las bases de datos, archivos físicos y sistemas de información
+        administrados por la Compañía que contengan datos personales de clientes (hospitales,
+        clínicas, IPS, distribuidoras, veterinarias, EPS, farmacias, etc.), proveedores y empresas
+        transportadoras, colaboradores y trabajadores, usuarios de sus canales digitales (sitio web,
+        WhatsApp, redes sociales) y demás contactos corporativos. Es de obligatorio cumplimiento
+        para todos los colaboradores, contratistas, proveedores y Encargados del Tratamiento que,
+        en razón de sus funciones, tengan acceso a datos personales administrados por la Compañía.
+      </p>
+
+      <h2>IV. Definiciones</h2>
+      <p>Se adoptan las definiciones establecidas en el artículo 3 de la Ley 1581 de 2012 y en el Decreto 1074 de 2015:</p>
+      <ul>
+        {definiciones.map(([termino, def]) => (
+          <li><strong>{termino}:</strong> {def}</li>
+        ))}
+      </ul>
+
+      <h2>V. Identificación del Responsable del Tratamiento</h2>
+      <div class="tabla-scroll">
+        <table>
+          <tbody>
+            <tr><th>Razón social</th><td>{RAZON_SOCIAL} (TMI COL S.A.S.)</td></tr>
+            <tr><th>NIT</th><td>902.088.438-2</td></tr>
+            <tr><th>Domicilio principal</th><td>Montería, departamento de Córdoba</td></tr>
+            <tr><th>Actividad económica</th><td>Comercialización de medicamentos, dispositivos médicos, equipos biomédicos y material médico-quirúrgico; asesoría técnica y soporte posventa; gestión logística y distribución para el sector salud</td></tr>
+            <tr><th>Representante legal</th><td>Natalia Padilla Torres</td></tr>
+            <tr><th>Canal de contacto para asuntos de datos personales</th><td>gerencia@tmicol.co · director.tecnico@tmicol.co</td></tr>
+            <tr><th>Sitio web</th><td>www.tmicol.co</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>VI. Principios rectores del Tratamiento</h2>
+      <p>En desarrollo del artículo 4 de la Ley 1581 de 2012, la Compañía aplicará los siguientes principios a todo Tratamiento de datos personales:</p>
+      <ul>
+        {principios.map(([nombre, texto]) => (
+          <li><strong>{nombre}:</strong> {texto}</li>
+        ))}
+      </ul>
+
+      <h2>VII. Categorías de Titulares, datos tratados y finalidades</h2>
+      <div class="tabla-scroll">
+        <table>
+          <thead>
+            <tr><th>Categoría de Titular</th><th>Datos tratados</th><th>Finalidades principales</th></tr>
+          </thead>
+          <tbody>
+            {titulares.map(([cat, datos, fines]) => (
+              <tr><td>{cat}</td><td>{datos}</td><td>{fines}</td></tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <h2>VIII. Tratamiento de datos sensibles</h2>
+      <p>
+        Son datos sensibles, entre otros, aquellos relacionados con la salud, la vida sexual y los
+        datos biométricos de las personas (artículo 5 de la Ley 1581 de 2012). En el desarrollo de su
+        objeto social, la Compañía trata principalmente datos sensibles de salud de sus
+        colaboradores, en el marco de los exámenes médicos ocupacionales y la gestión del Sistema de
+        Gestión de la Seguridad y Salud en el Trabajo (SG-SST).
+      </p>
+      <p>
+        De conformidad con el artículo 6 de la Ley 1581 de 2012, el Tratamiento de datos sensibles
+        está prohibido, excepto cuando: (a) el Titular ha otorgado su autorización explícita, salvo
+        los casos en que por ley no sea requerida; (b) el Tratamiento es necesario para salvaguardar
+        el interés vital del Titular y este se encuentra física o jurídicamente incapacitado; (c) el
+        Tratamiento se refiere a datos necesarios para el reconocimiento, ejercicio o defensa de un
+        derecho en un proceso judicial; o (d) el Tratamiento tiene una finalidad histórica,
+        estadística o científica, caso en el cual se adoptarán medidas conducentes a la supresión de
+        identidad de los Titulares.
+      </p>
+      <p>
+        La Compañía solicitará la autorización expresa de sus colaboradores para el Tratamiento de
+        sus datos de salud, limitará su acceso al personal autorizado y les dará un tratamiento
+        estrictamente confidencial con fines exclusivamente ocupacionales.
+      </p>
+
+      <h2>IX. Tratamiento de datos de niños, niñas y adolescentes</h2>
+      <p>
+        La Compañía no recolecta ni trata intencionalmente datos personales de niños, niñas y
+        adolescentes, dado el carácter institucional (B2B) de su actividad comercial. En el evento en
+        que se identifique la recolección incidental de este tipo de datos, la Compañía procederá a
+        su eliminación inmediata, salvo que se cuente con la representación de los titulares de la
+        patria potestad y se garantice el respeto a su interés superior y sus derechos fundamentales,
+        conforme al artículo 7 de la Ley 1581 de 2012.
+      </p>
+
+      <h2>X. Autorización del Titular</h2>
+      <p>
+        Como regla general, la Compañía únicamente realizará el Tratamiento de datos personales
+        previa autorización libre, previa, expresa, voluntaria e informada del Titular. Medios para
+        obtener la autorización:
+      </p>
+      <ul>
+        <li>Documento físico o electrónico firmado por el Titular.</li>
+        <li>Marcación de una casilla de aceptación en formularios digitales, como el formulario de cotización de este sitio web.</li>
+        <li>Mensaje de datos o correo electrónico remitido por el Titular.</li>
+        <li>Grabación de voz o cualquier otro mecanismo tecnológico que permita concluir de manera inequívoca el otorgamiento de la autorización.</li>
+      </ul>
+      <p>No se requiere autorización en los casos del artículo 10 de la Ley 1581 de 2012: información requerida por entidad pública o administrativa en ejercicio de sus funciones legales o por orden judicial; datos de naturaleza pública; urgencia médica o sanitaria; tratamiento autorizado por la ley para fines históricos, estadísticos o científicos; y datos relacionados con el Registro Civil de las Personas.</p>
+
+      <h2>XI. Deberes del Responsable del Tratamiento</h2>
+      <p>En su calidad de Responsable del Tratamiento, la Compañía cumplirá los deberes del artículo 17 de la Ley 1581 de 2012, entre ellos: garantizar al Titular el ejercicio del hábeas data; solicitar y conservar copia de la autorización; informar la finalidad de la recolección y los derechos del Titular; conservar la información bajo condiciones de seguridad; garantizar que la información sea veraz y actualizada; rectificarla cuando sea inexacta; tramitar consultas y reclamos en los términos de esta política; adoptar un manual interno de políticas y procedimientos; abstenerse de circular información controvertida cuyo bloqueo haya ordenado la SIC; informar a la SIC las violaciones a los códigos de seguridad; y cumplir sus instrucciones y requerimientos.</p>
+
+      <h2>XII. Deberes de los Encargados del Tratamiento</h2>
+      <p>
+        La Compañía podrá contar con terceros que traten datos personales por su cuenta, en calidad
+        de Encargados del Tratamiento (por ejemplo, el proveedor del sistema ERP, el proveedor de
+        servicios en la nube, la entidad que administra la nómina, el contador externo y la ARL).
+        Dichos Encargados deberán, conforme al artículo 18 de la Ley 1581 de 2012: garantizar el
+        ejercicio del hábeas data; conservar la información con seguridad; actualizar, rectificar o
+        suprimir los datos cuando la Compañía lo instruya (dentro de los 5 días hábiles siguientes);
+        abstenerse de circular información bloqueada por la SIC; permitir el acceso solo a personas
+        autorizadas; e informar a la Compañía las violaciones a los códigos de seguridad.
+      </p>
+
+      <h2>XIII. Derechos de los Titulares</h2>
+      <p>De conformidad con el artículo 8 de la Ley 1581 de 2012, los Titulares tienen derecho a:</p>
+      <ul>
+        {derechos.map((d) => <li>{d}</li>)}
+      </ul>
+
+      <h2>XIV. Procedimiento para el ejercicio de derechos</h2>
+      <p>Los Titulares podrán ejercer sus derechos a través del canal de contacto indicado en el numeral V, mediante:</p>
+      <ol>
+        <li><strong>Consultas:</strong> se atienden en máximo diez (10) días hábiles desde su recibo. Si no es posible, se informará al interesado el motivo y la nueva fecha, que no superará los cinco (5) días hábiles siguientes al vencimiento del primer término.</li>
+        <li><strong>Reclamos:</strong> se tramitan en máximo quince (15) días hábiles desde el día siguiente a su recibo, prorrogables por ocho (8) días hábiles adicionales cuando no sea posible atenderlos en ese término.</li>
+        <li><strong>Radicación:</strong> toda solicitud debe contener, como mínimo, la identificación del Titular, la descripción de los hechos, la dirección de contacto y los documentos que se quieran hacer valer.</li>
+        <li><strong>Acuse de recibo:</strong> si la solicitud está incompleta, se requerirá al interesado dentro de los cinco (5) días siguientes; transcurridos dos (2) meses sin respuesta, se entiende desistido el reclamo.</li>
+        <li><strong>Anotación de trámite:</strong> mientras el reclamo esté en trámite, se incluirá en la base de datos la leyenda "reclamo en trámite" y su motivo, en máximo dos (2) días hábiles.</li>
+        <li><strong>Respuesta:</strong> agotado el trámite interno, se comunicará la respuesta al Titular dentro de los plazos legales.</li>
+      </ol>
+
+      <h2>XV. Responsable de la atención de peticiones, consultas y reclamos</h2>
+      <p>
+        La administración de TMI o el responsable asignado, bajo la supervisión de la Gerencia,
+        atenderá las peticiones, consultas y reclamos de los Titulares a través del canal indicado en
+        el numeral V. Cuando se relacionen con información de tecnovigilancia o farmacovigilancia, se
+        remitirán al Director Técnico para su atención conjunta.
+      </p>
+
+      <h2>XVI. Transferencia y transmisión de datos personales</h2>
+      <p>
+        La Compañía podrá transmitir datos personales a Encargados del Tratamiento dentro del
+        territorio nacional (proveedor del ERP, administradora de nómina, contador externo, entidades
+        financieras, ARL, EPS y fondos de pensiones), quienes actuarán conforme a sus instrucciones.
+        Cuando se utilicen herramientas tecnológicas con servidores fuera de Colombia (correo,
+        almacenamiento en la nube o gestión documental), la transferencia internacional se realizará
+        únicamente hacia países con niveles adecuados de protección según los estándares de la SIC, o
+        bajo las excepciones del artículo 26 de la Ley 1581 de 2012 (autorización expresa del
+        Titular, ejecución de un contrato, salvaguardia del interés público, o ejercicio o defensa de
+        un derecho en un proceso judicial).
+      </p>
+
+      <h2>XVII. Medidas de seguridad de la información</h2>
+      <p><strong>Organizacionales:</strong> roles y perfiles de acceso según necesidad de conocer; capacitación periódica en protección de datos; acuerdos de confidencialidad con colaboradores y Encargados; inclusión de esta política en la inducción y el Sistema Integrado de Gestión.</p>
+      <p><strong>Técnicas:</strong> control de acceso a los sistemas de información mediante usuario y contraseña individual; copias de seguridad periódicas; plataformas con estándares de seguridad reconocidos; cifrado de la información sensible cuando la herramienta lo permita; actualización periódica de contraseñas y restricción de accesos ante desvinculaciones.</p>
+
+      <h2>XVIII. Vigencia y conservación de las bases de datos</h2>
+      <div class="tabla-scroll">
+        <table>
+          <thead><tr><th>Tipo de información</th><th>Tiempo de conservación de referencia</th></tr></thead>
+          <tbody>
+            {conservacion.map(([tipo, tiempo]) => (
+              <tr><td>{tipo}</td><td>{tiempo}</td></tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p>
+        Cumplida la finalidad del Tratamiento y los términos legales de conservación, la Compañía
+        procederá a la eliminación segura o anonimización de los datos personales, salvo obligación
+        legal, contractual o probatoria que exija su conservación adicional.
+      </p>
+
+      <h2>XIX. Registro Nacional de Bases de Datos (RNBD)</h2>
+      <p>
+        Conforme al Decreto 1074 de 2015 y la Circular Única de la SIC, la Compañía verificará
+        anualmente si sus activos totales superan el umbral de 100.000 UVT y, de ser el caso,
+        inscribirá y actualizará sus bases de datos personales en el RNBD dentro del cronograma que
+        anualmente defina la SIC.
+      </p>
+
+      <h2>XX. Modificaciones a la política</h2>
+      <p>
+        La Compañía podrá modificar esta política en cualquier momento para atender novedades
+        legislativas, cambios en su actividad económica o mejoras en sus prácticas de protección de
+        datos. Los cambios sustanciales relacionados con la finalidad del Tratamiento o los
+        destinatarios de la información serán comunicados a los Titulares antes de o al momento de su
+        aplicación, a través de los canales de contacto disponibles.
+      </p>
+
+      <h2>XXI. Vigencia</h2>
+      <p>
+        Esta Política rige a partir de su aprobación y publicación por parte de la Gerencia General
+        (20 de agosto de 2026, versión 00, código AS-PO-01) y deroga cualquier disposición interna
+        previa sobre la misma materia.
+      </p>
+
+      <!-- CTA de dudas: canal directo, como pide la política (numeral V) -->
+      <div class="dudas reveal">
+        <h2>¿Dudas sobre tus datos personales?</h2>
+        <p>
+          Escríbenos por el canal que prefieras: atendemos consultas en máximo 10 días hábiles y
+          reclamos en máximo 15.
+        </p>
+        <div class="dudas-actions">
+          <a class="btn btn-wsp" target="_blank" rel="noopener" href={WA_DATOS}>
+            <Icon name="whatsapp" size={18} /> Escribir por WhatsApp
+          </a>
+          <a class="btn btn-navy" href={`mailto:${EMAIL_CONTACTO}?subject=${encodeURIComponent('Consulta sobre datos personales')}`}>
+            <Icon name="mail" size={18} /> {EMAIL_CONTACTO}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .politica { max-width: 840px; }
+  .politica h2 {
+    font-size: 1.15rem;
+    margin: 38px 0 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--grey-light);
+  }
+  .politica p, .politica li { color: var(--grey); font-size: .95rem; }
+  .politica ul, .politica ol { padding-left: 22px; display: grid; gap: 8px; }
+  .politica ul { list-style: disc; }
+  .politica ol { list-style: decimal; }
+  .politica li strong { color: var(--navy); }
+
+  .doc-meta { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 8px; }
+  .doc-chip {
+    background: var(--grey-light);
+    color: var(--navy);
+    border-radius: 30px;
+    font-size: .78rem;
+    font-weight: 600;
+    padding: 6px 14px;
+  }
+  .doc-descarga { min-height: 42px; padding: 8px 20px; font-size: .88rem; }
+
+  .tabla-scroll { overflow-x: auto; border: 1px solid var(--grey-light); border-radius: 12px; }
+  .politica table { border-collapse: collapse; width: 100%; font-size: .88rem; }
+  .politica th, .politica td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--grey-light); vertical-align: top; }
+  .politica thead th { background: var(--navy); color: #fff; font-weight: 600; }
+  .politica tbody th { color: var(--navy); width: 220px; background: #f0f5fa; font-weight: 600; }
+  .politica tr:last-child td, .politica tr:last-child th { border-bottom: none; }
+
+  .dudas {
+    margin-top: 48px;
+    background: linear-gradient(145deg, #ffffff, #eef4fb);
+    border: 1px solid #e6edf5;
+    border-radius: var(--radius);
+    padding: 30px 28px;
+    box-shadow: var(--shadow);
+  }
+  .dudas h2 { border: none; margin: 0 0 8px; }
+  .dudas-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 18px; }
+</style>

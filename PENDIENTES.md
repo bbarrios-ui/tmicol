@@ -6,7 +6,7 @@ Lista de preguntas para la persona encargada del sitio en TMI SAS. Mientras un d
 
 - [x] **Número de WhatsApp comercial**: +57 301 293 6547 (confirmado por gerencia, ago 2026 — "para todo" por ahora). Ya está en el sitio. *Queda abierto: ¿quién lo responde y en qué horario?*
 - [x] **Teléfono de contacto general**: 301 380 4160 (estatutos, Art. 2). Ya está en el sitio.
-- [x] **Dirección física**: Cra. 35 N° 44-16, Montería, Córdoba (estatutos, Art. 2). Ya está en el sitio. *Pendiente decidir: ¿se agrega mapa de Google en /contacto?*
+- [x] **Dirección física**: Cra. 35 N° 44-16, Montería (estatutos, Art. 2 — es la sede legal). **Por privacidad NO se publica en el sitio** (solo "Montería, Córdoba") hasta que exista bodega/sede comercial; en ese momento, publicar la dirección y decidir si se agrega mapa de Google en /contacto.
 - [ ] **Horarios de atención**.
 - [x] **Correos** (confirmados ago 2026): `gerencia@tmicol.co` (contacto general y hojas de vida), `compras@tmicol.co` (proveedores), `director.tecnico@tmicol.co` (consulta especializada). No hay buzón de RRHH ni `contacto@`.
 
@@ -15,7 +15,7 @@ Lista de preguntas para la persona encargada del sitio en TMI SAS. Mientras un d
 - [x] **Razón social y NIT**: TECNOLOGÍAS MÉDICAS INTEGRALES COLOMBIA SAS, sigla TMI SAS (estatutos, Art. 1). NIT 902.088.438-2 (confirmado ago 2026). Ambos en el footer.
 - [ ] **Registros/permisos sanitarios**: ¿la empresa ya cuenta con los permisos INVIMA / resolución de la entidad territorial de salud para comercializar medicamentos y dispositivos médicos? ¿Cuáles números de registro se pueden publicar? (El sitio menciona "registro sanitario INVIMA vigente" — hay que respaldarlo o quitarlo.)
 - [ ] **Director Técnico / Químico Farmacéutico**: ¿ya está contratado y registrado? ¿Autoriza que su nombre y tarjeta profesional aparezcan en el sitio, o preferimos mencionar solo el cargo?
-- [ ] **Política de tratamiento de datos personales** (Ley 1581 de 2012 — obligatoria si el formulario recoge nombre y teléfono): ¿existe el documento? ¿Quién es el responsable del tratamiento?
+- [x] **Política de tratamiento de datos personales** (Ley 1581 de 2012): documento oficial AS-PO-01 v00 (vigente 20/08/2026) entregado por gerencia. Publicada en `/politica-de-datos` + PDF descargable + casilla de autorización obligatoria en el formulario de cotización (Anexo 2). Representante legal: Natalia Padilla Torres. *Recordatorio operativo: verificar anualmente el umbral de 100.000 UVT para inscripción en el RNBD (numeral XIX).*
 - [ ] **Términos y condiciones / aviso legal**: ¿hay abogado que los revise o se redacta un borrador estándar?
 
 ## 3. Identidad y contenido
@@ -39,10 +39,15 @@ Lista de preguntas para la persona encargada del sitio en TMI SAS. Mientras un d
 
 - [ ] **Informes de rendición de cuentas**: ¿existen ya PDFs reales (gestión, financiero, sostenibilidad)? Si no, la sección queda en "próximamente" — ¿está bien o se oculta la sección hasta tenerlos?
 
+- [x] **Segmentos de clientes a enumerar públicamente**: confirmado por gerencia (ago 2026) — se atienden también **veterinarias y estéticas** (principalmente insumos: guantes, gorros, tapabocas, etc.). Ya enumeradas en el sitio junto a hospitales, clínicas, IPS, EPS, farmacias y droguerías.
+
 ## 6. Digital / técnico
 
+- [x] **Resend (envío de formularios por correo)**: cuenta creada, API key en `.env` local y dominio **updates.tmicol.co verificado** (DKIM/SPF en verde) — remitente `TMI <notificaciones@updates.tmicol.co>`. Probado en real (ago 2026): cotización, OTP y vinculación con Excel adjunto entregados. **Pendiente operativo: agregar `RESEND_API_KEY` y `RESEND_FROM` en Vercel → Settings → Environment Variables antes del deploy** (sin eso, los formularios en producción muestran su respaldo).
+- [x] **Vinculación con firma electrónica**: implementada con código OTP al correo del solicitante (ago 2026). El asistente exige validar un código de 6 dígitos (vence en 10 min) antes de finalizar; el Excel generado queda con la constancia "Firmado electrónicamente mediante código de verificación (OTP)... (Ley 527 de 1999)". Sin base de datos: tokens HMAC firmados por el servidor. *Opcional: definir `OTP_SECRET` en Vercel como secreto dedicado (si no existe, deriva de la API key de Resend).*
+
 - [ ] **Dominio**: ¿ya se compró tmicol.co (u otro)? ¿Quién tiene acceso al registrador para apuntarlo a Vercel?
-- [ ] **Redes sociales**: ¿qué redes existen realmente (Instagram, Facebook, LinkedIn)? URLs exactas. Las que no existan se quitan del footer.
+- [x] **Redes sociales**: LinkedIn (linkedin.com/in/tmicolsas2026) e Instagram (@tmi.col), confirmadas por gerencia ago 2026. Ya están en el footer. *Nota: el LinkedIn es un perfil personal (/in/); considerar migrar a página de empresa (/company/) más adelante.*
 - [ ] **Google Business Profile**: ¿se quiere crear para aparecer en Maps?
 - [ ] **Correo de recepción de hojas de vida y de propuestas de proveedores**: ¿mismo buzón o separados? ¿Quién los revisa?
 - [ ] **Analítica**: ¿quieren medir visitas (Google Analytics / Vercel Analytics)? Si sí, hay que mencionarlo en la política de datos.

@@ -1,0 +1,362 @@
+---
+// Asistente multi-paso de vinculación (clientes / proveedores).
+// Render data-driven desde src/lib/vinculacion.ts; el cliente navega paso a
+// paso con progreso guardado en localStorage. Al enviar hace POST a
+// /api/solicitud y el servidor genera el formato oficial de Excel y lo envía
+// por correo a TMI con copia al solicitante.
+import { FORMULARIOS, LISTAS } from '../lib/vinculacion';
+import Icon from './Icon.astro';
+
+interface Props {
+  tipo: 'vinculacion-cliente' | 'vinculacion-proveedor';
+  /** Ruta pública del formato oficial descargable (alternativa offline). */
+  descarga: string;
+}
+const { tipo, descarga } = Astro.props;
+const form = FORMULARIOS[tipo];
+// Pasos visibles en el indicador (los condicionales se muestran u ocultan en vivo).
+const pasos = form.pasos;
+---
+<div class="wizard" id="wizard" data-tipo={tipo} data-pasos={pasos.length} data-copia={form.campoCopia}>
+  <!-- Indicador de progreso -->
+  <div class="wiz-progress" aria-hidden="true">
+    <div class="wiz-bar"><span id="wizBarFill"></span></div>
+    <span class="wiz-count" id="wizCount"></span>
+  </div>
+
+  <form id="wizForm" novalidate>
+    {pasos.map((paso, i) => (
+      <fieldset
+        class="wiz-step"
+        data-paso={i}
+        data-cond-campo={paso.condicion?.campo}
+        data-cond-valor={paso.condicion?.valor}
+        hidden
+      >
+        <legend>
+          <span class="wiz-step-num">{i + 1}</span>
+          {paso.titulo}
+        </legend>
+        {paso.nota && <p class="wiz-nota">{paso.nota}</p>}
+        <div class="wiz-grid">
+          {paso.campos.map((c) => (
+            <div class={`field ${c.tipo === 'textarea' || c.tipo === 'checkbox' ? 'full' : ''}`}>
+              {c.tipo === 'checkbox' ? (
+                <label class="wiz-check">
+                  <input type="checkbox" id={c.id} name={c.id} data-req={c.req ? '1' : undefined} />
+                  <span>{c.label}{c.req && ' *'}</span>
+                </label>
+              ) : (
+                <>
+                  <label for={c.id}>{c.label}{c.req && ' *'}</label>
+                  {c.tipo === 'select' ? (
+                    <select id={c.id} name={c.id} data-req={c.req ? '1' : undefined}>
+                      <option value="">— Selecciona —</option>
+                      {(LISTAS[c.opciones!] ?? []).map((op) => <option>{op}</option>)}
+                    </select>
+                  ) : c.tipo === 'textarea' ? (
+                    <textarea id={c.id} name={c.id} data-req={c.req ? '1' : undefined} rows="3"></textarea>
+                  ) : (
+                    <input
+                      type={c.tipo === 'date' ? 'date' : c.tipo === 'email' ? 'email' : c.tipo === 'tel' ? 'tel' : c.tipo === 'number' ? 'number' : 'text'}
+                      id={c.id}
+                      name={c.id}
+                      data-req={c.req ? '1' : undefined}
+                    />
+                  )}
+                  {c.hint && <small class="wiz-hint">{c.hint}</small>}
+                </>
+              )}
+            </div>
+          ))}
+        </div>
+      </fieldset>
+    ))}
+
+    <!-- Firma electrónica: código de verificación al correo del solicitante -->
+    <div class="wiz-otp" id="wizOtp" hidden>
+      <strong>Firma electrónica</strong>
+      <p id="wizOtpIntro">
+        Para finalizar, valida tu identidad: te enviaremos un código de 6 dígitos al correo que
+        registraste. Al ingresarlo, el formato queda firmado electrónicamente (Ley 527 de 1999).
+      </p>
+      <div class="wiz-otp-fila">
+        <button type="button" class="btn btn-navy" id="wizOtpEnviar">Enviar código a mi correo</button>
+        <div class="field wiz-otp-campo" id="wizOtpCampo" hidden>
+          <label for="wizOtpCodigo">Código recibido</label>
+          <input type="text" id="wizOtpCodigo" inputmode="numeric" maxlength="6" placeholder="000000" autocomplete="one-time-code" />
+        </div>
+      </div>
+    </div>
+
+    <p class="wiz-error" id="wizError" hidden></p>
+
+    <div class="wiz-nav">
+      <button type="button" class="btn btn-navy" id="wizAtras" hidden>Atrás</button>
+      <button type="button" class="btn btn-primary" id="wizSiguiente">Siguiente</button>
+      <button type="submit" class="btn btn-primary" id="wizEnviar" hidden>Enviar solicitud de vinculación</button>
+    </div>
+    <p class="form-note">
+      Tu avance se guarda en este navegador. Si prefieres el trámite en papel,
+      <a href={descarga} download>descarga el formato oficial</a> y envíalo diligenciado por correo.
+    </p>
+  </form>
+
+  <!-- Confirmación -->
+  <div class="wiz-ok" id="wizOk" hidden>
+    <div class="ok-icon"><Icon name="check" size={28} /></div>
+    <h3>¡Solicitud de vinculación enviada!</h3>
+    <p>
+      Generamos el formato oficial <strong>{form.codigo}</strong> con tus datos,
+      <strong>firmado electrónicamente</strong> con el código que validaste, y lo enviamos a
+      nuestro equipo con copia a tu correo. Solo falta que envíes los
+      <strong>documentos anexos</strong> respondiendo ese mismo correo.
+    </p>
+    <p class="wiz-ok-nota">Nuestro equipo te contactará para completar el proceso.</p>
+  </div>
+</div>
+
+<style>
+  .wizard { max-width: 100%; }
+  .wiz-progress { display: flex; align-items: center; gap: 14px; margin-bottom: 26px; }
+  .wiz-bar { flex: 1; height: 8px; border-radius: 8px; background: var(--grey-light); overflow: hidden; }
+  .wiz-bar span { display: block; height: 100%; width: 0; border-radius: 8px; background: linear-gradient(90deg, var(--accent), var(--blue)); transition: width .35s ease; }
+  .wiz-count { font-size: .8rem; font-weight: 600; color: var(--grey); white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+  .wiz-step { border: none; padding: 0; margin: 0; }
+  .wiz-step[hidden] { display: none; }
+  .wiz-step legend { display: flex; align-items: center; gap: 10px; font-weight: 700; color: var(--navy); font-size: 1.15rem; margin-bottom: 6px; }
+  .wiz-step-num { width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--blue)); color: #fff; font-size: .8rem; display: flex; align-items: center; justify-content: center; flex: none; }
+  .wiz-nota { color: var(--grey); font-size: .88rem; margin-bottom: 18px; }
+  .wiz-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+  .wiz-hint { display: block; color: var(--grey); font-size: .76rem; margin-top: 5px; }
+
+  .wiz-check { display: flex; gap: 12px; align-items: flex-start; cursor: pointer; }
+  .wiz-check input { margin-top: 3px; width: 18px; height: 18px; flex: none; accent-color: var(--blue); }
+  .wiz-check span { font-size: .86rem; color: var(--ink); line-height: 1.55; }
+
+  .wiz-nav { display: flex; gap: 14px; margin-top: 26px; }
+  .wiz-nav .btn { flex: 1; }
+  .wiz-nav [hidden] { display: none; }
+
+  .wiz-otp {
+    margin-top: 24px;
+    background: #eef6fd;
+    border: 1px solid #cfe6f8;
+    border-radius: 12px;
+    padding: 18px 20px;
+  }
+  .wiz-otp[hidden] { display: none; }
+  .wiz-otp strong { color: var(--navy); display: block; margin-bottom: 4px; }
+  .wiz-otp p { color: var(--grey); font-size: .86rem; margin-bottom: 14px; }
+  .wiz-otp-fila { display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-end; }
+  .wiz-otp-campo[hidden] { display: none; }
+  .wiz-otp-campo input { letter-spacing: 6px; font-weight: 700; width: 160px; }
+
+  .wiz-error { margin-top: 16px; background: #fdeae6; color: #a03325; border-radius: 10px; padding: 12px 16px; font-size: .88rem; }
+  .wiz-ok { text-align: center; padding: 40px 24px; display: grid; justify-items: center; gap: 10px; }
+  .wiz-ok[hidden] { display: none; }
+  .wiz-ok h3 { font-size: 1.4rem; }
+  .wiz-ok p { color: var(--grey); max-width: 460px; }
+  .wiz-ok-nota { font-weight: 600; color: var(--navy) !important; }
+  .ok-icon { width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--accent), var(--blue)); color: #fff; }
+
+  .form-note a { color: var(--blue); font-weight: 600; text-decoration: underline; }
+
+  @media (min-width: 760px) {
+    .wiz-grid { grid-template-columns: 1fr 1fr; }
+    .wiz-grid > .full { grid-column: 1 / -1; }
+    .wiz-nav { justify-content: flex-end; }
+    .wiz-nav .btn { flex: none; min-width: 180px; }
+  }
+</style>
+
+<script>
+  const wizard = document.getElementById('wizard')!;
+  const tipo = wizard.dataset.tipo!;
+  const formEl = document.getElementById('wizForm') as HTMLFormElement;
+  const pasos = Array.from(formEl.querySelectorAll<HTMLFieldSetElement>('.wiz-step'));
+  const barFill = document.getElementById('wizBarFill')!;
+  const count = document.getElementById('wizCount')!;
+  const btnAtras = document.getElementById('wizAtras') as HTMLButtonElement;
+  const btnSig = document.getElementById('wizSiguiente') as HTMLButtonElement;
+  const btnEnviar = document.getElementById('wizEnviar') as HTMLButtonElement;
+  const errorEl = document.getElementById('wizError')!;
+  const LS_KEY = `tmi-wizard-${tipo}`;
+
+  // --- estado guardado ---
+  const valores = (): Record<string, string> => {
+    const out: Record<string, string> = {};
+    formEl.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>('input, select, textarea').forEach((el) => {
+      out[el.name] = el instanceof HTMLInputElement && el.type === 'checkbox' ? (el.checked ? '1' : '') : el.value;
+    });
+    return out;
+  };
+  const guardar = () => localStorage.setItem(LS_KEY, JSON.stringify(valores()));
+  const restaurar = () => {
+    try {
+      const data = JSON.parse(localStorage.getItem(LS_KEY) || '{}');
+      for (const [k, v] of Object.entries(data)) {
+        const el = formEl.elements.namedItem(k) as HTMLInputElement | null;
+        if (!el) continue;
+        if (el.type === 'checkbox') el.checked = v === '1';
+        else el.value = String(v);
+      }
+    } catch {}
+  };
+  formEl.addEventListener('input', guardar);
+
+  // --- pasos visibles (los condicionales dependen de otro campo) ---
+  const pasoAplica = (p: HTMLFieldSetElement) => {
+    const campo = p.dataset.condCampo;
+    if (!campo) return true;
+    const el = formEl.elements.namedItem(campo) as HTMLSelectElement | null;
+    return el?.value === p.dataset.condValor;
+  };
+  const visibles = () => pasos.filter(pasoAplica);
+
+  let actual = 0; // índice dentro de visibles()
+  const render = () => {
+    const vis = visibles();
+    if (actual >= vis.length) actual = vis.length - 1;
+    pasos.forEach((p) => (p.hidden = true));
+    // renumera según los pasos visibles (los condicionales alteran el orden)
+    vis.forEach((p, i) => {
+      const num = p.querySelector('.wiz-step-num');
+      if (num) num.textContent = String(i + 1);
+    });
+    vis[actual].hidden = false;
+    barFill.style.width = `${((actual + 1) / vis.length) * 100}%`;
+    count.textContent = `Paso ${actual + 1} de ${vis.length}`;
+    btnAtras.hidden = actual === 0;
+    const ultimo = actual === vis.length - 1;
+    btnSig.hidden = ultimo;
+    btnEnviar.hidden = !ultimo;
+    document.getElementById('wizOtp')!.hidden = !ultimo;
+    errorEl.hidden = true;
+    wizard.scrollIntoView({ block: 'start', behavior: 'smooth' });
+  };
+
+  // --- firma electrónica: código OTP al correo del solicitante ---
+  const otpEstado: { token?: string; ts?: number } = {};
+  const btnOtp = document.getElementById('wizOtpEnviar') as HTMLButtonElement;
+  const otpCampo = document.getElementById('wizOtpCampo')!;
+  const otpCodigo = document.getElementById('wizOtpCodigo') as HTMLInputElement;
+  const correoSolicitante = () =>
+    (formEl.elements.namedItem(wizard.dataset.copia!) as HTMLInputElement | null)?.value.trim() ?? '';
+
+  btnOtp.addEventListener('click', async () => {
+    const correo = correoSolicitante();
+    if (!correo.includes('@')) {
+      errorEl.textContent = 'Registra un correo válido en el paso de identificación antes de solicitar el código.';
+      errorEl.hidden = false;
+      return;
+    }
+    btnOtp.disabled = true;
+    btnOtp.textContent = 'Enviando…';
+    errorEl.hidden = true;
+    try {
+      const r = await fetch('/api/solicitud', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ tipo, accion: 'otp', correo }),
+      });
+      if (!r.ok) throw new Error(String(r.status));
+      const res = await r.json();
+      otpEstado.token = res.token;
+      otpEstado.ts = res.ts;
+      otpCampo.hidden = false;
+      btnOtp.textContent = 'Reenviar código';
+      document.getElementById('wizOtpIntro')!.textContent =
+        `Enviamos un código de 6 dígitos a ${correo}. Revisa tu bandeja (y el spam) e ingrésalo aquí; vence en 10 minutos.`;
+      otpCodigo.focus();
+    } catch {
+      errorEl.textContent = 'No pudimos enviar el código. Verifica el correo registrado e inténtalo de nuevo.';
+      errorEl.hidden = false;
+      btnOtp.textContent = 'Enviar código a mi correo';
+    } finally {
+      btnOtp.disabled = false;
+    }
+  });
+
+  const validarPaso = () => {
+    const paso = visibles()[actual];
+    for (const el of paso.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>('[data-req]')) {
+      const vacio = el instanceof HTMLInputElement && el.type === 'checkbox' ? !el.checked : !el.value.trim();
+      const invalido = 'checkValidity' in el && !el.checkValidity();
+      if (vacio || invalido) {
+        errorEl.textContent = vacio
+          ? `Completa el campo obligatorio: "${paso.querySelector(`label[for="${el.id}"]`)?.textContent?.replace(' *', '') ?? el.name}"`
+          : 'Revisa el formato del campo marcado.';
+        errorEl.hidden = false;
+        el.focus();
+        return false;
+      }
+    }
+    // valida formatos (email, número) de campos no obligatorios diligenciados
+    for (const el of paso.querySelectorAll<HTMLInputElement>('input')) {
+      if (el.value && !el.checkValidity()) {
+        errorEl.textContent = `Revisa el formato del campo "${paso.querySelector(`label[for="${el.id}"]`)?.textContent?.replace(' *', '') ?? el.name}"`;
+        errorEl.hidden = false;
+        el.focus();
+        return false;
+      }
+    }
+    return true;
+  };
+
+  btnSig.addEventListener('click', () => { if (validarPaso()) { actual++; render(); } });
+  btnAtras.addEventListener('click', () => { actual--; render(); });
+
+  formEl.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!validarPaso()) return;
+    if (!otpEstado.token || otpCodigo.value.trim().length !== 6) {
+      errorEl.textContent = otpEstado.token
+        ? 'Ingresa el código de 6 dígitos que enviamos a tu correo.'
+        : 'Antes de finalizar, solicita el código de verificación con el botón "Enviar código a mi correo".';
+      errorEl.hidden = false;
+      return;
+    }
+    btnEnviar.disabled = true;
+    btnEnviar.textContent = 'Enviando…';
+    errorEl.hidden = true;
+    try {
+      const r = await fetch('/api/solicitud', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          tipo,
+          campos: valores(),
+          otp: { codigo: otpCodigo.value.trim(), token: otpEstado.token, ts: otpEstado.ts },
+        }),
+      });
+      if (!r.ok) {
+        let msg = '';
+        try { msg = (await r.json()).error ?? ''; } catch {}
+        throw new Error(msg);
+      }
+      localStorage.removeItem(LS_KEY);
+      formEl.hidden = true;
+      document.querySelector('.wiz-progress')?.setAttribute('hidden', '');
+      document.getElementById('wizOk')!.hidden = false;
+      wizard.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : '';
+      errorEl.textContent = msg.includes('Código')
+        ? 'El código es incorrecto o ya venció. Revísalo o solicita uno nuevo con "Reenviar código".'
+        : 'No pudimos enviar tu solicitud en este momento. Inténtalo de nuevo en unos minutos, o descarga el formato oficial (enlace bajo el botón) y envíalo por correo.';
+      errorEl.hidden = false;
+      btnEnviar.disabled = false;
+      btnEnviar.textContent = 'Enviar solicitud de vinculación';
+    }
+  });
+
+  restaurar();
+  render();
+  // si cambia el campo que controla pasos condicionales, recalcular
+  formEl.addEventListener('change', (e) => {
+    const name = (e.target as HTMLElement).getAttribute('name');
+    if (pasos.some((p) => p.dataset.condCampo === name)) render();
+  });
+</script>
