@@ -8,6 +8,8 @@ import {
   TELEFONO_DISPLAY,
   WHATSAPP_DISPLAY,
   CIUDAD,
+  HORARIO_SEMANA,
+  HORARIO_SABADO,
 } from '../lib/site';
 ---
 <Base
@@ -38,8 +40,9 @@ import {
         <div class="contact-card reveal">
           <div class="cc-icon"><Icon name="phone" size={24} /></div>
           <strong>Teléfono</strong>
-          <!-- TODO(PENDIENTES.md §1): confirmar horarios de atención. -->
           <span>{TELEFONO_DISPLAY}</span>
+          <span class="horario">{HORARIO_SEMANA}</span>
+          <span class="horario">{HORARIO_SABADO}</span>
         </div>
         <div class="contact-card reveal">
           <div class="cc-icon"><Icon name="map-pin" size={24} /></div>
@@ -82,6 +85,7 @@ import {
   .cc-icon.wsp { background: rgba(37, 211, 102, .14); color: var(--wsp); }
   .contact-card strong { color: var(--navy); }
   .contact-card span { color: var(--grey); font-size: .92rem; }
+  .contact-card .horario { font-size: .8rem; }
   .cc-action {
     margin-top: 8px;
     color: var(--blue) !important;

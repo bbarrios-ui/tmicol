@@ -12,6 +12,8 @@ import {
   RAZON_SOCIAL,
   NIT,
   REDES,
+  HORARIO_SEMANA,
+  HORARIO_SABADO,
 } from '../lib/site';
 
 interface Props {
@@ -116,10 +118,10 @@ const isActive = (href: string) =>
           </div>
           <div class="footer-col">
             <h4>Contacto</h4>
-            <!-- TODO(PENDIENTES.md §1): confirmar horarios de atención. -->
             <div class="footer-contact-item"><Icon name="map-pin" size={16} /> {CIUDAD}</div>
             <div class="footer-contact-item"><Icon name="phone" size={16} /> {TELEFONO_DISPLAY}</div>
             <div class="footer-contact-item"><Icon name="mail" size={16} /> {EMAIL_CONTACTO}</div>
+            <div class="footer-contact-item"><Icon name="clock" size={16} /> {HORARIO_SEMANA}<br />{HORARIO_SABADO}</div>
             <a href="/contacto">Ver página de contacto</a>
           </div>
         </div>
