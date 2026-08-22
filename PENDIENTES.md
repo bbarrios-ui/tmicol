@@ -43,13 +43,13 @@ Lista de preguntas para la persona encargada del sitio en TMI SAS. Mientras un d
 
 ## 6. Digital / técnico
 
-- [x] **Resend (envío de formularios por correo)**: cuenta creada, API key en `.env` local y dominio **updates.tmicol.co verificado** (DKIM/SPF en verde) — remitente `TMI <notificaciones@updates.tmicol.co>`. Probado en real (ago 2026): cotización, OTP y vinculación con Excel adjunto entregados. **Pendiente operativo: agregar `RESEND_API_KEY` y `RESEND_FROM` en Vercel → Settings → Environment Variables antes del deploy** (sin eso, los formularios en producción muestran su respaldo).
+- [x] **Resend (envío de formularios por correo)**: cuenta creada, dominio **updates.tmicol.co verificado**, remitente `TMI <notificaciones@updates.tmicol.co>`. Variables `RESEND_API_KEY` y `RESEND_FROM` configuradas en Vercel y **verificadas en producción** (la función responde correctamente en www.tmicol.co).
 - [x] **Vinculación con firma electrónica**: implementada con código OTP al correo del solicitante (ago 2026). El asistente exige validar un código de 6 dígitos (vence en 10 min) antes de finalizar; el Excel generado queda con la constancia "Firmado electrónicamente mediante código de verificación (OTP)... (Ley 527 de 1999)". Sin base de datos: tokens HMAC firmados por el servidor. *Opcional: definir `OTP_SECRET` en Vercel como secreto dedicado (si no existe, deriva de la API key de Resend).*
 
-- [ ] **Dominio**: ¿ya se compró tmicol.co (u otro)? ¿Quién tiene acceso al registrador para apuntarlo a Vercel?
+- [x] **Dominio**: tmicol.co activo y apuntado a Vercel (producción en www.tmicol.co, apex redirige a www; subdominio updates.tmicol.co para correos).
 - [x] **Redes sociales**: LinkedIn (linkedin.com/in/tmicolsas2026) e Instagram (@tmi.col), confirmadas por gerencia ago 2026. Ya están en el footer. *Nota: el LinkedIn es un perfil personal (/in/); considerar migrar a página de empresa (/company/) más adelante.*
 - [ ] **Google Business Profile**: ¿se quiere crear para aparecer en Maps?
-- [ ] **Correo de recepción de hojas de vida y de propuestas de proveedores**: ¿mismo buzón o separados? ¿Quién los revisa?
+- [x] **Correo de recepción de hojas de vida y de propuestas de proveedores**: definidos (ago 2026) — hojas de vida a `gerencia@`, proveedores a `compras@`. Ya operando en el sitio.
 - [ ] **Analítica**: ¿quieren medir visitas (Google Analytics / Vercel Analytics)? Si sí, hay que mencionarlo en la política de datos.
 
 ---

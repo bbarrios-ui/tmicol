@@ -22,6 +22,38 @@ interface Props {
 }
 const { title, description } = Astro.props;
 
+// SEO: URLs canónicas absolutas sobre el dominio de producción (astro.config `site`).
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL('/img/og-default.jpg', Astro.site);
+
+// Datos estructurados (schema.org) — dirección solo a nivel de ciudad, por privacidad.
+const jsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: 'TMI Colombia SAS',
+  legalName: 'Tecnologías Médicas Integrales Colombia SAS',
+  url: Astro.site?.href,
+  logo: new URL('/img/logo-original.jpg', Astro.site).href,
+  image: ogImage.href,
+  description:
+    'Comercialización de medicamentos, dispositivos médicos, equipos biomédicos y material médico-quirúrgico para clientes del sector salud de la Costa Caribe colombiana.',
+  telephone: '+573013804160',
+  email: 'gerencia@tmicol.co',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Montería',
+    addressRegion: 'Córdoba',
+    addressCountry: 'CO',
+  },
+  areaServed: 'Costa Caribe, Colombia',
+  openingHoursSpecification: [
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '08:00', closes: '12:00' },
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '14:00', closes: '17:30' },
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Saturday', opens: '08:00', closes: '12:00' },
+  ],
+  sameAs: ['https://www.linkedin.com/in/tmicolsas2026/', 'https://www.instagram.com/tmi.col'],
+});
+
 const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
 const isActive = (href: string) =>
   href === '/' ? path === '/' : path === href || path.startsWith(`${href}/`);
@@ -43,9 +75,19 @@ const isActive = (href: string) =>
       href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,800&display=swap"
       rel="stylesheet"
     />
+    <link rel="canonical" href={canonical} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="TMI Colombia SAS" />
+    <meta property="og:locale" content="es_CO" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImage} />
+    <script type="application/ld+json" set:html={jsonLd} />
     <meta property="og:locale" content="es_CO" />
   </head>
   <body>
