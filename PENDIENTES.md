@@ -15,7 +15,7 @@ Lista de preguntas para la persona encargada del sitio en TMI SAS. Mientras un d
 - [x] **Razón social y NIT**: TECNOLOGÍAS MÉDICAS INTEGRALES COLOMBIA SAS, sigla TMI SAS (estatutos, Art. 1). NIT 902.088.438-2 (confirmado ago 2026). Ambos en el footer.
 - [ ] **Registros/permisos sanitarios**: ¿la empresa ya cuenta con los permisos INVIMA / resolución de la entidad territorial de salud para comercializar medicamentos y dispositivos médicos? ¿Cuáles números de registro se pueden publicar? (El sitio menciona "registro sanitario INVIMA vigente" — hay que respaldarlo o quitarlo.)
 - [ ] **Director Técnico / Químico Farmacéutico**: ¿ya está contratado y registrado? ¿Autoriza que su nombre y tarjeta profesional aparezcan en el sitio, o preferimos mencionar solo el cargo?
-- [ ] **Política de tratamiento de datos personales** (Ley 1581 de 2012 — obligatoria si el formulario recoge nombre y teléfono): ¿existe el documento? ¿Quién es el responsable del tratamiento?
+- [x] **Política de tratamiento de datos personales** (Ley 1581 de 2012): documento oficial AS-PO-01 v00 (vigente 20/08/2026) entregado por gerencia. Publicada en `/politica-de-datos` + PDF descargable + casilla de autorización obligatoria en el formulario de cotización (Anexo 2). Representante legal: Natalia Padilla Torres. *Recordatorio operativo: verificar anualmente el umbral de 100.000 UVT para inscripción en el RNBD (numeral XIX).*
 - [ ] **Términos y condiciones / aviso legal**: ¿hay abogado que los revise o se redacta un borrador estándar?
 
 ## 3. Identidad y contenido

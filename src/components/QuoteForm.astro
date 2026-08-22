@@ -1,6 +1,8 @@
 ---
 // Formulario de cotización → arma el mensaje y abre WhatsApp (migrado de la v0).
-import { WHATSAPP } from '../lib/site';
+// La casilla de autorización de datos implementa el Anexo 2 de la política
+// AS-PO-01 (obligatoria antes de enviar).
+import { WHATSAPP, RAZON_SOCIAL, EMAIL_CONTACTO } from '../lib/site';
 ---
 <form class="quote" id="quoteForm" data-wsp={WHATSAPP}>
   <div class="field">
@@ -31,13 +33,35 @@ import { WHATSAPP } from '../lib/site';
     <textarea id="q_mensaje" name="mensaje" placeholder="Cuéntanos qué producto o cantidad necesitas cotizar..."></textarea>
   </div>
   <div class="field full">
+    <label class="consent">
+      <input required type="checkbox" id="q_autorizacion" name="autorizacion" />
+      <span>
+        Tus datos serán tratados por {RAZON_SOCIAL} para gestionar tu solicitud de cotización,
+        soporte o consulta especializada, conforme a nuestra
+        <a href="/politica-de-datos" target="_blank">Política de Tratamiento de Datos Personales</a>.
+        Al marcar esta casilla y enviar el formulario, autorizas dicho Tratamiento y podrás ejercer
+        tus derechos a conocer, actualizar, rectificar y suprimir tu información escribiendo a
+        {EMAIL_CONTACTO}.
+      </span>
+    </label>
+  </div>
+  <div class="field full">
     <button type="submit" class="btn btn-wsp" style="width:100%;">Enviar cotización por WhatsApp</button>
-    <p class="form-note">Al enviar, se abrirá WhatsApp con tu solicitud lista para enviar a nuestro equipo comercial. Tu información se usa únicamente para responder tu cotización.</p>
+    <p class="form-note">Al enviar, se abrirá WhatsApp con tu solicitud lista para enviar a nuestro equipo comercial.</p>
   </div>
 </form>
 
 <style>
   form.quote { display: grid; grid-template-columns: 1fr; gap: 18px; }
+  .consent { display: flex; gap: 12px; align-items: flex-start; cursor: pointer; }
+  .consent input {
+    margin-top: 3px;
+    width: 18px; height: 18px;
+    flex: none;
+    accent-color: var(--blue);
+  }
+  .consent span { font-size: .82rem; color: var(--grey); line-height: 1.55; }
+  .consent a { color: var(--blue); font-weight: 600; text-decoration: underline; }
   @media (min-width: 760px) {
     form.quote { grid-template-columns: 1fr 1fr; }
     form.quote .full { grid-column: 1 / -1; }

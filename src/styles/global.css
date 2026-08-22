@@ -338,6 +338,8 @@ section { padding: 64px 0; }
   font-size: .82rem;
   color: #8399b6;
 }
+.footer-legal { color: #a9bbd2; text-decoration: underline; }
+.footer-legal:hover { color: var(--accent-2); }
 
 /* ---------- WhatsApp flotante ---------- */
 .wsp-float {
