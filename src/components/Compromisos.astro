@@ -1,0 +1,15 @@
+---
+// Barra de compromisos medibles — sustituye los contadores inventados de la v0
+// (PLAN.md §3: "compromisos medibles" en lugar de cifras de trayectoria).
+import Icon from './Icon.astro';
+import { COMPROMISOS } from '../lib/site';
+---
+<div class="compromisos-grid">
+  {COMPROMISOS.map((c) => (
+    <div class="compromiso-card reveal">
+      <div class="comp-icon"><Icon name={c.icon} size={26} /></div>
+      <strong>{c.titulo}</strong>
+      <p>{c.texto}</p>
+    </div>
+  ))}
+</div>

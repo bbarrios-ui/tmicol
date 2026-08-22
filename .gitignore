@@ -2,3 +2,7 @@
 .vercel
 node_modules
 *.log
+dist
+.astro
+.env
+.env.*

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Isotipo derivado del logo oficial: cruz sobre fondo navy.
+       TODO(PENDIENTES.md §4): sustituir si el manual de marca define otro isotipo. -->
+  <rect width="64" height="64" rx="12" fill="#0B2545"/>
+  <path d="M26 14 h12 v12 h12 v12 h-12 v12 h-12 v-12 h-12 v-12 h12 Z" fill="#29B6F6"/>
+</svg>

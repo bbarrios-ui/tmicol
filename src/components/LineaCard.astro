@@ -1,0 +1,21 @@
+---
+import Icon from './Icon.astro';
+import ImgPlaceholder from './ImgPlaceholder.astro';
+import type { Linea } from '../lib/site';
+
+interface Props {
+  linea: Linea;
+  /** Mostrar el área de foto 4:3 (cards fotográficas de /lineas y home). */
+  foto?: boolean;
+}
+const { linea, foto = true } = Astro.props;
+---
+<a href={`/lineas/${linea.slug}`} class="linea-card reveal">
+  {foto && <ImgPlaceholder ratio="4x3" label={linea.titulo} />}
+  <div class="linea-body">
+    <div class="linea-icon"><Icon name={linea.icon} size={26} /></div>
+    <h3>{linea.titulo}</h3>
+    <p>{linea.corta}</p>
+    <span class="linea-link">Ver línea <Icon name="arrow-right" size={16} /></span>
+  </div>
+</a>

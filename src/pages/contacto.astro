@@ -1,0 +1,103 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+import {
+  WA_COTIZAR,
+  EMAIL_CONTACTO,
+  TELEFONO_DISPLAY,
+  WHATSAPP_DISPLAY,
+  CIUDAD,
+  DIRECCION,
+} from '../lib/site';
+---
+<Base
+  title="Contacto | TMI Colombia SAS"
+  description="Contáctanos: WhatsApp comercial, correo y teléfono de TMI Colombia SAS en Montería, Córdoba. Cotizaciones y consultas para instituciones de salud."
+>
+  <PageHero
+    eyebrow="Hablemos"
+    title="Contacto"
+    sub="El canal más rápido es WhatsApp: es donde cotizamos y donde respondemos primero. También puedes escribirnos por correo."
+  />
+
+  <section>
+    <div class="container">
+      <div class="contact-grid">
+        <a class="contact-card destacada reveal" href={WA_COTIZAR} target="_blank" rel="noopener">
+          <div class="cc-icon wsp"><Icon name="whatsapp" size={26} /></div>
+          <strong>WhatsApp comercial</strong>
+          <span>{WHATSAPP_DISPLAY}</span>
+          <span class="cc-action">Escribir ahora <Icon name="arrow-right" size={14} /></span>
+        </a>
+        <a class="contact-card reveal" href={`mailto:${EMAIL_CONTACTO}`}>
+          <div class="cc-icon"><Icon name="mail" size={24} /></div>
+          <strong>Correo</strong>
+          <span>{EMAIL_CONTACTO}</span>
+          <span class="cc-action">Enviar correo <Icon name="arrow-right" size={14} /></span>
+        </a>
+        <div class="contact-card reveal">
+          <div class="cc-icon"><Icon name="phone" size={24} /></div>
+          <strong>Teléfono</strong>
+          <!-- TODO(PENDIENTES.md §1): confirmar horarios de atención. -->
+          <span>{TELEFONO_DISPLAY}</span>
+        </div>
+        <div class="contact-card reveal">
+          <div class="cc-icon"><Icon name="map-pin" size={24} /></div>
+          <strong>Ubicación</strong>
+          <!-- TODO(PENDIENTES.md §1): decidir si se agrega mapa de Google. -->
+          <span>{DIRECCION}</span>
+          <span>{CIUDAD}</span>
+        </div>
+      </div>
+
+      <p class="contacto-nota reveal">
+        ¿Buscas cotizar? Usa el <a href="/cotizar">formulario de cotización</a> y tu solicitud
+        llegará lista a nuestro WhatsApp comercial.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .contact-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+  .contact-card {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transition: transform .3s, box-shadow .3s;
+  }
+  .contact-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-strong); }
+  .contact-card.destacada { border-top: 4px solid var(--wsp); }
+  .cc-icon {
+    width: 50px; height: 50px; border-radius: 12px;
+    background: rgba(41, 182, 246, .12);
+    color: var(--blue);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 8px;
+  }
+  .cc-icon.wsp { background: rgba(37, 211, 102, .14); color: var(--wsp); }
+  .contact-card strong { color: var(--navy); }
+  .contact-card span { color: var(--grey); font-size: .92rem; }
+  .cc-action {
+    margin-top: 8px;
+    color: var(--blue) !important;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: .88rem !important;
+  }
+  .contacto-nota { margin-top: 36px; color: var(--grey); font-size: .95rem; }
+  .contacto-nota a { color: var(--blue); font-weight: 600; }
+  @media (min-width: 760px) {
+    .contact-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 1020px) {
+    .contact-grid { grid-template-columns: repeat(4, 1fr); }
+  }
+</style>

@@ -1,0 +1,24 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+---
+<Base
+  title="Página no encontrada | TMI Colombia SAS"
+  description="La página que buscas no existe. Vuelve al inicio del sitio de TMI Colombia SAS."
+>
+  <section class="nf">
+    <div class="container center">
+      <span class="eyebrow">Error 404</span>
+      <h1 class="section-title">Esta página no existe</h1>
+      <p class="section-sub center">
+        Puede que el enlace haya cambiado. Vuelve al inicio o escríbenos si buscabas algo concreto.
+      </p>
+      <a class="btn btn-primary" href="/">Ir al inicio <Icon name="arrow-right" size={16} /></a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .nf { padding: calc(var(--header-h) + 110px) 0 110px; min-height: 70vh; display: flex; align-items: center; }
+  .nf .container { width: 100%; }
+</style>

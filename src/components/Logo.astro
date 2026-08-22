@@ -1,0 +1,61 @@
+---
+// Logo TMI vectorizado a partir del logo oficial (render entregado por gerencia):
+// "TM" en itálica pesada + fuste de la "I" en gris, coronado por la cruz y
+// atravesado por el swoosh.
+// Variante 'light': para fondos claros (colores institucionales).
+// Variante 'dark': para fondos navy (texto blanco, cruz accent).
+// TODO(PENDIENTES.md §4): sustituir por el vectorial oficial (.svg/.ai) si existe.
+interface Props {
+  variant?: 'light' | 'dark';
+  /** Alto del wordmark en px. */
+  height?: number;
+  class?: string;
+}
+const { variant = 'light', height = 40, class: className } = Astro.props;
+const width = Math.round(height * (380 / 160));
+---
+<svg
+  class:list={['tmi-logo', `tmi-logo--${variant}`, className]}
+  width={width}
+  height={height}
+  viewBox="0 0 380 160"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  role="img"
+  aria-label="TMI — Tecnologías Médicas Integrales"
+>
+  <!-- Wordmark TM -->
+  <text
+    x="0"
+    y="140"
+    class="tmi-word"
+    font-family="Poppins, Arial, sans-serif"
+    font-size="128"
+    font-weight="800"
+    font-style="italic"
+    letter-spacing="-4"
+  >TM</text>
+  <!-- Fuste de la I (gris, con inclinación itálica) -->
+  <path class="tmi-stem" d="M198 140 L205 100 L235 100 L228 140 Z" />
+  <!-- Swoosh -->
+  <path
+    class="tmi-swoosh"
+    d="M192 104 C 250 88, 310 52, 356 6 C 315 62, 256 96, 194 112 Z"
+  />
+  <!-- Cruz -->
+  <path
+    class="tmi-cross"
+    d="M222 8 h26 v25 h26 v26 h-26 v25 h-26 v-25 h-26 v-26 h26 Z"
+  />
+</svg>
+
+<style>
+  .tmi-logo--light .tmi-word { fill: var(--navy); }
+  .tmi-logo--light .tmi-cross { fill: var(--blue); }
+  .tmi-logo--light .tmi-swoosh { fill: var(--grey); }
+  .tmi-logo--light .tmi-stem { fill: var(--grey); }
+  .tmi-logo--dark .tmi-word { fill: #ffffff; }
+  .tmi-logo--dark .tmi-cross { fill: var(--accent); }
+  .tmi-logo--dark .tmi-swoosh { fill: rgba(255, 255, 255, .55); }
+  .tmi-logo--dark .tmi-stem { fill: rgba(255, 255, 255, .55); }
+</style>

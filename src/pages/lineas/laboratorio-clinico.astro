@@ -1,0 +1,24 @@
+---
+import Base from '../../layouts/Base.astro';
+import LineaDetail from '../../components/LineaDetail.astro';
+
+// TODO(PENDIENTES.md §3): sustituir por la lista real de subcategorías que TMI
+// puede vender hoy, cuando la operación la confirme.
+const items = [
+  'Reactivos para laboratorio clínico',
+  'Insumos y consumibles de laboratorio',
+  'Equipos para laboratorio clínico',
+  'Acompañamiento técnico especializado',
+];
+---
+<Base
+  title="Laboratorio clínico | Líneas de venta | TMI Colombia SAS"
+  description="Reactivos, insumos y equipos para laboratorio clínico con acompañamiento técnico especializado, para instituciones de salud de Córdoba y la región."
+>
+  <LineaDetail
+    slug="laboratorio-clinico"
+    fotoLabel="Laboratorio clínico con analizador"
+    intro="Suministramos reactivos, insumos y equipos para laboratorio clínico, con acompañamiento técnico para que tu laboratorio opere sin interrupciones."
+    items={items}
+  />
+</Base>
